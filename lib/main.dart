@@ -16,9 +16,7 @@ import 'app/routes/app_pages.dart';
 
 Future<void> onBackgroundMessage(RemoteMessage message) async {
   if (message.notification != null) {
-    NotificationServiceForAndroid().sendNotification(
-        title: message.notification!.title!,
-        body: message.notification!.body!);
+    NotificationServiceForAndroid().sendNotification(title: message.notification!.title!, body: message.notification!.body!);
   }
 }
 
@@ -52,7 +50,7 @@ Future<void> main() async {
             title: "Application",
             initialRoute: AppPages.INITIAL,
             getPages: AppPages.routes,
-                themeMode: ThemeMode.system,
+            themeMode: ThemeMode.system,
             debugShowCheckedModeBanner: false,
             // initialBinding: ,
             theme: MyThemeData.themeDataLight(
