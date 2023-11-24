@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "894326184743",
+    "project_id": "zerocartnew",
+    "storage_bucket": "zerocartnew.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:894326184743:android:82418153cb92a47e382702",
+        "android_client_info": {
+          "package_name": "com.dollop.zerocart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "894326184743-qj0thjs7hgr63psgnp6c7hle80hr6qdk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dollop.zerocart",
+            "certificate_hash": "983fbd18b7690e450c2669c7cdee54368e6bee0c"
+          }
+        },
+        {
+          "client_id": "894326184743-hhe5l4th7btiggv3l7riluqmman65q4b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuea3pOE0AOI7S7DD-_Vkl9vYB-nnXiDc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "894326184743-hhe5l4th7btiggv3l7riluqmman65q4b.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "894326184743-0pbo4gphcfjdbeiivi9fhg9jd87i823c.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dollop.zerocart"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
