@@ -52,7 +52,6 @@ Future<void> main() async {
             getPages: AppPages.routes,
             themeMode: ThemeMode.system,
             debugShowCheckedModeBanner: false,
-            // initialBinding: ,
             theme: MyThemeData.themeDataLight(
               orientation: orientation,
               fontFamily: "Nunito",

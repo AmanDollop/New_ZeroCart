@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-
 import '../modules/add_address/bindings/add_address_binding.dart';
 import '../modules/add_address/views/add_address_view.dart';
 import '../modules/address/bindings/address_binding.dart';

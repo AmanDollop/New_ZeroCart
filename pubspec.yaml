@@ -46,6 +46,7 @@ dependencies:
   internet_connection_checker: ^1.0.0+1
   shared_preferences: ^2.0.15
   hive_local_storage: ^1.0.10
+  readmore: ^2.2.0
 
 dev_dependencies:
   flutter_test:

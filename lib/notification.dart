@@ -63,15 +63,10 @@ class NotificationServiceForAndroid {
     flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 
-  Future<void> sendNotification(
-      {required String title, required String body}) async {
-    AndroidNotificationDetails androidNotificationDetails =
-        const AndroidNotificationDetails("channelId", "channelName",
-            importance: Importance.max, priority: Priority.high);
-    NotificationDetails notificationDetails =
-        NotificationDetails(android: androidNotificationDetails);
-    await flutterLocalNotificationsPlugin.show(
-        0, title, body, notificationDetails);
+  Future<void> sendNotification({required String title, required String body}) async {
+    AndroidNotificationDetails androidNotificationDetails = const AndroidNotificationDetails("channelId", "channelName", importance: Importance.max, priority: Priority.high);
+    NotificationDetails notificationDetails = NotificationDetails(android: androidNotificationDetails);
+    await flutterLocalNotificationsPlugin.show(0, title, body, notificationDetails);
   }
 }
 
@@ -86,22 +81,19 @@ class NotificationServiceForAll {
 
   static const channelId = "1";
 
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
   static const AndroidNotificationDetails _androidNotificationDetails =
-      AndroidNotificationDetails(
+  AndroidNotificationDetails(
     channelId,
     "zerocart",
-    channelDescription:
-        "This channel is responsible for all the local notifications",
+    channelDescription: "This channel is responsible for all the local notifications",
     playSound: true,
     priority: Priority.high,
     importance: Importance.high,
   );
 
-  static const DarwinNotificationDetails _darwinNotificationDetails =
-      DarwinNotificationDetails(
+  static const DarwinNotificationDetails _darwinNotificationDetails = DarwinNotificationDetails(
     subtitle: "This channel is responsible for all the local notifications",
     sound: 'Notification',
   );
@@ -111,22 +103,11 @@ class NotificationServiceForAll {
     iOS: _darwinNotificationDetails,
   );
 
-  Future<void> init() async {
-    const AndroidInitializationSettings androidInitializationSettings =
-        AndroidInitializationSettings("icon");
+  Future<void> init() async {const AndroidInitializationSettings androidInitializationSettings = AndroidInitializationSettings("icon");
 
-    const DarwinInitializationSettings darwinInitializationSettings =
-        DarwinInitializationSettings(
-      defaultPresentAlert: false,
-      defaultPresentBadge: false,
-      defaultPresentSound: false,
-    );
+    const DarwinInitializationSettings darwinInitializationSettings = DarwinInitializationSettings(defaultPresentAlert: false, defaultPresentBadge: false, defaultPresentSound: false,);
 
-    const InitializationSettings initializationSettings =
-        InitializationSettings(
-      android: androidInitializationSettings,
-      iOS: darwinInitializationSettings,
-    );
+    const InitializationSettings initializationSettings = InitializationSettings(android: androidInitializationSettings, iOS: darwinInitializationSettings,);
 
     // *** Initialize timezone here ***
     tz.initializeTimeZones();
@@ -143,18 +124,10 @@ class NotificationServiceForAll {
   }
 
   Future<void> requestIOSPermissions() async {
-    await flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<
-            IOSFlutterLocalNotificationsPlugin>()
-        ?.requestPermissions(
-          alert: true,
-          badge: true,
-          sound: true,
-        );
+    await flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()?.requestPermissions(alert: true, badge: true, sound: true);
   }
 
-  Future<void> showNotification(
-      int id, String title, String body, String payload) async {
+  Future<void> showNotification(int id, String title, String body, String payload) async {
     await flutterLocalNotificationsPlugin.show(
       id,
       title,
@@ -177,8 +150,7 @@ class NotificationServiceForAll {
       body,
       tz.TZDateTime.from(scheduledTime, tz.local),
       notificationDetails,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
+      uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
       androidAllowWhileIdle: true,
       payload: payload,
       matchDateTimeComponents: dateTimeComponents,
