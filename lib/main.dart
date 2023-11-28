@@ -12,9 +12,7 @@ import 'package:zerocart/my_theme/my_themedata.dart';
 import 'package:zerocart/notification.dart';
 import 'app/routes/app_pages.dart';
 
-
-
-Future<void> onBackgroundMessage(RemoteMessage message) async {
+Future<void> onBackgroundMessage(RemoteMessage message) async  {
   if (message.notification != null) {
     NotificationServiceForAndroid().sendNotification(title: message.notification!.title!, body: message.notification!.body!);
   }
@@ -46,7 +44,8 @@ Future<void> main() async {
             buildContext,
             orientation,
             screenType,
-          ) => GetMaterialApp(
+          ) =>
+              GetMaterialApp(
             title: "Application",
             initialRoute: AppPages.INITIAL,
             getPages: AppPages.routes,

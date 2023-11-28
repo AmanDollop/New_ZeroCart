@@ -43,8 +43,7 @@ class CommonWidgets {
     );
   }
 
-  static Widget commonRefreshIndicator(
-      {required Widget child, required RefreshCallback onRefresh}) {
+  static Widget commonRefreshIndicator({required Widget child, required RefreshCallback onRefresh}) {
     return RefreshIndicator(onRefresh: onRefresh, child: child);
   }
 
@@ -146,8 +145,7 @@ class CommonWidgets {
   ],
   ),*/
 
-  static Widget commonSomethingWentWrongImage(
-      {required RefreshCallback onRefresh}) {
+  static Widget commonSomethingWentWrongImage({required RefreshCallback onRefresh}) {
     return RefreshIndicator(
       onRefresh: () async {
         await Future.delayed(const Duration(seconds: 1));
@@ -210,8 +208,7 @@ class CommonWidgets {
     );
   }
 
-  static Widget myStackAppBarSizeBox(
-      {required Widget child, bool? wantProfileMenuDash = false}) {
+  static Widget myStackAppBarSizeBox({required Widget child, bool? wantProfileMenuDash = false}) {
     return Column(
       children: [
         SizedBox(
@@ -358,8 +355,7 @@ class CommonWidgets {
           )
         : Container(
             height: height ?? 50.px,
-            margin:
-                margin ?? EdgeInsets.symmetric(horizontal: Zconstant.margin),
+            margin: margin ?? EdgeInsets.symmetric(horizontal: Zconstant.margin),
             child: CustomOutlineButton(
               onPressed: onPressed,
               strokeWidth: strokeWidth ?? 1,
@@ -497,8 +493,7 @@ class CommonWidgets {
         ],
       );
 
-  static Widget profileMenuDash(
-      {double? width, double? height, double? borderRadius, Color? color}) {
+  static Widget profileMenuDash({double? width, double? height, double? borderRadius, Color? color}) {
     return Container(
       height: height ?? 1,
       width: width ?? double.infinity,
