@@ -44,8 +44,7 @@ Future<void> main() async {
             buildContext,
             orientation,
             screenType,
-          ) =>
-              GetMaterialApp(
+          ) => GetMaterialApp(
             title: "Application",
             initialRoute: AppPages.INITIAL,
             getPages: AppPages.routes,

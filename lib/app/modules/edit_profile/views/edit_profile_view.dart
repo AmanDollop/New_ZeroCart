@@ -30,8 +30,7 @@ class EditProfileView extends GetView<EditProfileController> {
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             appBar: const MyCustomContainer().myAppBar(
                 isIcon: true,
-                backIconOnPressed: () =>
-                    controller.clickOnBackIcon(context: context),
+                backIconOnPressed: () => controller.clickOnBackIcon(context: context),
                 text: 'Update Profile'),
             body: GestureDetector(
               onTap: () => MyCommonMethods.unFocsKeyBoard(),
@@ -39,10 +38,7 @@ class EditProfileView extends GetView<EditProfileController> {
                 key: controller.key,
                 child: Obx(() {
                   if (CommonMethods.isConnect.value) {
-                    if (controller.responseCodeState == 200 &&
-                        controller.responseCodeCity == 200 &&
-                        controller.responseCodeBrandList == 200 &&
-                        controller.responseCodeCategoryList == 200) {
+                    if (controller.responseCodeState == 200 && controller.responseCodeCity == 200 && controller.responseCodeBrandList == 200 && controller.responseCodeCategoryList == 200) {
                       if (controller.userDataMap.isNotEmpty) {
                         return Column(
                           children: [
@@ -54,11 +50,10 @@ class EditProfileView extends GetView<EditProfileController> {
                                   child: ListView(
                                     children: [
                                       SizedBox(
-                                        height: Zconstant.margin,
+                                        height: Zconstant.margin
                                       ),
                                       Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
                                           Stack(
                                             alignment: Alignment.bottomRight,
@@ -73,11 +68,9 @@ class EditProfileView extends GetView<EditProfileController> {
                                         ],
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: Zconstant.margin),
+                                        padding: EdgeInsets.symmetric(horizontal: Zconstant.margin),
                                         child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             SizedBox(height: 2.h),
                                             nameTextFieldView(),
@@ -100,102 +93,59 @@ class EditProfileView extends GetView<EditProfileController> {
                                         );
                                       }),*/
                                             SizedBox(height: 2.h),
-                                            if (controller.stateName != null &&
-                                                controller.stateName != '')
+                                            if (controller.stateName != null && controller.stateName != '')
                                               Align(
                                                 alignment: Alignment.topLeft,
                                                 child: Text(
                                                   'State Name',
-                                                  style: Theme.of(Get.context!)
-                                                      .textTheme
-                                                      .subtitle1
-                                                      ?.copyWith(
+                                                  style: Theme.of(Get.context!).textTheme.subtitle1?.copyWith(
                                                         fontSize: 12.px,
-                                                        color: Theme.of(
-                                                                Get.context!)
-                                                            .colorScheme
-                                                            .onSurface
-                                                            .withOpacity(.4),
+                                                        color: Theme.of(Get.context!).colorScheme.onSurface.withOpacity(.4),
                                                       ),
                                                 ),
                                               ),
                                             stateTextFieldView(),
                                             SizedBox(height: 2.h),
-                                            if (controller.cityName != null &&
-                                                controller.cityName != '' &&
-                                                controller.cityModel != null &&
-                                                controller.cityModel?.cities !=
-                                                    null &&
-                                                controller.cityModel!.cities!
-                                                    .isNotEmpty)
+                                            if (controller.cityName != null && controller.cityName != '' && controller.cityModel != null && controller.cityModel?.cities != null && controller.cityModel!.cities!.isNotEmpty)
                                               Align(
                                                 alignment: Alignment.topLeft,
                                                 child: Text(
                                                   'City Name',
-                                                  style: Theme.of(Get.context!)
-                                                      .textTheme
-                                                      .subtitle1
+                                                  style: Theme.of(Get.context!).textTheme.subtitle1
                                                       ?.copyWith(
                                                         fontSize: 12.px,
-                                                        color: Theme.of(
-                                                                Get.context!)
-                                                            .colorScheme
-                                                            .onSurface
-                                                            .withOpacity(.4),
+                                                        color: Theme.of(Get.context!).colorScheme.onSurface.withOpacity(.4),
                                                       ),
                                                 ),
                                               ),
                                             cityTextFieldView(),
                                             SizedBox(height: 2.h),
-                                            titleTextView(
-                                                text: 'Type Of Products'),
+                                            titleTextView(text: 'Type Of Products'),
                                             SizedBox(height: 1.h),
                                             SizedBox(
                                               height: 30.px,
                                               child: ListView.builder(
-                                                scrollDirection:
-                                                    Axis.horizontal,
+                                                scrollDirection: Axis.horizontal,
                                                 shrinkWrap: true,
-                                                itemCount: controller
-                                                    .checkBoxTitle.length,
+                                                itemCount: controller.checkBoxTitle.length,
                                                 itemBuilder: (context, index) {
                                                   return InkWell(
                                                     onTap: () {},
                                                     child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
+                                                      mainAxisAlignment: MainAxisAlignment.start,
                                                       children: [
                                                         Obx(() {
-                                                          return controller
-                                                                      .count
-                                                                      .value >=
-                                                                  0
+                                                          return controller.count.value >= 0
                                                               ? myCheckBox(
-                                                                  checkBoxValue:
-                                                                      controller.checkTypeOfProductsValue.value ==
-                                                                              index.toString()
-                                                                          ? true
-                                                                          : false,
-                                                                  onChanged:
-                                                                      (value) async {
-                                                                    controller
-                                                                            .checkTypeOfProductsValue
-                                                                            .value =
-                                                                        index
-                                                                            .toString();
-                                                                    controller
-                                                                        .checkValue
-                                                                        .value = value!;
+                                                                  checkBoxValue: controller.checkTypeOfProductsValue.value == index.toString() ? true : false,
+                                                                  onChanged: (value) async {
+                                                                    controller.checkTypeOfProductsValue.value = index.toString();
+                                                                    controller.checkValue.value = value!;
                                                                   },
                                                                 )
                                                               : const SizedBox();
                                                         }),
-                                                        titleTextView(
-                                                            text: controller
-                                                                .checkBoxTitle[
-                                                                    index]
-                                                                .toString()),
+                                                        titleTextView(text: controller.checkBoxTitle[index].toString()),
                                                       ],
                                                     ),
                                                   );
@@ -203,242 +153,98 @@ class EditProfileView extends GetView<EditProfileController> {
                                               ),
                                             ),
                                             SizedBox(height: 2.h),
-                                            if (controller
-                                                .fashionCategoryList.isNotEmpty)
+                                            if (controller.fashionCategoryList.isNotEmpty)
                                               Obx(() {
-                                                return controller.count.value >=
-                                                        0
+                                                return controller.count.value >= 0
                                                     ? Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
-                                                          titleTextView(
-                                                              text:
-                                                                  'Fashion Category'),
+                                                          titleTextView(text: 'Fashion Category'),
                                                           Container(
-                                                            decoration:
-                                                                BoxDecoration(
+                                                            decoration: BoxDecoration(
                                                               border: Border(
-                                                                bottom:
-                                                                    BorderSide(
-                                                                  color: Theme.of(context)
-                                                                              .brightness ==
-                                                                          Brightness
-                                                                              .light
-                                                                      ? MyColorsLight()
-                                                                          .onPrimary
-                                                                          .withOpacity(
-                                                                              .1)
-                                                                      : MyColorsLight()
-                                                                          .onPrimary,
+                                                                bottom: BorderSide(
+                                                                  color: Theme.of(context).brightness == Brightness.light
+                                                                      ? MyColorsLight().onPrimary.withOpacity(.1)
+                                                                      : MyColorsLight().onPrimary,
                                                                   width: 1.px,
                                                                 ),
                                                               ),
                                                             ),
-                                                            child:
-                                                                MultiSelectBottomSheetField(
-                                                              initialValue:
-                                                                  controller
-                                                                      .selectFashionCategoryList
-                                                                      .toList(),
+                                                            child: MultiSelectBottomSheetField(
+                                                              initialValue: controller.selectFashionCategoryList.toList(),
                                                               title: Text(
                                                                 'Select Fashion Brands',
-                                                                style: Theme.of(Get
-                                                                        .context!)
-                                                                    .textTheme
-                                                                    .subtitle2
-                                                                    ?.copyWith(
-                                                                        fontSize: 16
-                                                                            .px,
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .w800,
-                                                                        color: MyColorsLight()
-                                                                            .onText),
+                                                                style: Theme.of(Get.context!).textTheme.subtitle2?.copyWith(
+                                                                        fontSize: 16.px,
+                                                                        fontWeight: FontWeight.w800,
+                                                                        color: MyColorsLight().onText),
                                                               ),
-                                                              unselectedColor:
-                                                                  MyColorsDark()
-                                                                      .onPrimary
-                                                                      .withOpacity(
-                                                                          .4),
-                                                              backgroundColor:
-                                                                  MyColorsLight()
-                                                                      .secondary,
-                                                              buttonIcon: Icon(
-                                                                  Icons
-                                                                      .arrow_drop_down,
-                                                                  size: 22.px),
-                                                              selectedItemsTextStyle: Theme
-                                                                      .of(Get
-                                                                          .context!)
-                                                                  .textTheme
-                                                                  .subtitle2
+                                                              unselectedColor: MyColorsDark().onPrimary.withOpacity(.4),
+                                                              backgroundColor: MyColorsLight().secondary,
+                                                              buttonIcon: Icon(Icons.arrow_drop_down, size: 22.px),
+                                                              selectedItemsTextStyle: Theme.of(Get.context!).textTheme.subtitle2
                                                                   ?.copyWith(
-                                                                      fontSize:
-                                                                          16.px,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w800,
-                                                                      color: MyColorsLight()
-                                                                          .primaryColor),
-                                                              selectedColor:
-                                                                  MyColorsDark()
-                                                                      .primaryColor,
+                                                                      fontSize: 16.px,
+                                                                      fontWeight: FontWeight.w800,
+                                                                      color: MyColorsLight().primaryColor),
+                                                              selectedColor: MyColorsDark().primaryColor,
                                                               searchable: true,
-                                                              searchHint:
-                                                                  "Search",
-                                                              separateSelectedItems:
-                                                                  true,
+                                                              searchHint: "Search",
+                                                              separateSelectedItems: true,
                                                               closeSearchIcon: Icon(
                                                                   Icons.close,
-                                                                  color: MyColorsLight()
-                                                                      .onText),
-                                                              searchHintStyle: Theme
-                                                                      .of(Get
-                                                                          .context!)
-                                                                  .textTheme
-                                                                  .subtitle2
+                                                                  color: MyColorsLight().onText),
+                                                              searchHintStyle: Theme.of(Get.context!).textTheme.subtitle2
                                                                   ?.copyWith(
-                                                                      fontSize:
-                                                                          16.px,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w800,
-                                                                      color: MyColorsLight()
-                                                                          .dashMenuColor),
-                                                              searchIcon: Icon(
-                                                                  Icons.search,
-                                                                  color: MyColorsLight()
-                                                                      .onText),
-                                                              searchTextStyle:
-                                                                  Theme.of(Get
-                                                                          .context!)
-                                                                      .textTheme
-                                                                      .subtitle2
-                                                                      ?.copyWith(
-                                                                        fontSize:
-                                                                            16.px,
-                                                                        fontWeight:
-                                                                            FontWeight.w800,
-                                                                        color: MyColorsLight()
-                                                                            .onText,
-                                                                      ),
-                                                              chipDisplay:
-                                                                  MultiSelectChipDisplay
-                                                                      .none(),
+                                                                      fontSize: 16.px,
+                                                                      fontWeight: FontWeight.w800,
+                                                                      color: MyColorsLight().dashMenuColor),
+                                                              searchIcon: Icon(Icons.search, color: MyColorsLight().onText),
+                                                              searchTextStyle: Theme.of(Get.context!).textTheme.subtitle2?.copyWith(fontSize: 16.px, fontWeight: FontWeight.w800, color: MyColorsLight().onText),
+                                                              chipDisplay: MultiSelectChipDisplay.none(),
                                                               buttonText: Text(
                                                                 'Select Fashion Category',
-                                                                style: TextStyle(
-                                                                    color: Theme.of(
-                                                                            Get.context!)
-                                                                        .colorScheme
-                                                                        .onSecondary),
+                                                                style: TextStyle(color: Theme.of(Get.context!).colorScheme.onSecondary),
                                                               ),
-                                                              initialChildSize:
-                                                                  0.4,
-                                                              shape:
-                                                                  RoundedRectangleBorder(
-                                                                side: BorderSide(
-                                                                    color: MyColorsLight()
-                                                                        .backgroundFilterColor,
-                                                                    width:
-                                                                        .5.px),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10.px),
+                                                              initialChildSize: 0.4,
+                                                              shape: RoundedRectangleBorder(
+                                                                side: BorderSide(color: MyColorsLight().backgroundFilterColor, width: .5.px),
+                                                                borderRadius: BorderRadius.circular(10.px),
                                                               ),
-                                                              listType:
-                                                                  MultiSelectListType
-                                                                      .LIST,
-                                                              items: controller
-                                                                  .fashionCategoryList
-                                                                  .map(
-                                                                    (e) => MultiSelectItem(
-                                                                        e,
-                                                                        e.name
-                                                                            .toString()),
-                                                                  )
-                                                                  .toList(),
-                                                              onConfirm:
-                                                                  (value) {
-                                                                controller
-                                                                        .selectedFashionCategory =
-                                                                    value;
-                                                                controller
-                                                                        .useObx
-                                                                        .value =
-                                                                    value;
-                                                                controller
-                                                                    .fashionCategoryId
-                                                                    .clear();
-                                                                for (var element
-                                                                    in controller
-                                                                        .selectedFashionCategory) {
-                                                                  controller
-                                                                      .fashionCategoryId
-                                                                      .add(element
-                                                                          .fashionCategoryId);
-                                                                  controller.selectFashionCategoryList = controller
-                                                                      .fashionCategoryList
-                                                                      .where((element) => controller
-                                                                          .fashionCategoryId
-                                                                          .contains(element.fashionCategoryId ??
-                                                                              ''));
+                                                              listType: MultiSelectListType.LIST,
+                                                              items: controller.fashionCategoryList.map((e) => MultiSelectItem(e, e.name.toString()),).toList(),
+                                                              onConfirm: (value) {
+                                                                controller.selectedFashionCategory = value;
+                                                                controller.useObx.value = value;
+                                                                controller.fashionCategoryId.clear();
+                                                                for (var element in controller.selectedFashionCategory) {
+                                                                  controller.fashionCategoryId.add(element.fashionCategoryId);
+                                                                  controller.selectFashionCategoryList = controller.fashionCategoryList.where((element) => controller.fashionCategoryId.contains(element.fashionCategoryId ?? ''));
                                                                 }
                                                               },
                                                             ),
                                                           ),
                                                           SizedBox(height: 1.h),
                                                           my(
-                                                            items: controller
-                                                                .selectFashionCategoryList
-                                                                .map((e) =>
-                                                                    MultiSelectItem(
-                                                                        e,
-                                                                        e.name
-                                                                            .toString()))
-                                                                .toList(),
-                                                            scrollController:
-                                                                ScrollController(),
+                                                            items: controller.selectFashionCategoryList.map((e) => MultiSelectItem(e, e.name.toString())).toList(),
+                                                            scrollController: ScrollController(),
                                                             scroll: true,
-                                                            scrollBar:
-                                                                HorizontalScrollBar(
-                                                                    isAlwaysShown:
-                                                                        true),
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              border:
-                                                                  Border.all(
-                                                                color: MyColorsLight()
-                                                                    .backgroundFilterColor,
+                                                            scrollBar: HorizontalScrollBar(isAlwaysShown: true),
+                                                            decoration: BoxDecoration(
+                                                              border: Border.all(
+                                                                color: MyColorsLight().backgroundFilterColor,
                                                                 width: .5.px,
                                                               ),
                                                             ),
-                                                            shape:
-                                                                RoundedRectangleBorder(
+                                                            shape: RoundedRectangleBorder(
                                                               side: BorderSide(
-                                                                  color: MyColorsLight()
-                                                                      .backgroundFilterColor,
-                                                                  width: .5.px),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5.px),
+                                                                  color: MyColorsLight().backgroundFilterColor, width: .5.px),
+                                                              borderRadius: BorderRadius.circular(5.px),
                                                             ),
-                                                            chipColor: Colors
-                                                                .transparent,
-                                                            textStyle: Theme.of(
-                                                                    Get
-                                                                        .context!)
-                                                                .textTheme
-                                                                .subtitle2
-                                                                ?.copyWith(
-                                                                    fontSize:
-                                                                        12.px),
-                                                            list: controller
-                                                                .selectedFashionCategory,
+                                                            chipColor: Colors.transparent,
+                                                            textStyle: Theme.of(Get.context!).textTheme.subtitle2?.copyWith(fontSize: 12.px),
+                                                            list: controller.selectedFashionCategory,
                                                           ),
                                                           SizedBox(height: 1.h),
                                                         ],
@@ -448,218 +254,102 @@ class EditProfileView extends GetView<EditProfileController> {
                                             SizedBox(height: 2.h),
                                             if (controller.brandList.isNotEmpty)
                                               Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
-                                                  titleTextView(
-                                                      text: 'Favourite Brand'),
+                                                  titleTextView(text: 'Favourite Brand'),
                                                   Container(
                                                     decoration: BoxDecoration(
                                                       border: Border(
                                                         bottom: BorderSide(
-                                                          color: Theme.of(context)
-                                                                      .brightness ==
-                                                                  Brightness
-                                                                      .light
-                                                              ? MyColorsLight()
-                                                                  .onPrimary
-                                                                  .withOpacity(
-                                                                      .1)
-                                                              : MyColorsLight()
-                                                                  .onPrimary,
+                                                          color: Theme.of(context).brightness == Brightness.light
+                                                              ? MyColorsLight().onPrimary.withOpacity(.1)
+                                                              : MyColorsLight().onPrimary,
                                                           width: 1.px,
                                                         ),
                                                       ),
                                                     ),
-                                                    child:
-                                                        MultiSelectBottomSheetField(
-                                                      initialValue: controller
-                                                          .selectBrandList
-                                                          .toList(),
+                                                    child: MultiSelectBottomSheetField(initialValue: controller.selectBrandList.toList(),
                                                       title: Text(
                                                         'Select Fashion Brands',
-                                                        style: Theme.of(
-                                                                Get.context!)
-                                                            .textTheme
-                                                            .subtitle2
-                                                            ?.copyWith(
-                                                                fontSize: 16.px,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w800,
-                                                                color:
-                                                                    MyColorsLight()
-                                                                        .onText),
+                                                        style: Theme.of(Get.context!).textTheme.subtitle2
+                                                            ?.copyWith(fontSize: 16.px,
+                                                                fontWeight: FontWeight.w800,
+                                                                color: MyColorsLight().onText),
                                                       ),
-                                                      unselectedColor:
-                                                          MyColorsDark()
-                                                              .onPrimary
-                                                              .withOpacity(.4),
-                                                      backgroundColor:
-                                                          MyColorsLight()
-                                                              .secondary,
+                                                      unselectedColor: MyColorsDark().onPrimary.withOpacity(.4),
+                                                      backgroundColor: MyColorsLight().secondary,
                                                       buttonIcon: Icon(
                                                           Icons.arrow_drop_down,
                                                           size: 22.px),
-                                                      selectedItemsTextStyle: Theme
-                                                              .of(Get.context!)
-                                                          .textTheme
-                                                          .subtitle2
+                                                      selectedItemsTextStyle: Theme.of(Get.context!).textTheme.subtitle2
                                                           ?.copyWith(
-                                                              fontSize: 16.px,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w800,
-                                                              color: MyColorsLight()
-                                                                  .primaryColor),
-                                                      selectedColor:
-                                                          MyColorsDark()
-                                                              .primaryColor,
+                                                          fontSize: 16.px,
+                                                          fontWeight: FontWeight.w800,
+                                                          color: MyColorsLight().primaryColor),
+                                                      selectedColor: MyColorsDark().primaryColor,
                                                       searchable: true,
                                                       searchHint: "Search",
-                                                      separateSelectedItems:
-                                                          true,
-                                                      closeSearchIcon: Icon(
-                                                          Icons.close,
-                                                          color: MyColorsLight()
-                                                              .onText),
-                                                      searchHintStyle: Theme.of(
-                                                              Get.context!)
-                                                          .textTheme
-                                                          .subtitle2
+                                                      separateSelectedItems: true,
+                                                      closeSearchIcon: Icon(Icons.close, color: MyColorsLight().onText),
+                                                      searchHintStyle: Theme.of(Get.context!).textTheme.subtitle2
                                                           ?.copyWith(
                                                               fontSize: 16.px,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w800,
-                                                              color: MyColorsLight()
-                                                                  .dashMenuColor),
+                                                              fontWeight: FontWeight.w800,
+                                                              color: MyColorsLight().dashMenuColor),
                                                       searchIcon: Icon(
                                                           Icons.search,
-                                                          color: MyColorsLight()
-                                                              .onText),
-                                                      searchTextStyle:
-                                                          Theme.of(Get.context!)
-                                                              .textTheme
-                                                              .subtitle2
-                                                              ?.copyWith(
-                                                                fontSize: 16.px,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w800,
-                                                                color:
-                                                                    MyColorsLight()
-                                                                        .onText,
-                                                              ),
-                                                      chipDisplay:
-                                                          MultiSelectChipDisplay
-                                                              .none(),
+                                                          color: MyColorsLight().onText),
+                                                      searchTextStyle: Theme.of(Get.context!).textTheme.subtitle2?.copyWith(fontSize: 16.px, fontWeight: FontWeight.w800, color: MyColorsLight().onText,),
+                                                      chipDisplay: MultiSelectChipDisplay.none(),
                                                       buttonText: Text(
                                                           'Select Favourite Brand',
                                                           style: TextStyle(
-                                                              color: Theme.of(Get
-                                                                      .context!)
-                                                                  .colorScheme
-                                                                  .onSecondary)),
+                                                              color: Theme.of(Get.context!).colorScheme.onSecondary)),
                                                       initialChildSize: 0.4,
-                                                      shape:
-                                                          RoundedRectangleBorder(
+                                                      shape: RoundedRectangleBorder(
                                                         side: BorderSide(
-                                                            color: MyColorsLight()
-                                                                .backgroundFilterColor,
+                                                            color: MyColorsLight().backgroundFilterColor,
                                                             width: .5.px),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                                    10.px),
+                                                        borderRadius: BorderRadius.circular(10.px),
                                                       ),
-                                                      listType:
-                                                          MultiSelectListType
-                                                              .LIST,
-                                                      items: controller
-                                                          .brandList
-                                                          .map((e) =>
-                                                              MultiSelectItem(
-                                                                  e,
-                                                                  e.brandName
-                                                                      .toString()))
-                                                          .toList(),
+                                                      listType: MultiSelectListType.LIST,
+                                                      items: controller.brandList.map((e) => MultiSelectItem(e, e.brandName.toString())).toList(),
                                                       onConfirm: (value) {
-                                                        controller
-                                                                .selectedBrands =
-                                                            value;
-                                                        controller.brandId
-                                                            .clear();
-                                                        controller.useObx
-                                                            .value = value;
-                                                        for (var element
-                                                            in controller
-                                                                .selectedBrands) {
-                                                          controller.brandId
-                                                              .add(element
-                                                                  .brandId);
-                                                          controller.selectBrandList = controller
-                                                              .brandList
-                                                              .where((element) =>
-                                                                  controller
-                                                                      .brandId
-                                                                      .contains(
-                                                                          element.brandId ??
-                                                                              ''));
+                                                        controller.selectedBrands = value;
+                                                        controller.brandId.clear();
+                                                        controller.useObx.value = value;
+                                                        for (var element in controller.selectedBrands) {
+                                                          controller.brandId.add(element.brandId);
+                                                          controller.selectBrandList = controller.brandList.where((element) => controller.brandId.contains(element.brandId ?? ''));
                                                         }
                                                       },
                                                     ),
                                                   ),
                                                   SizedBox(height: 1.h),
                                                   my(
-                                                    items: controller
-                                                        .selectBrandList
-                                                        .map((e) =>
-                                                            MultiSelectItem(
-                                                                e,
-                                                                e.brandName
-                                                                    .toString()))
-                                                        .toList(),
-                                                    scrollController:
-                                                        ScrollController(),
+                                                    items: controller.selectBrandList.map((e) => MultiSelectItem(e, e.brandName.toString())).toList(),
+                                                    scrollController: ScrollController(),
                                                     scroll: true,
-                                                    scrollBar:
-                                                        HorizontalScrollBar(
-                                                            isAlwaysShown:
-                                                                true),
+                                                    scrollBar: HorizontalScrollBar(isAlwaysShown: true),
                                                     decoration: BoxDecoration(
                                                       border: Border.all(
-                                                        color: MyColorsLight()
-                                                            .backgroundFilterColor,
+                                                        color: MyColorsLight().backgroundFilterColor,
                                                         width: .5.px,
                                                       ),
                                                     ),
-                                                    shape:
-                                                        RoundedRectangleBorder(
+                                                    shape: RoundedRectangleBorder(
                                                       side: BorderSide(
-                                                          color: MyColorsLight()
-                                                              .backgroundFilterColor,
+                                                          color: MyColorsLight().backgroundFilterColor,
                                                           width: .5.px),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              5.px),
+                                                      borderRadius: BorderRadius.circular(5.px),
                                                     ),
-                                                    chipColor:
-                                                        Colors.transparent,
-                                                    textStyle:
-                                                        Theme.of(Get.context!)
-                                                            .textTheme
-                                                            .subtitle2
-                                                            ?.copyWith(
-                                                                fontSize:
-                                                                    12.px),
-                                                    list: controller
-                                                        .selectedBrands,
+                                                    chipColor: Colors.transparent,
+                                                    textStyle: Theme.of(Get.context!).textTheme.subtitle2?.copyWith(fontSize: 12.px),
+                                                    list: controller.selectedBrands,
                                                   ),
                                                 ],
                                               ),
-                                            SizedBox(
-                                                height: Zconstant.margin * 5),
+                                            SizedBox(height: Zconstant.margin * 5),
                                           ],
                                         ),
                                       ),
@@ -728,8 +418,7 @@ class EditProfileView extends GetView<EditProfileController> {
           width: 158.px,
           height: 138.px,
           decoration: BoxDecoration(
-            border:
-                Border.all(width: 0.5.px, color: MyColorsLight().borderColor),
+            border: Border.all(width: 0.5.px, color: MyColorsLight().borderColor),
             borderRadius: BorderRadius.circular(80.px),
             image: DecorationImage(
               image: controller.selectImage(),
@@ -769,7 +458,7 @@ class EditProfileView extends GetView<EditProfileController> {
       iconVisible: false,
       controller: controller.securityEmailController);
 
-/*  Widget dobTextFieldView() => TextFormField(
+  /*  Widget dobTextFieldView() => TextFormField(
         controller: controller.dobController,
         decoration: InputDecoration(
           labelText: "DOB",
@@ -800,14 +489,11 @@ class EditProfileView extends GetView<EditProfileController> {
         hintText: 'YYYY-MM-DD',
         hintStyle: Theme.of(Get.context!).textTheme.subtitle2?.copyWith(
             fontSize: 16.px,
-            color:
-                Theme.of(Get.context!).colorScheme.onSurface.withOpacity(.4)),
+            color: Theme.of(Get.context!).colorScheme.onSurface.withOpacity(.4)),
         labelStyle: Theme.of(Get.context!).textTheme.subtitle1?.copyWith(
-            color:
-                Theme.of(Get.context!).colorScheme.onSurface.withOpacity(.4)),
+            color: Theme.of(Get.context!).colorScheme.onSurface.withOpacity(.4)),
       ),
-      style:
-          Theme.of(Get.context!).textTheme.subtitle2?.copyWith(fontSize: 16.px),
+      style: Theme.of(Get.context!).textTheme.subtitle2?.copyWith(fontSize: 16.px),
       keyboardType: TextInputType.none,
       readOnly: true);
 
@@ -822,8 +508,7 @@ class EditProfileView extends GetView<EditProfileController> {
         // readOnly: controller.isSubmitButtonVisible.value,
         icon: IconButton(
           onPressed: () {},
-          icon:
-              Icon(Icons.verified, color: MyColorsLight().success, size: 20.px),
+          icon: Icon(Icons.verified, color: MyColorsLight().success, size: 20.px),
           splashRadius: 24.px,
         ),
         onChanged: (value) {
@@ -836,7 +521,7 @@ class EditProfileView extends GetView<EditProfileController> {
         iconVisible: false,
       );
 
-/*
+  /*
   Widget sendOTPButtonView() {
     return Obx(() {
       if (!controller.isSendOtpButtonClicked.value) {
@@ -883,7 +568,7 @@ class EditProfileView extends GetView<EditProfileController> {
     });
   }
 */
-/*
+  /*
   Widget sendOTPButtonView() {
     return Obx(() {
       if (!controller.isSendOtpButtonClicked.value) {
@@ -935,45 +620,33 @@ class EditProfileView extends GetView<EditProfileController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (controller.stateModel != null &&
-            controller.stateModel?.states != null &&
-            controller.stateModel!.states!.isNotEmpty)
+        if (controller.stateModel != null && controller.stateModel?.states != null && controller.stateModel!.states!.isNotEmpty)
           SizedBox(
             height: 6.h,
             child: DropdownZeroCart(
               wantDividerError: controller.isStateSelectedValue.value,
               selected: controller.selectedState,
-              items: controller.stateModel!.states!
-                  .map(
+              items: controller.stateModel!.states!.map(
                     (States e) => DropdownMenuItem<States>(
                       value: e,
                       child: Text(e.name.toString()),
                     ),
-                  )
-                  .toList(),
+                  ).toList(),
               hint: controller.stateName != ''
                   ? Text(
                       "${controller.stateName}",
-                      style: Theme.of(Get.context!)
-                          .textTheme
-                          .subtitle2
+                      style: Theme.of(Get.context!).textTheme.subtitle2
                           ?.copyWith(
                               fontSize: 16.px,
-                              color:
-                                  Theme.of(Get.context!).colorScheme.onSurface),
+                              color: Theme.of(Get.context!).colorScheme.onSurface),
                     )
                   : Text(
                       'Select State',
-                      style: Theme.of(Get.context!)
-                          .textTheme
-                          .subtitle2
+                      style: Theme.of(Get.context!).textTheme.subtitle2
                           ?.copyWith(
                               fontSize: 16.px,
                               fontWeight: FontWeight.w600,
-                              color: Theme.of(Get.context!)
-                                  .colorScheme
-                                  .onSurface
-                                  .withOpacity(.4)),
+                              color: Theme.of(Get.context!).colorScheme.onSurface.withOpacity(.4)),
                     ),
               onChanged: (States? value) async {
                 controller.inAsyncCall.value=true;
@@ -987,8 +660,7 @@ class EditProfileView extends GetView<EditProfileController> {
                     controller.selectedCity = null;
                     controller.cityModel = null;
                     controller.isStateSelectedValue.value = false;
-                    await controller.getCityApiCalling(
-                        sId: controller.stateId.toString());
+                    await controller.getCityApiCalling(sId: controller.stateId.toString());
                   }
                 }
                 controller.inAsyncCall.value=false;
@@ -1001,9 +673,7 @@ class EditProfileView extends GetView<EditProfileController> {
             padding: EdgeInsets.symmetric(horizontal: 5.px),
             child: Text(
               'Please Select State',
-              style: Theme.of(Get.context!)
-                  .textTheme
-                  .subtitle2
+              style: Theme.of(Get.context!).textTheme.subtitle2
                   ?.copyWith(fontSize: 14.px, color: MyColorsLight().error),
             ),
           ),
@@ -1013,7 +683,7 @@ class EditProfileView extends GetView<EditProfileController> {
 
   //3145.76
 
-/*  Widget stateTextFieldView() {
+  /*  Widget stateTextFieldView() {
     return DropdownSearch<States>(
       items: controller.stateModel.value!.states!,
       selectedItem: controller.selectedState.value,
@@ -1048,9 +718,7 @@ class EditProfileView extends GetView<EditProfileController> {
   }*/
 
   Widget cityTextFieldView() {
-    if (controller.cityModel != null &&
-        controller.cityModel?.cities != null &&
-        controller.cityModel!.cities!.isNotEmpty) {
+    if (controller.cityModel != null && controller.cityModel?.cities != null && controller.cityModel!.cities!.isNotEmpty) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -1059,37 +727,27 @@ class EditProfileView extends GetView<EditProfileController> {
             child: DropdownZeroCart(
               wantDividerError: controller.isCitySelectedValue.value,
               selected: controller.selectedCity,
-              items: controller.citiesList
-                  .map(
+              items: controller.citiesList.map(
                     (Cities e) => DropdownMenuItem<Cities>(
                       value: e,
                       child: Text(e.name.toString()),
                     ),
-                  )
-                  .toList(),
+                  ).toList(),
               hint: controller.cityName != ''
                   ? Text(
                       "${controller.cityName}",
-                      style: Theme.of(Get.context!)
-                          .textTheme
-                          .subtitle2
+                      style: Theme.of(Get.context!).textTheme.subtitle2
                           ?.copyWith(
                               fontSize: 16.px,
-                              color:
-                                  Theme.of(Get.context!).colorScheme.onSurface),
+                              color: Theme.of(Get.context!).colorScheme.onSurface),
                     )
                   : Text(
                       'Select City',
-                      style: Theme.of(Get.context!)
-                          .textTheme
-                          .subtitle2
+                      style: Theme.of(Get.context!).textTheme.subtitle2
                           ?.copyWith(
                               fontSize: 16.px,
                               fontWeight: FontWeight.w600,
-                              color: Theme.of(Get.context!)
-                                  .colorScheme
-                                  .onSurface
-                                  .withOpacity(.4)),
+                              color: Theme.of(Get.context!).colorScheme.onSurface.withOpacity(.4)),
                     ),
               onChanged: (Cities? value) async {
                 controller.selectedCity = value;
@@ -1107,10 +765,7 @@ class EditProfileView extends GetView<EditProfileController> {
               padding: EdgeInsets.symmetric(horizontal: 5.px),
               child: Text(
                 'Please Select City',
-                style: Theme.of(Get.context!)
-                    .textTheme
-                    .subtitle2
-                    ?.copyWith(fontSize: 14.px, color: MyColorsLight().error),
+                style: Theme.of(Get.context!).textTheme.subtitle2?.copyWith(fontSize: 14.px, color: MyColorsLight().error),
               ),
             ),
         ],
@@ -1120,7 +775,7 @@ class EditProfileView extends GetView<EditProfileController> {
     }
   }
 
-/*  Widget cityTextFieldView() {
+  /*  Widget cityTextFieldView() {
     return DropdownSearch<Cities>(
       items: controller.citiesList!,
       selectedItem: controller.selectedCity.value,
@@ -1151,18 +806,13 @@ class EditProfileView extends GetView<EditProfileController> {
       ),
     );
   }*/
+
   Widget titleTextView({required String text}) => Text(
         text,
-        style: Theme.of(Get.context!)
-            .textTheme
-            .subtitle1
-            ?.copyWith(fontSize: 14.px),
+        style: Theme.of(Get.context!).textTheme.subtitle1?.copyWith(fontSize: 14.px),
       );
 
-  Widget myCheckBox(
-          {required bool checkBoxValue,
-          required ValueChanged<bool?> onChanged}) =>
-      Checkbox(
+  Widget myCheckBox({required bool checkBoxValue, required ValueChanged<bool?> onChanged}) => Checkbox(
         checkColor: Theme.of(Get.context!).brightness == Brightness.light
             ? MyColorsLight().text
             : MyColorsDark().text,
@@ -1197,9 +847,7 @@ class EditProfileView extends GetView<EditProfileController> {
         decoration: decoration,
         alignment: alignment ?? Alignment.centerLeft,
         padding: EdgeInsets.symmetric(horizontal: scroll ? 0 : 10),
-        child: /*scroll
-          ?*/
-            Container(
+        child: Container(
           padding: EdgeInsets.symmetric(horizontal: 2.px),
           width: MediaQuery.of(Get.context!).size.width,
           height: height ?? MediaQuery.of(Get.context!).size.height * 0.08,
@@ -1241,13 +889,6 @@ class EditProfileView extends GetView<EditProfileController> {
                   ),
                 ),
         )
-        /*: Wrap(
-        children: items != null
-            ? items!.map((item) => _buildItem(item!, Get.context!)).toList()
-            : <Widget>[
-          Container(),
-        ],
-      ),*/
         );
   }
 

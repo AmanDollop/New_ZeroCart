@@ -142,14 +142,13 @@ class RegistrationController extends GetxController {
       ApiKeyConstant.deviceType: deviceType,
       ApiKeyConstant.fcmId: fcmId,
       ApiKeyConstant.countryId: countryId,
-      ApiKeyConstant.stateId: stateId ?? "",
-      ApiKeyConstant.cityId: cityId ?? "",
+      ApiKeyConstant.stateId: stateId,
+      ApiKeyConstant.cityId: cityId,
       ApiKeyConstant.genderPreferences: gender,
       ApiKeyConstant.brandPreferences: idBrand.isNotEmpty ? idBrand.join(',') : '',
       ApiKeyConstant.categoryPreferences: fashionCategoryId.isNotEmpty ? fashionCategoryId.join(',') : ''
     };
-    userData.value =
-        await CommonApis.registrationApi(bodyParams: bodyParamsForSubmitApi);
+    userData.value = await CommonApis.registrationApi(bodyParams: bodyParamsForSubmitApi);
     if (userData.value != null) {
       MyCommonMethods.showSnackBar(message: "Registered Successfully", context: Get.context!);
       Get.offAllNamed(Routes.NAVIGATOR_BOTTOM_BAR);

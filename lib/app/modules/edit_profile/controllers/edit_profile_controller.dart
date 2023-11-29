@@ -202,6 +202,10 @@ class EditProfileController extends CommonMethods {
     }
   }
 
+  Future<void> getUserData() async {
+    userDataMap.value = await CommonMethods.getUserData() ?? {};
+  }
+
   void setUserDataInTextField() {
     if(userDataMap[UserDataKeyConstant.dob] != null && userDataMap[UserDataKeyConstant.dob] != '') {
       dateTime = DateTime.parse(userDataMap[UserDataKeyConstant.dob]);
@@ -236,10 +240,6 @@ class EditProfileController extends CommonMethods {
     } else {
       checkTypeOfProductsValue.value = "";
     }
-  }
-
-  Future<void> getUserData() async {
-    userDataMap.value = await CommonMethods.getUserData() ?? {};
   }
 
   Future<void> getStateApiCalling() async {
@@ -329,6 +329,8 @@ class EditProfileController extends CommonMethods {
   }
 
   Future<void> updateUserProfileApiCalling({required BuildContext context}) async {
+    print('fashionCategoryId.join:::::      ${fashionCategoryId.join(',')}');
+    print('brandId.join:::::      ${brandId.join(',')}');
     bodyParamsForUpdateApi = {
       UserDataKeyConstant.fullName: nameController.text.trim().toString(),
       UserDataKeyConstant.securityEmail: securityEmailController.text.trim().toString(),
@@ -336,8 +338,8 @@ class EditProfileController extends CommonMethods {
       UserDataKeyConstant.securityPhoneCountryCode: "+91",
       ApiKeyConstant.dob: dobController.text.trim().toString(),
       ApiKeyConstant.countryId: countryId,
-      ApiKeyConstant.stateId: stateId ?? "",
-      ApiKeyConstant.cityId: cityId ?? "",
+      ApiKeyConstant.stateId: stateId,
+      ApiKeyConstant.cityId: cityId,
       ApiKeyConstant.genderPreferences: checkTypeOfProductsValue.isNotEmpty
           ? checkTypeOfProductsValue.toString() == "0" ? "m" : checkTypeOfProductsValue.toString() == "1" ? "f" : 'm,f'
           : '',
@@ -348,14 +350,15 @@ class EditProfileController extends CommonMethods {
     if (response != null && response.statusCode == 200) {
       userDataValue = await CommonApis.getUserProfileApi();
       if (userDataValue != null) {
+        print('userDataValue::::  categoryPreferenceName::::::    ${userDataValue?.customer?.categoryPreferenceName}');
+        print('userDataValue::::  customerPreferenceId::::::    ${userDataValue?.customer?.customerPreferenceId}');
+        print('userDataValue::::  brandPreferenceName::::::    ${userDataValue?.customer?.brandPreferenceName}');
         await CommonMethods.setUserData(userData: userDataValue);
         await MyCommonMethods.setString(key: UserDataKeyConstant.selectedState, value: stateName.toString());
         await MyCommonMethods.setString(key: ApiKeyConstant.stateId, value: stateId.toString());
         await MyCommonMethods.setString(key: UserDataKeyConstant.selectedCity, value: cityName.toString());
         await MyCommonMethods.setString(key: ApiKeyConstant.cityId, value: cityId.toString());
         isSubmitButtonClicked.value = false;
-        // ignore: use_build_context_synchronously
-        //clickOnBackIcon(context: context);
         MyCommonMethods.showSnackBar(message: "Profile update successfully", context: Get.context!);
         Get.back();
       }
@@ -430,18 +433,12 @@ class EditProfileController extends CommonMethods {
 
   Widget selectImageTextView() => Text(
         "Select Image",
-        style: Theme.of(Get.context!)
-            .textTheme
-            .subtitle1
-            ?.copyWith(fontSize: 18.px),
+        style: Theme.of(Get.context!).textTheme.subtitle1?.copyWith(fontSize: 18.px),
       );
 
   Widget contentTextView() => Text(
         "Choose Image From The Options Below",
-        style: Theme.of(Get.context!)
-            .textTheme
-            .subtitle1
-            ?.copyWith(fontSize: 14.px),
+        style: Theme.of(Get.context!).textTheme.subtitle1?.copyWith(fontSize: 14.px),
       );
 
   Widget cameraTextButtonView() => Text(
@@ -449,8 +446,7 @@ class EditProfileController extends CommonMethods {
         style: Theme.of(Get.context!).textTheme.subtitle2,
       );
 
-  Widget galleryTextButtonView() =>
-      Text("Gallery", style: Theme.of(Get.context!).textTheme.subtitle2);
+  Widget galleryTextButtonView() => Text("Gallery", style: Theme.of(Get.context!).textTheme.subtitle2);
 
   void clickCameraTextButtonView() {
     pickCamera();
