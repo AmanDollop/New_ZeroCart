@@ -67,21 +67,18 @@ class OderFilterBottomSheet extends GetView<MyOrdersController> {
                         ],
                       ),
                       SizedBox(
-                        height: Zconstant.margin - 12,
+                        height: Zconstant.margin - 12
                       ),
                       orderStatusTextView(),
                       SizedBox(
-                        height: Zconstant.margin16,
+                        height: Zconstant.margin16
                       ),
                       orderStatusGridView(),
                       SizedBox(
-                        height: Zconstant.margin16,
+                        height: Zconstant.margin16
                       ),
                       CommonWidgets.profileMenuDash(),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: Zconstant.margin16,
-                        ),
+                      Padding(padding: EdgeInsets.symmetric(vertical: Zconstant.margin16),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
