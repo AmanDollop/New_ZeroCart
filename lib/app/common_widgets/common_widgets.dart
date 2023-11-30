@@ -578,7 +578,7 @@ class CommonWidgets {
     return Padding(padding: EdgeInsets.only(top: top ?? 17.8.h), child: child);
   }
 
-  static Widget defaultImage() => Image.asset("assets/default_image.jpg");
+  static Widget defaultImage({double? height,double? width}) => Image.asset("assets/default_image.jpg",height: height,width:width,);
 
   static AssetImage defaultProfilePicture() =>Theme.of(Get.context!).brightness == Brightness.dark
       ? const AssetImage("assets/profile_pic_white.png")

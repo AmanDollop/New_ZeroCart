@@ -24,8 +24,8 @@ class AllReviewsController extends CommonMethods{
   ReviewList? review;
   List<ReviewList> reviewList = [];
   ReviewFile? reviewFile;
-  List<ReviewFile> reviewFileList = [];
-  ReviewList? bestReview;
+  List<ReviewFile> reviewFileImageList = [];
+  // ReviewList? bestReview;
   RatingAverage? rattingAverage;
   DateTime? dateTime;
   Map<String, dynamic> queryParametersForGetProductReview = {};
@@ -93,19 +93,18 @@ class AllReviewsController extends CommonMethods{
       if (await CommonMethods.checkResponse(response: response)) {
         getProductReviewApiModel = GetProductReviewApiModel.fromJson(jsonDecode(response.body));
         if (getProductReviewApiModel != null) {
-          if (getProductReviewApiModel?.rateStar != null &&
-              getProductReviewApiModel!.rateStar!.isNotEmpty) {
+          if (getProductReviewApiModel?.rateStar != null && getProductReviewApiModel!.rateStar!.isNotEmpty) {
             rateStarList = getProductReviewApiModel!.rateStar!;
           }
 
-          if (getProductReviewApiModel?.reviewList != null &&
-              getProductReviewApiModel!.reviewList!.isNotEmpty) {
+          if (getProductReviewApiModel?.reviewList != null && getProductReviewApiModel!.reviewList!.isNotEmpty) {
             reviewList = getProductReviewApiModel!.reviewList!;
           }
 
-          if (getProductReviewApiModel?.bestReview != null) {
+         /* if (getProductReviewApiModel?.bestReview != null) {
             bestReview = getProductReviewApiModel?.bestReview;
-          }
+            print('bestReview:::::::::   ${bestReview?.reviewFile?.length}');
+          }*/
 
           if (getProductReviewApiModel?.ratingAverage != null) {
             rattingAverage = getProductReviewApiModel?.ratingAverage;

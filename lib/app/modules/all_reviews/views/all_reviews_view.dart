@@ -85,74 +85,59 @@ class AllReviewsView extends GetView<AllReviewsController> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         commonRatingPercentageGraph(
-                                            graphNumber: controller.rateStarList
-                                                    [0].rating ??
+                                            graphNumber: controller
+                                                    .rateStarList[0].rating ??
                                                 "",
                                             graphRatedCount: controller
-                                                    .rateStarList
-                                                    [0]
+                                                    .rateStarList[0]
                                                     .ratingCount ??
                                                 "",
                                             percentOfGraph: controller
-                                                    .rateStarList
-                                                    [0]
-                                                    .ratePer ??
+                                                    .rateStarList[0].ratePer ??
                                                 ""),
                                         commonRatingPercentageGraph(
-                                            graphNumber: controller.rateStarList
-                                                    [1].rating ??
+                                            graphNumber: controller
+                                                    .rateStarList[1].rating ??
                                                 "",
                                             graphRatedCount: controller
-                                                    .rateStarList
-                                                    [1]
+                                                    .rateStarList[1]
                                                     .ratingCount ??
                                                 "",
                                             percentOfGraph: controller
-                                                    .rateStarList
-                                                    [1]
-                                                    .ratePer ??
+                                                    .rateStarList[1].ratePer ??
                                                 ""),
                                         commonRatingPercentageGraph(
-                                            graphNumber: controller.rateStarList
-                                                    [2].rating ??
+                                            graphNumber: controller
+                                                    .rateStarList[2].rating ??
                                                 "",
                                             graphRatedCount: controller
-                                                    .rateStarList
-                                                    [2]
+                                                    .rateStarList[2]
                                                     .ratingCount ??
                                                 "",
                                             percentOfGraph: controller
-                                                    .rateStarList
-                                                    [2]
-                                                    .ratePer ??
+                                                    .rateStarList[2].ratePer ??
                                                 ""),
                                         commonRatingPercentageGraph(
-                                            graphNumber: controller.rateStarList
-                                                    [3].rating ??
+                                            graphNumber: controller
+                                                    .rateStarList[3].rating ??
                                                 "",
                                             graphRatedCount: controller
-                                                    .rateStarList
-                                                    [3]
+                                                    .rateStarList[3]
                                                     .ratingCount ??
                                                 "",
                                             percentOfGraph: controller
-                                                    .rateStarList
-                                                    [3]
-                                                    .ratePer ??
+                                                    .rateStarList[3].ratePer ??
                                                 ""),
                                         commonRatingPercentageGraph(
-                                            graphNumber: controller.rateStarList
-                                                    [4].rating ??
+                                            graphNumber: controller
+                                                    .rateStarList[4].rating ??
                                                 "",
                                             graphRatedCount: controller
-                                                    .rateStarList
-                                                    [4]
+                                                    .rateStarList[4]
                                                     .ratingCount ??
                                                 "",
                                             percentOfGraph: controller
-                                                    .rateStarList
-                                                    [4]
-                                                    .ratePer ??
+                                                    .rateStarList[4].ratePer ??
                                                 ""),
                                       ],
                                     ),
@@ -206,8 +191,7 @@ class AllReviewsView extends GetView<AllReviewsController> {
       );
 
   Widget avgRatingView() => RatingBar.builder(
-        initialRating:
-            double.parse(controller.rattingAverage!.rateAverage!),
+        initialRating: double.parse(controller.rattingAverage!.rateAverage!),
         minRating: 0,
         itemSize: 20.px,
         direction: Axis.horizontal,
@@ -274,13 +258,14 @@ class AllReviewsView extends GetView<AllReviewsController> {
         controller.review = controller.reviewList[index];
         if (controller.reviewList[index].reviewFile != null &&
             controller.reviewList[index].reviewFile!.isNotEmpty) {
-          controller.reviewFileList =
+          controller.reviewFileImageList =
               controller.reviewList[index].reviewFile ?? [];
+          print(
+              'controller.reviewFileImageList::::::::  ${controller.reviewFileImageList.length}');
         }
         if (controller.review?.createdDate != null &&
             controller.review!.createdDate!.isNotEmpty) {
-          controller.dateTime =
-              DateTime.parse(controller.review!.createdDate!);
+          controller.dateTime = DateTime.parse(controller.review!.createdDate!);
         }
         return Column(
           children: [
@@ -304,8 +289,7 @@ class AllReviewsView extends GetView<AllReviewsController> {
                 if (controller.review?.review != null &&
                     controller.review!.review!.isNotEmpty)
                   SizedBox(height: 1.h),
-                if (controller.reviewFileList != null &&
-                    controller.reviewFileList!.isNotEmpty)
+                if (controller.reviewFileImageList.isNotEmpty)
                   SizedBox(
                     height: 50.px,
                     child: customerProductRatingPictureListView(),
@@ -369,7 +353,7 @@ class AllReviewsView extends GetView<AllReviewsController> {
 
   Widget customerProductRatingPictureListView() => ListView.builder(
         itemBuilder: (context, index) {
-          controller.reviewFile = controller.reviewFileList![index];
+          controller.reviewFile = controller.reviewFileImageList[index];
           if (controller.reviewFile?.revPhoto != null &&
               controller.reviewFile!.revPhoto!.isNotEmpty) {
             return Padding(
@@ -380,18 +364,23 @@ class AllReviewsView extends GetView<AllReviewsController> {
                   Padding(
                     padding: EdgeInsets.only(right: 10.px),
                     child: InkWell(
-                        onTap: () =>
-                            controller.clickOnReviewImageList(index: index),
+                      onTap: () => controller.clickOnReviewImageList(index: index),
+                      borderRadius: BorderRadius.circular(5.px),
+                      child: ClipRRect(
                         borderRadius: BorderRadius.circular(5.px),
-                        child: ClipRRect(
-                            borderRadius: BorderRadius.circular(5.px),
-                            child: Image.network(
-                              ApiConstUri.baseUrl +
-                                  controller.reviewFile!.revPhoto!,
-                              fit: BoxFit.cover,
-                              height: 45.px,
-                              width: 45.px,
-                            ))),
+                        child: Image.network(
+                          CommonMethods.imageUrl(url: controller.reviewFile!.revPhoto.toString()),
+                          // controller.reviewFile!.revPhoto.toString(),
+                          errorBuilder: (context, error, stackTrace) => CommonWidgets.defaultImage(
+                            height: 45.px,
+                            width: 45.px,
+                          ),
+                          fit: BoxFit.cover,
+                          height: 45.px,
+                          width: 45.px,
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -401,7 +390,7 @@ class AllReviewsView extends GetView<AllReviewsController> {
           }
         },
         physics: const BouncingScrollPhysics(),
-        itemCount: controller.reviewFileList.length,
+        itemCount: controller.reviewFileImageList.length,
         padding: EdgeInsets.zero,
         scrollDirection: Axis.horizontal,
       );

@@ -50,7 +50,7 @@ class ZerocartWalletView extends GetView<ZerocartWalletController> {
                       Theme.of(Get.context!).colorScheme.primary,
                       Theme.of(Get.context!).primaryColor,
                     ],
-                  )),
+                  ),),
                 ),
               ),
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -60,8 +60,7 @@ class ZerocartWalletView extends GetView<ZerocartWalletController> {
                   onTap: () => MyCommonMethods.unFocsKeyBoard(),
                   child: Obx(() {
                     if (CommonMethods.isConnect.value) {
-                      if (controller.getWalletHistoryModel != null &&
-                          controller.responseCode == 200) {
+                      if (controller.getWalletHistoryModel != null && controller.responseCode == 200) {
                         return Stack(
                           children: [
                             gradiantBackGround(),
@@ -69,26 +68,34 @@ class ZerocartWalletView extends GetView<ZerocartWalletController> {
                               children: [
                                 SizedBox(height: 2.h),
                                 Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: Zconstant.margin),
+                                  padding: EdgeInsets.symmetric(horizontal: Zconstant.margin),
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           if (controller.userData != null)
-                                            controller.userData?.customer?.walletAmount != null
+                                            controller.userData?.customer
+                                                        ?.walletAmount !=
+                                                    null
                                                 ? Expanded(
-                                                    child: howManyBalanceInWalletTextView(value: "$curr${double.parse(double.parse(controller.userData!.customer!.walletAmount!).toStringAsFixed(2))}"))
-                                                : howManyBalanceInWalletTextView(value: '${curr}0.0'),
+                                                    child: howManyBalanceInWalletTextView(
+                                                        value:
+                                                            "$curr${double.parse(double.parse(controller.userData!.customer!.walletAmount!).toStringAsFixed(2))}"))
+                                                : howManyBalanceInWalletTextView(
+                                                    value: '${curr}0.0'),
                                           RotationTransition(
-                                              turns: Tween(begin: 0.0, end: 30.0).animate(controller.rotationController),
-                                              child: InkWell(
-                                                  onTap: () => controller.clickOnRotateIcon(),
-                                                  child: autoReNewIconView(),),),
+                                            turns: Tween(begin: 0.0, end: 30.0)
+                                                .animate(controller
+                                                    .rotationController),
+                                            child: InkWell(
+                                              onTap: () => controller
+                                                  .clickOnRotateIcon(),
+                                              child: autoReNewIconView(),
+                                            ),
+                                          ),
                                         ],
                                       ),
                                       SizedBox(height: 2.h),
@@ -99,21 +106,30 @@ class ZerocartWalletView extends GetView<ZerocartWalletController> {
                                           Expanded(
                                             flex: 9,
                                             child: Container(
-                                              padding: EdgeInsets.symmetric(horizontal: Zconstant.margin - 4),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal:
+                                                      Zconstant.margin - 4),
                                               height: 40.px,
                                               decoration: BoxDecoration(
-                                                color: MyColorsLight().secondary,
-                                                borderRadius: BorderRadius.circular(10.px),
+                                                color:
+                                                    MyColorsLight().secondary,
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        10.px),
                                               ),
                                               child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
                                                 children: [
                                                   rupeeTextVIew(text: curr),
                                                   SizedBox(width: 10.px),
                                                   Expanded(
                                                     flex: 9,
-                                                    child: addMoneyTextFieldView(),
+                                                    child:
+                                                        addMoneyTextFieldView(),
                                                   ),
                                                 ],
                                               ),
@@ -138,10 +154,14 @@ class ZerocartWalletView extends GetView<ZerocartWalletController> {
                                 if (controller.listOfWalletHistory.isNotEmpty) {
                                   return CommonWidgets.commonRefreshIndicator(
                                     onRefresh: () => controller.onRefresh(),
-                                    child: RefreshLoadMore(
+                                    child: ScrollConfiguration(
+                                      behavior: MyBehavior(),
+                                      child: RefreshLoadMore(
                                         isLastPage: controller.isLastPage.value,
                                         onLoadMore: () => controller.onLoadMore(),
-                                        child: listOfTransectionView()),
+                                        child: listOfTransectionView(),
+                                      ),
+                                    ),
                                   );
                                 } else {
                                   return CommonWidgets.commonNoDataFoundImage(
@@ -304,82 +324,84 @@ class ZerocartWalletView extends GetView<ZerocartWalletController> {
         width: 20.px,
       );
 
-  Widget listOfTransectionView() => ScrollConfiguration(
-        behavior: MyBehavior(),
-        child: ListView(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          children: [
-            ListView.builder(
-              itemBuilder: (context, index) {
-                controller.walletHistoryModel = controller.listOfWalletHistory[index];
-                if (controller.walletHistoryModel!.createdDate != null && controller.walletHistoryModel!.createdDate!.isNotEmpty) {
-                  controller.dateTime = DateTime.parse(controller.walletHistoryModel!.createdDate!);
-                }
-                print('controller.walletHistoryModel?.actionType:::::::::::::   ${controller.walletHistoryModel?.actionType}');
-                return ClipRRect(
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 5.0.px, sigmaY: 5.0.px),
-                    child: Column(
-                      children: [
-                        InkWell(
-                          /*onTap: () => controller.clickOnParticularTransection(index: index),
-                          borderRadius: BorderRadius.circular(10.px),*/
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 1.5.h,
-                              horizontal: 4.w,
-                            ),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.px),
-                                color: Theme.of(context).brightness == Brightness.dark
-                                    ? MyColorsLight().secondary.withOpacity(0.2)
-                                    : MyColorsDark().secondary.withOpacity(0.2)),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  Widget listOfTransectionView() => ListView(
+    shrinkWrap: true,
+    physics: const NeverScrollableScrollPhysics(),
+    children: [
+      ListView.builder(
+        itemBuilder: (context, index) {
+          controller.walletHistoryModel = controller.listOfWalletHistory[index];
+          if (controller.walletHistoryModel!.createdDate != null && controller.walletHistoryModel!.createdDate!.isNotEmpty) {
+            controller.dateTime = DateTime.parse(controller.walletHistoryModel!.createdDate!);
+          }
+          return ClipRRect(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 5.0.px, sigmaY: 5.0.px),
+              child: Column(
+                children: [
+                  InkWell(
+                    /*onTap: () => controller.clickOnParticularTransection(index: index),
+                    borderRadius: BorderRadius.circular(10.px),*/
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 1.5.h,
+                        horizontal: 4.w,
+                      ),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.px),
+                          color: Theme.of(context).brightness ==
+                                  Brightness.dark
+                              ? MyColorsLight().secondary.withOpacity(0.2)
+                              : MyColorsDark()
+                                  .secondary
+                                  .withOpacity(0.2)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            flex: 8,
+                            child: Column(
+                              crossAxisAlignment:
+                                  CrossAxisAlignment.start,
                               children: [
-                                Expanded(
-                                  flex: 8,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      dateOfTransectionTextView(index: index),
-                                      SizedBox(height: 1.h),
-                                      transectionTitleTextVIew(index: index)
-                                    ],
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 5,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      if (controller.walletHistoryModel?.transType != null)
-                                        transectionAmountTextView(index: index),
-                                    ],
-                                  ),
-                                ),
+                                dateOfTransectionTextView(index: index),
+                                SizedBox(height: 1.h),
+                                transectionTitleTextVIew(index: index)
                               ],
                             ),
                           ),
-                        ),
-                        SizedBox(height: 1.3.h)
-                      ],
+                          Expanded(
+                            flex: 5,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                if (controller
+                                        .walletHistoryModel?.transType !=
+                                    null)
+                                  transectionAmountTextView(index: index),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                );
-              },
-              padding: EdgeInsets.zero,
-              shrinkWrap: true,
-              itemCount: controller.listOfWalletHistory.length,
-              physics: const NeverScrollableScrollPhysics(),
+                  SizedBox(height: 1.3.h)
+                ],
+              ),
             ),
-            SizedBox(
-              height: 4.h,
-            ),
-          ],
-        ),
-      );
+          );
+        },
+        padding: EdgeInsets.zero,
+        shrinkWrap: true,
+        itemCount: controller.listOfWalletHistory.length,
+        physics: const NeverScrollableScrollPhysics(),
+      ),
+      SizedBox(
+        height: 4.h,
+      ),
+    ],
+  );
 
   Widget dateOfTransectionTextView({required int index}) => Text(
         "${getDayOfMonthSuffix(controller.dateTime!.day)} ${DateFormat.MMMM().format(controller.dateTime!)} ${controller.dateTime?.year}",
@@ -410,7 +432,9 @@ class ZerocartWalletView extends GetView<ZerocartWalletController> {
   }
 
   Widget transectionTitleTextVIew({required int index}) => Text(
-        controller.walletHistoryModel?.transType == 'debit'?'Debit':'Credit',
+        controller.walletHistoryModel?.transType == 'debit'
+            ? 'Debit'
+            : 'Credit',
         // controller.walletHistoryModel?.actionType ?? "",
         maxLines: 1,
         overflow: TextOverflow.ellipsis,

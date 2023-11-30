@@ -724,8 +724,7 @@ class MyCartController extends CommonMethods {
 
   /*proceed payment or apply coupon working*/
 
-  void clickOnProceedToPaymentButton(
-      {required BuildContext context, required String totalAmount}) {
+  void clickOnProceedToPaymentButton({required BuildContext context, required String totalAmount}) {
     MyCommonMethods.unFocsKeyBoard();
 
     totalPrice.value = double.parse(totalAmount.toString());
@@ -769,8 +768,7 @@ class MyCartController extends CommonMethods {
     isClickOnProceedToCheckOut.value = true;
     bool isSuccess = false;
     var userMeasurement = await MyCommonMethods.getString(key: "measurement");
-    proceedToPaymentAbsorbing.value =
-        CommonMethods.changeTheAbsorbingValueTrue();
+    proceedToPaymentAbsorbing.value = CommonMethods.changeTheAbsorbingValueTrue();
     if (userMeasurement != null && userMeasurement.isNotEmpty) {
       if (paymentMethod.value.toString() == "COD") {
         paymentType = "COD";
@@ -808,8 +806,13 @@ class MyCartController extends CommonMethods {
               ApiKeyConstant.isCart: '1',
               ApiKeyConstant.userMeasurement: userMeasurement,
             };
-            isSuccess = await placeOrderApiCalling();
-            Get.back();
+            try{
+              isSuccess = await placeOrderApiCalling();
+              Get.back();
+            }catch(e){
+              Get.back();
+              MyCommonMethods.showSnackBar(message: "Something went wrong!", context: Get.context!);
+            }
             if (isSuccess) {
               Get.toNamed(Routes.MY_ORDERS);
               MyCommonMethods.showSnackBar(message: "Your order has been placed successfully", context: Get.context!);
@@ -851,4 +854,5 @@ class MyCartController extends CommonMethods {
   onRefresh() async {
     await onInit();
   }
+
 }

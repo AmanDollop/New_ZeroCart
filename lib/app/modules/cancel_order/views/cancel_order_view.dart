@@ -38,8 +38,7 @@ class CancelOrderView extends GetView<CancelOrderController> {
                           Card(
                             elevation: 1,
                             child: Padding(
-                              padding:
-                              EdgeInsets.symmetric(horizontal: 5.w, vertical: 3.h),
+                              padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 3.h),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -69,45 +68,47 @@ class CancelOrderView extends GetView<CancelOrderController> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding:
-                                  EdgeInsets.only(left: 5.w, right: 5.w, top: 2.h),
+                                  padding: EdgeInsets.only(
+                                      left: 5.w, right: 5.w, top: 2.h),
                                   child: reasonForCancellationTextView(),
                                 ),
                                 ListView.builder(
                                   itemBuilder: (context, index) => Theme(
-                                    data: Theme.of(Get.context!).copyWith(
-                                      unselectedWidgetColor:
-                                      MyColorsLight()
-                                          .onText
-                                          .withOpacity(.4),
-                                    ),
-                                    child: Obx(() {
-                                      controller.count.value;
-                                      return RadioListTile(
-                                        visualDensity:
-                                        VisualDensity(vertical: -4.px),
-                                        contentPadding:
-                                        EdgeInsets.symmetric(horizontal: 5.px),
-                                        title: issueTextView(index: index),
-                                        value: controller.cancelReasonList[index].reason,
-                                        activeColor: Theme.of(Get.context!).primaryColor,
-                                        groupValue: controller.checkValue.value,
-                                        onChanged: (value) {
-                                          controller.count.value;
-                                          print("value:::::::::$value");
-                                          controller.checkValue.value = value ?? '';
-                                        },
-                                      );
-                                    })
-                                  ),
+                                      data: Theme.of(Get.context!).copyWith(
+                                        unselectedWidgetColor: MyColorsLight()
+                                            .onText
+                                            .withOpacity(.4),
+                                      ),
+                                      child: Obx(() {
+                                        controller.count.value;
+                                        return RadioListTile(
+                                          visualDensity:
+                                              VisualDensity(vertical: -4.px),
+                                          contentPadding: EdgeInsets.symmetric(
+                                              horizontal: 5.px),
+                                          title: issueTextView(index: index),
+                                          value: controller
+                                              .cancelReasonList[index].reason,
+                                          activeColor: Theme.of(Get.context!)
+                                              .primaryColor,
+                                          groupValue:
+                                              controller.checkValue.value,
+                                          onChanged: (value) {
+                                            controller.count.value;
+                                            print("value:::::::::$value");
+                                            controller.checkValue.value =
+                                                value ?? '';
+                                          },
+                                        );
+                                      })),
                                   shrinkWrap: true,
-                                  itemCount:
-                                  controller.cancelReasonList.length,
+                                  itemCount: controller.cancelReasonList.length,
                                   physics: const BouncingScrollPhysics(),
                                 ),
                                 SizedBox(height: 15.px),
                                 Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 5.w),
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 5.w),
                                   child: commentTextFieldView(),
                                 ),
                                 SizedBox(height: 3.h),
@@ -123,8 +124,10 @@ class CancelOrderView extends GetView<CancelOrderController> {
                                 children: [
                                   Obx(() {
                                     if (controller.isSubmitVisible.value &&
-                                        controller.checkValue.value.isNotEmpty) {
-                                      if (controller.isClickOnSubmitButton.value) {
+                                        controller
+                                            .checkValue.value.isNotEmpty) {
+                                      if (controller
+                                          .isClickOnSubmitButton.value) {
                                         return submitVisibleProgressBarView();
                                       } else {
                                         return submitVisibleButtonView();
@@ -143,9 +146,10 @@ class CancelOrderView extends GetView<CancelOrderController> {
                     );
                   } else {
                     return Expanded(
-                        child: CommonWidgets.commonNoDataFoundImage(
-                          onRefresh: () => controller.onRefresh(),
-                        ),);
+                      child: CommonWidgets.commonNoDataFoundImage(
+                        onRefresh: () => controller.onRefresh(),
+                      ),
+                    );
                   }
                 } else {
                   if (controller.responseCode == 0) {
@@ -160,7 +164,6 @@ class CancelOrderView extends GetView<CancelOrderController> {
                   onRefresh: () => controller.onRefresh(),
                 );
               }
-
             }),
           ),
         );
@@ -195,7 +198,33 @@ class CancelOrderView extends GetView<CancelOrderController> {
         style: Theme.of(Get.context!).textTheme.subtitle1,
       );
 
-  Widget productImageView() => Container(
+  Widget productImageView() => ClipRRect(
+        borderRadius: BorderRadius.circular(5.px),
+        child: Image.network(
+          CommonMethods.imageUrl(
+            url: controller.myOrderDetailPage == 'myOrderDetailPage'
+                ? controller.productDetails.thumbnailImage.toString()
+                : controller.orderListObject.thumbnailImage.toString(),
+          ),
+          errorBuilder: (context, error, stackTrace) => CommonWidgets.defaultImage(
+            height: 75.px,
+            width: 75.px,
+          ),
+          loadingBuilder: (context, child, loadingProgress) {
+            if (loadingProgress == null) return child;
+            return CommonWidgets.commonShimmerViewForImage(
+              height: 75.px,
+              width: 75.px,
+            );
+          },
+          fit: BoxFit.cover,
+          alignment: Alignment.center,
+          height: 75.px,
+          width: 75.px,
+        ),
+      );
+
+  /* Widget productImageView() => Container(
         height: 75.px,
         width: 75.px,
         decoration: BoxDecoration(
@@ -209,7 +238,7 @@ class CancelOrderView extends GetView<CancelOrderController> {
             fit: BoxFit.cover,
           ),
         ),
-      );
+      );*/
 
   Widget reasonForCancellationTextView() => Text(
         "Reason For Cancellation",
@@ -217,7 +246,7 @@ class CancelOrderView extends GetView<CancelOrderController> {
       );
 
   Widget issueTextView({required int index}) => Text(
-        '${controller.cancelReasonList?[index].reason}',
+        '${controller.cancelReasonList[index].reason}',
         style: Theme.of(Get.context!).textTheme.subtitle2,
       );
 
@@ -227,7 +256,8 @@ class CancelOrderView extends GetView<CancelOrderController> {
         controller: controller.commentTextField,
         icon: IconButton(
           onPressed: () {},
-          icon: Icon(Icons.verified, color: MyColorsLight().success, size: 20.px),
+          icon:
+              Icon(Icons.verified, color: MyColorsLight().success, size: 20.px),
           splashRadius: 24.px,
         ),
         onChanged: (value) {
@@ -242,7 +272,7 @@ class CancelOrderView extends GetView<CancelOrderController> {
 
   Widget submitVisibleButtonView() => CommonWidgets.myElevatedButton(
       text: Text('Submit Request',
-      style: Theme.of(Get.context!).textTheme.button),
+          style: Theme.of(Get.context!).textTheme.button),
       onPressed: () => controller.clickOnSubmitButton(),
       height: 52.px,
       width: 80.w,
@@ -254,11 +284,14 @@ class CancelOrderView extends GetView<CancelOrderController> {
         height: 52.px,
         width: 80.w,
         decoration: BoxDecoration(
-            borderRadius: borderRadius ?? BorderRadius.circular(5.px),
-            color: MyColorsLight().textGrayColor.withOpacity(.4),),
+          borderRadius: borderRadius ?? BorderRadius.circular(5.px),
+          color: MyColorsLight().textGrayColor.withOpacity(.4),
+        ),
         child: Center(
-          child: Text(text ?? 'Submit Request',
-              style: Theme.of(Get.context!).textTheme.button,),
+          child: Text(
+            text ?? 'Submit Request',
+            style: Theme.of(Get.context!).textTheme.button,
+          ),
         ),
       );
 
@@ -270,5 +303,4 @@ class CancelOrderView extends GetView<CancelOrderController> {
         width: 80.w,
         borderRadius: 5.px);
   }
-
 }

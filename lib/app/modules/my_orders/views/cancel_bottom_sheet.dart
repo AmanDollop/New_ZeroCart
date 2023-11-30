@@ -23,7 +23,7 @@ class MyOrdersCancelBottomSheet extends GetView<MyOrdersController> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: Zconstant.margin16/3 ),
+            SizedBox(height: Zconstant.margin16 / 3),
             Center(
               child: FractionallySizedBox(
                 widthFactor: 0.1.px,
@@ -114,7 +114,29 @@ class MyOrdersCancelBottomSheet extends GetView<MyOrdersController> {
         overflow: TextOverflow.ellipsis,
       );
 
-  Widget productImageView({required int index}) => Container(
+  Widget productImageView({required int index}) => ClipRRect(
+        borderRadius: BorderRadius.circular(5.px),
+        child: Image.network(
+          CommonMethods.imageUrl(url: controller.orderList[index].thumbnailImage.toString(),),
+          errorBuilder: (context, error, stackTrace) => CommonWidgets.defaultImage(
+            height: 75.px,
+            width: 75.px,
+          ),
+          loadingBuilder: (context, child, loadingProgress) {
+            if (loadingProgress == null) return child;
+            return CommonWidgets.commonShimmerViewForImage(
+              height: 75.px,
+              width: 75.px,
+            );
+          },
+          fit: BoxFit.cover,
+          alignment: Alignment.center,
+          height: 75.px,
+          width: 75.px,
+        ),
+      );
+
+  /* Widget productImageView({required int index}) => Container(
         height: 75.px,
         width: 75.px,
         decoration: BoxDecoration(
@@ -128,7 +150,7 @@ class MyOrdersCancelBottomSheet extends GetView<MyOrdersController> {
             fit: BoxFit.cover,
           ),
         ),
-      );
+      );*/
 
   Widget ifYouCancelTextView() => Text(
         "If you cancel now, you may not be able to available this deal again. Do you still want to cancel?",
@@ -157,7 +179,8 @@ class MyOrdersCancelBottomSheet extends GetView<MyOrdersController> {
   Widget verticalDividerView() => VerticalDivider(
       width: 0.px, thickness: 1.px, color: MyColorsLight().dashMenuColor);
 
-  Widget okTextButtonView({required BuildContext context, required int index}) =>
+  Widget okTextButtonView(
+          {required BuildContext context, required int index}) =>
       InkWell(
         onTap: () =>
             controller.clickOnCancelOrderButton(context: context, index: index),

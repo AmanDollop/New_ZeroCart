@@ -85,8 +85,7 @@ class HomeView extends GetView<HomeController> {
                                     ),
                                     Obx(() {
                                       controller.count.value;
-                                      if (controller
-                                          .bannerImageList.isNotEmpty) {
+                                      if (controller.bannerImageList.isNotEmpty) {
                                         return Stack(
                                           children: [
                                             banner(),
@@ -198,12 +197,10 @@ class HomeView extends GetView<HomeController> {
                                           ],
                                         );
                                       } else {
-                                        if (controller.responseCode == 0 ||
-                                            controller.responseCode == 200) {
+                                        if (controller.responseCode == 0 || controller.responseCode == 200) {
                                           return const SizedBox();
                                         }
-                                        return CommonWidgets.noDataTextView(
-                                            text: "No Banner Found");
+                                        return CommonWidgets.noDataTextView(text: "No Banner Found");
                                       }
                                     }),
                                     SizedBox(height: 16.px),
@@ -397,7 +394,7 @@ class HomeView extends GetView<HomeController> {
       aspectRatio: 16.px / 9.px,
       child: Container(
         decoration: BoxDecoration(
-            color: Theme.of(Get.context!).colorScheme.onPrimary
+            color: Theme.of(Get.context!).colorScheme.onPrimary.withOpacity(.4)
             /*image:
                 DecorationImage(image: AssetImage('assets/default_image.jpg'))*/
             ),
@@ -470,20 +467,14 @@ class HomeView extends GetView<HomeController> {
       itemCount: controller.getProductBasedOnHistoryApiList.length,
       itemBuilder: (context, index) => GestureDetector(
         onTap: () {
-          int recentProductId = int.parse(controller
-              .getProductBasedOnHistoryApiList[index].productId
-              .toString());
+          int recentProductId = int.parse(controller.getProductBasedOnHistoryApiList[index].productId.toString());
           String recentProductIdId = recentProductId.toString();
           controller.clickOnCard(productId: recentProductIdId);
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (controller.getProductBasedOnHistoryApiList[index]
-                        .thumbnailImage !=
-                    null &&
-                controller.getProductBasedOnHistoryApiList[index]
-                    .thumbnailImage!.isNotEmpty)
+            if (controller.getProductBasedOnHistoryApiList[index].thumbnailImage != null && controller.getProductBasedOnHistoryApiList[index].thumbnailImage!.isNotEmpty)
               ClipRRect(
                 borderRadius: BorderRadius.circular(8.px),
                 child: Image.network(
@@ -491,10 +482,8 @@ class HomeView extends GetView<HomeController> {
                     if (loadingProgress == null) return child;
                     return CommonWidgets.commonShimmerViewForImage();
                   },
-                  CommonMethods.imageUrl(
-                      url: controller
-                          .getProductBasedOnHistoryApiList[index].thumbnailImage
-                          .toString()),
+                  CommonMethods.imageUrl(url: controller.getProductBasedOnHistoryApiList[index].thumbnailImage.toString()),
+                  errorBuilder: (context, error, stackTrace) => CommonWidgets.defaultImage(),
                   width: 50.w,
                   height: 28.w,
                   fit: BoxFit.cover,
@@ -506,37 +495,17 @@ class HomeView extends GetView<HomeController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    if (controller.getProductBasedOnHistoryApiList[index]
-                                .productName !=
-                            null &&
-                        controller.getProductBasedOnHistoryApiList[index]
-                            .productName!.isNotEmpty)
-                      Text(
-                        controller
-                            .getProductBasedOnHistoryApiList[index].productName
-                            .toString(),
+                    if (controller.getProductBasedOnHistoryApiList[index].productName != null && controller.getProductBasedOnHistoryApiList[index].productName!.isNotEmpty)
+                      Text(controller.getProductBasedOnHistoryApiList[index].productName.toString(),
                         overflow: TextOverflow.ellipsis,
-                        style: Theme.of(Get.context!)
-                            .textTheme
-                            .headline3
-                            ?.copyWith(fontSize: 10.px),
+                        style: Theme.of(Get.context!).textTheme.headline3?.copyWith(fontSize: 10.px),
                         maxLines: 1,
                       ),
-                    if (controller.getProductBasedOnHistoryApiList[index]
-                                .productPrice !=
-                            null &&
-                        controller.getProductBasedOnHistoryApiList[index]
-                                .productPrice !=
-                            0)
+                    if (controller.getProductBasedOnHistoryApiList[index].productPrice != null && controller.getProductBasedOnHistoryApiList[index].productPrice != '0')
                       Text(
-                        controller
-                            .getProductBasedOnHistoryApiList[index].productPrice
-                            .toString(),
+                        controller.getProductBasedOnHistoryApiList[index].productPrice.toString(),
                         overflow: TextOverflow.ellipsis,
-                        style: Theme.of(Get.context!)
-                            .textTheme
-                            .headline3
-                            ?.copyWith(fontSize: 10.px),
+                        style: Theme.of(Get.context!).textTheme.headline3?.copyWith(fontSize: 10.px),
                         maxLines: 1,
                       ),
                   ],
@@ -561,84 +530,58 @@ class HomeView extends GetView<HomeController> {
       padding: EdgeInsets.zero,
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemBuilder: (context, index) => GestureDetector(
-        onTap: () {
-          int topProductId = int.parse(controller
-              .getProductBasedOnPreferenceApiList[index].productId
-              .toString());
-          String topProductIdId = topProductId.toString();
-          controller.clickOnCard(productId: topProductIdId);
-        },
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (controller.getProductBasedOnPreferenceApiList[index]
-                        .thumbnailImage !=
-                    null &&
-                controller.getProductBasedOnPreferenceApiList[index]
-                    .thumbnailImage!.isNotEmpty)
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8.px),
-                child: Image.network(
-                  loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress == null) return child;
-                    return CommonWidgets.commonShimmerViewForImage();
-                  },
-                  CommonMethods.imageUrl(
-                      url: controller.getProductBasedOnPreferenceApiList[index]
-                          .thumbnailImage
-                          .toString()),
-                  width: 50.w,
-                  height: 28.w,
-                  fit: BoxFit.cover,
+      itemBuilder: (context, index) {
+        return GestureDetector(
+          onTap: () {
+            int topProductId = int.parse(controller.getProductBasedOnPreferenceApiList[index].productId.toString());
+            String topProductIdId = topProductId.toString();
+            controller.clickOnCard(productId: topProductIdId);
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (controller.getProductBasedOnPreferenceApiList[index].thumbnailImage != null && controller.getProductBasedOnPreferenceApiList[index].thumbnailImage!.isNotEmpty)
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8.px),
+                  child: Image.network(
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return CommonWidgets.commonShimmerViewForImage();
+                    },
+                    CommonMethods.imageUrl(url: controller.getProductBasedOnPreferenceApiList[index].thumbnailImage.toString()),
+                    errorBuilder: (context, error, stackTrace) => CommonWidgets.defaultImage(),
+                    width: 50.w,
+                    height: 28.w,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.only(top: 6.px),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    if (controller.getProductBasedOnPreferenceApiList[index]
-                                .productName !=
-                            null &&
-                        controller.getProductBasedOnPreferenceApiList[index]
-                            .productName!.isNotEmpty)
-                      Text(
-                        controller.getProductBasedOnPreferenceApiList[index]
-                            .productName
-                            .toString(),
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(Get.context!)
-                            .textTheme
-                            .headline3
-                            ?.copyWith(fontSize: 10.px),
-                        maxLines: 1,
-                      ),
-                    if (controller.getProductBasedOnPreferenceApiList[index]
-                                .productPrice !=
-                            null &&
-                        controller.getProductBasedOnPreferenceApiList[index]
-                                .productPrice !=
-                            0)
-                      Text(
-                        controller.getProductBasedOnPreferenceApiList[index]
-                            .productPrice
-                            .toString(),
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(Get.context!)
-                            .textTheme
-                            .headline3
-                            ?.copyWith(fontSize: 10.px),
-                        maxLines: 1,
-                      ),
-                  ],
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.only(top: 6.px),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (controller.getProductBasedOnPreferenceApiList[index].productName != null && controller.getProductBasedOnPreferenceApiList[index].productName!.isNotEmpty)
+                        Text(controller.getProductBasedOnPreferenceApiList[index].productName.toString(),
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(Get.context!).textTheme.headline3?.copyWith(fontSize: 10.px),
+                          maxLines: 1,
+                        ),
+                      if (controller.getProductBasedOnPreferenceApiList[index].productPrice != null && controller.getProductBasedOnPreferenceApiList[index].productPrice != '0')
+                        Text(
+                          controller.getProductBasedOnPreferenceApiList[index].productPrice.toString(),
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(Get.context!).textTheme.headline3?.copyWith(fontSize: 10.px),
+                          maxLines: 1,
+                        ),
+                    ],
+                  ),
                 ),
-              ),
-            )
-          ],
-        ),
-      ),
+              )
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -916,18 +859,14 @@ class HomeView extends GetView<HomeController> {
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
-              int productId = int.parse(
-                  controller.productListDefault[index].productId.toString());
+              int productId = int.parse(controller.productListDefault[index].productId.toString());
               String productIdId = productId.toString();
               controller.clickOnCard(productId: productIdId);
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (controller.productListDefault[index].thumbnailImage !=
-                        null &&
-                    controller
-                        .productListDefault[index].thumbnailImage!.isNotEmpty)
+                if (controller.productListDefault[index].thumbnailImage != null && controller.productListDefault[index].thumbnailImage!.isNotEmpty)
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8.px),
                     child: Image.network(
@@ -935,18 +874,8 @@ class HomeView extends GetView<HomeController> {
                         if (loadingProgress == null) return child;
                         return CommonWidgets.commonShimmerViewForImage();
                       },
-                      CommonMethods.imageUrl(
-                          url: controller
-                              .productListDefault[index].thumbnailImage
-                              .toString()),
-                      errorBuilder: (context, error, stackTrace) {
-                        return Container(
-                          decoration:
-                              BoxDecoration(color: MyColorsLight().onPrimary),
-                          width: 50.w,
-                          height: 28.w,
-                        );
-                      },
+                      CommonMethods.imageUrl(url: controller.productListDefault[index].thumbnailImage.toString()),
+                      errorBuilder: (context, error, stackTrace) => CommonWidgets.defaultImage(),
                       width: 50.w,
                       height: 28.w,
                       fit: BoxFit.cover,
@@ -958,32 +887,18 @@ class HomeView extends GetView<HomeController> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        if (controller.productListDefault[index].productName !=
-                                null &&
-                            controller.productListDefault[index].productName!
-                                .isNotEmpty)
+                        if (controller.productListDefault[index].productName != null && controller.productListDefault[index].productName!.isNotEmpty)
                           Text(
-                            controller.productListDefault[index].productName
-                                .toString(),
+                            controller.productListDefault[index].productName.toString(),
                             overflow: TextOverflow.ellipsis,
-                            style: Theme.of(Get.context!)
-                                .textTheme
-                                .headline3
-                                ?.copyWith(fontSize: 10.px),
+                            style: Theme.of(Get.context!).textTheme.headline3?.copyWith(fontSize: 10.px),
                             maxLines: 1,
                           ),
-                        if (controller.productListDefault[index].productPrice !=
-                                null &&
-                            controller.productListDefault[index].productPrice!
-                                .isNotEmpty)
+                        if (controller.productListDefault[index].productPrice != null && controller.productListDefault[index].productPrice!.isNotEmpty)
                           Text(
-                            controller.productListDefault[index].productPrice
-                                .toString(),
+                            controller.productListDefault[index].productPrice.toString(),
                             overflow: TextOverflow.ellipsis,
-                            style: Theme.of(Get.context!)
-                                .textTheme
-                                .headline3
-                                ?.copyWith(fontSize: 10.px),
+                            style: Theme.of(Get.context!).textTheme.headline3?.copyWith(fontSize: 10.px),
                             maxLines: 1,
                           ),
                       ],

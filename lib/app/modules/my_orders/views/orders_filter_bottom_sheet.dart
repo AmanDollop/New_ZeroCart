@@ -13,8 +13,7 @@ class OderFilterBottomSheet extends GetView<MyOrdersController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      return controller.orderFilterType.value == "-1" ||
-              controller.orderFilterType.value != "-1"
+      return controller.orderFilterType.value == "-1" || controller.orderFilterType.value != "-1"
           ? Padding(
               padding: EdgeInsets.symmetric(horizontal: Zconstant.margin16),
               child: ListView(
@@ -92,7 +91,7 @@ class OderFilterBottomSheet extends GetView<MyOrdersController> {
                         ),
                       ),
                       SizedBox(
-                        height: Zconstant.margin16,
+                        height: Zconstant.margin16
                       )
                     ],
                   ),
@@ -111,26 +110,29 @@ class OderFilterBottomSheet extends GetView<MyOrdersController> {
             ?.copyWith(color: MyColorsDark().secondary),
       );
 
-  Widget clearFiltersTextButtonView() =>
-      controller.isClearFiltersButtonClicked.value
-          ? Text(
-              "Clear Filters",
-              style: Theme.of(Get.context!)
-                  .textTheme
-                  .subtitle1
-                  ?.copyWith(color: MyColorsDark().textGrayColor),
-            )
-          : InkWell(
-              borderRadius: BorderRadius.circular(4.px),
-              onTap: () => controller.clickOnClearFilterButton(),
-              child: Text(
-                "Clear Filters",
-                style: Theme.of(Get.context!)
-                    .textTheme
-                    .subtitle1
-                    ?.copyWith(color: MyColorsDark().secondary),
-              ),
-            );
+  Widget clearFiltersTextButtonView(){
+    if( controller.orderFilterType.value == '-1'){
+      return Text(
+        "Clear Filters",
+        style: Theme.of(Get.context!)
+            .textTheme
+            .subtitle1
+            ?.copyWith(color: MyColorsDark().textGrayColor),
+      );
+    }else{
+      return InkWell(
+        borderRadius: BorderRadius.circular(4.px),
+        onTap: () => controller.clickOnClearFilterButton(),
+        child: Text(
+          "Clear Filters",
+          style: Theme.of(Get.context!)
+              .textTheme
+              .subtitle1
+              ?.copyWith(color: MyColorsDark().secondary),
+        ),
+      );
+    }
+  }
 
   Widget orderStatusTextView() => Text(
         "Order Status",
@@ -189,10 +191,8 @@ class OderFilterBottomSheet extends GetView<MyOrdersController> {
         ],
       );
 
-  Widget orderStatusButtonView({required int index}) =>
-      CommonWidgets.myOutlinedButton(
-        text:
-            orderStatusContentTextView(text: controller.orderStatusList[index]),
+  Widget orderStatusButtonView({required int index}) => CommonWidgets.myOutlinedButton(
+        text: orderStatusContentTextView(text: controller.orderStatusList[index]),
         onPressed: () => controller.clickOnOrderStatus(index: index),
         height: 35.px,
         radius: 17.px,
@@ -202,8 +202,7 @@ class OderFilterBottomSheet extends GetView<MyOrdersController> {
         linearGradient: commonLinearGradient(),
       );
 
-  Widget selectedOrderStatusButtonView({required int index}) =>
-      CommonWidgets.myOutlinedButton(
+  Widget selectedOrderStatusButtonView({required int index}) => CommonWidgets.myOutlinedButton(
         text: selectedOrderStatusContentTextView(
             text: controller.orderStatusList[index]),
         onPressed: () => controller.clickOnOrderStatus(index: index),

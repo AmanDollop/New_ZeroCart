@@ -305,7 +305,6 @@ class CommonMethods extends GetxController {
   _handlePaymentSuccess(PaymentSuccessResponse paymentSuccessResponse) async {
     transId = paymentSuccessResponse.paymentId ?? "";
     if (openGetWayType == OpenGetWayType.cart) {
-      print('HADJSHDJHJS :::::::::::::::::: ');
       cartPayment();
     } else if (openGetWayType == OpenGetWayType.buyNow) {
       buyNowPayment();
@@ -315,7 +314,6 @@ class CommonMethods extends GetxController {
   }
 
   Future<void> cartPayment() async{
-    print('1111111111111111111111111111111111111111111111111111111111111111111');
     var userMeasurement = await MyCommonMethods.getString(key: "measurement");
     bodyParametersForPlaceOrderApi = {
       ApiKeyConstant.paymentMode: "Online",
@@ -350,7 +348,6 @@ class CommonMethods extends GetxController {
     if(isSuccess){
       MyCommonMethods.showSnackBar(message: "Your order has been placed successfully", context: Get.context!);
       Get.toNamed(Routes.MY_ORDERS);
-      print('33333333333333333333333333333333333::::::::');
     }
   }
 

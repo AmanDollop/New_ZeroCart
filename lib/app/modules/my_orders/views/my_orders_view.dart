@@ -38,9 +38,10 @@ class MyOrdersView extends GetView<MyOrdersController> {
             body: Obx(() {
               if (CommonMethods.isConnect.value) {
                 return WillPopScope(
-                  onWillPop: () =>controller.clickOnBackIcon(context: context),
+                  onWillPop: () => controller.clickOnBackIcon(context: context),
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: Zconstant.margin16),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: Zconstant.margin16),
                     child: Column(
                       children: [
                         SizedBox(
@@ -87,11 +88,13 @@ class MyOrdersView extends GetView<MyOrdersController> {
                                     isLastPage: controller.isLastPage.value,
                                     onLoadMore: () => controller.onLoadMore(),
                                     child: ListView(
-                                      physics: const NeverScrollableScrollPhysics(),
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
                                       padding: EdgeInsets.zero,
                                       shrinkWrap: true,
                                       children: [
-                                        SizedBox(height: Zconstant.margin16 / 2),
+                                        SizedBox(
+                                            height: Zconstant.margin16 / 2),
                                         listOfOrder(),
                                         SizedBox(height: Zconstant.margin16),
                                       ],
@@ -170,12 +173,13 @@ class MyOrdersView extends GetView<MyOrdersController> {
       padding: EdgeInsets.zero,
       itemBuilder: (BuildContext context, int index) {
         if (controller.orderList[index].createdDate != null) {
-          controller.dateTime = DateTime.parse(controller.orderList[index].createdDate!);
+          controller.dateTime =
+              DateTime.parse(controller.orderList[index].createdDate!);
         }
         String? productId = controller.orderList[index].productId;
 
-         print('shiprocketResponse:::::::   ${controller.orderList[index].itemOrderStatus}');
-
+        print(
+            'shiprocketResponse:::::::   ${controller.orderList[index].itemOrderStatus}');
 
         return Container(
           padding: EdgeInsets.only(bottom: Zconstant.margin16),
@@ -184,51 +188,70 @@ class MyOrdersView extends GetView<MyOrdersController> {
             children: [
               if (controller.orderList[index].createdDate != null &&
                   controller.dateTime != null)
-                orderPlacedOnDateTextView(value: "Order Placed On: ${getDayOfMonthSuffix(controller.dateTime!.day)} ${DateFormat.MMMM().format(controller.dateTime!)} ${controller.dateTime?.year}"),
+                orderPlacedOnDateTextView(
+                    value:
+                        "Order Placed On: ${getDayOfMonthSuffix(controller.dateTime!.day)} ${DateFormat.MMMM().format(controller.dateTime!)} ${controller.dateTime?.year}"),
               if (controller.orderList[index].ordNo != null)
                 orderNumberTextView(value: controller.orderList[index].ordNo),
               SizedBox(height: Zconstant.margin16),
               InkWell(
                 borderRadius: BorderRadius.circular(10.px),
-                onTap: () => controller.clickOnOrderDetails(productId: productId.toString(),index: index,),
+                onTap: () => controller.clickOnOrderDetails(
+                  productId: productId.toString(),
+                  index: index,
+                ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     if (controller.orderList[index].thumbnailImage != null)
                       Padding(
                         padding: EdgeInsets.only(right: Zconstant.margin16),
-                        child: productImageView(imageUrl: controller.orderList[index].thumbnailImage),
+                        child: productImageView(
+                            imageUrl:
+                                controller.orderList[index].thumbnailImage),
                       ),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          if (controller.orderList[index].productName != null && controller.orderList[index].brandName != null)
-                            productDescription(productDescription: "${controller.orderList[index].brandName} ${controller.orderList[index].productName}"),
+                          if (controller.orderList[index].productName != null &&
+                              controller.orderList[index].brandName != null)
+                            productDescription(
+                                productDescription:
+                                    "${controller.orderList[index].brandName} ${controller.orderList[index].productName}"),
                           SizedBox(height: 0.5.h),
                           itemPriceView(index),
                           Row(
                             children: [
-                              if (controller.orderList[index].variantAbbreviation != null && controller.orderList[index].variantAbbreviation!.isNotEmpty)
+                              if (controller.orderList[index]
+                                          .variantAbbreviation !=
+                                      null &&
+                                  controller.orderList[index]
+                                      .variantAbbreviation!.isNotEmpty)
                                 Expanded(
                                   child: Row(
                                     children: [
                                       sizeTextView(),
                                       Expanded(
                                         child: sizeUnitTextView(
-                                            value: controller.orderList[index].variantAbbreviation),
+                                            value: controller.orderList[index]
+                                                .variantAbbreviation),
                                       )
                                     ],
                                   ),
                                 ),
-                              if (controller.orderList[index].productQty != null &&
-                                  controller.orderList[index].productQty!.isNotEmpty)
+                              if (controller.orderList[index].productQty !=
+                                      null &&
+                                  controller
+                                      .orderList[index].productQty!.isNotEmpty)
                                 Expanded(
                                     child: Row(
                                   children: [
                                     quantityTextView(),
                                     Expanded(
-                                        child: sizeUnitTextView(value: controller.orderList[index].productQty))
+                                        child: sizeUnitTextView(
+                                            value: controller
+                                                .orderList[index].productQty))
                                   ],
                                 ))
                             ],
@@ -237,9 +260,16 @@ class MyOrdersView extends GetView<MyOrdersController> {
                               controller.orderList[index].colorCode!.isNotEmpty)
                             Row(
                               children: [
-                                if (controller.orderList[index].colorCode != null && controller.orderList[index].colorCode!.isNotEmpty)
-                                colorTextView(),
-                                colorTypeTextView(colorCode: int.parse(controller.orderList[index].colorCode.toString().replaceAll("#", "0xff"))),
+                                if (controller.orderList[index].colorCode !=
+                                        null &&
+                                    controller
+                                        .orderList[index].colorCode!.isNotEmpty)
+                                  colorTextView(),
+                                colorTypeTextView(
+                                    colorCode: int.parse(controller
+                                        .orderList[index].colorCode
+                                        .toString()
+                                        .replaceAll("#", "0xff"))),
                               ],
                             )
                         ],
@@ -250,23 +280,37 @@ class MyOrdersView extends GetView<MyOrdersController> {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: Zconstant.margin16),
-                child:controller.orderList[index].itemOrderStatus=='Canceled'? Center(
-                  child: GradientText(
-                    'Your Order Canceled Successfully',
-                    style: Theme.of(Get.context!)
-                        .textTheme
-                        .subtitle1
-                        ?.copyWith(overflow: TextOverflow.ellipsis,fontSize: 14.px),
-                    gradient: CommonWidgets.commonLinearGradientView(),
-                  ),
-                ):Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    if(controller.orderList[index].itemOrderStatus != 'Shipped')
-                    cancelOrderButtonView(context: context, index: index),
-                    trackButtonView(orderPlaceDate: '${getDayOfMonthSuffix(controller.dateTime!.day)} ${DateFormat.MMMM().format(controller.dateTime!)} ${controller.dateTime?.year}',index: index,width: controller.orderList[index].itemOrderStatus == 'Shipped'?90.w:43.w),
-                  ],
-                ),
+                child: controller.orderList[index].itemOrderStatus == 'Canceled'
+                    ? Center(
+                        child: GradientText(
+                          'Your Order Canceled Successfully',
+                          style: Theme.of(Get.context!)
+                              .textTheme
+                              .subtitle1
+                              ?.copyWith(
+                                  overflow: TextOverflow.ellipsis,
+                                  fontSize: 14.px),
+                          gradient: CommonWidgets.commonLinearGradientView(),
+                        ),
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          if (controller.orderList[index].itemOrderStatus !=
+                              'Shipped')
+                            cancelOrderButtonView(
+                                context: context, index: index),
+                          trackButtonView(
+                              orderPlaceDate:
+                                  '${getDayOfMonthSuffix(controller.dateTime!.day)} ${DateFormat.MMMM().format(controller.dateTime!)} ${controller.dateTime?.year}',
+                              index: index,
+                              width:
+                                  controller.orderList[index].itemOrderStatus ==
+                                          'Shipped'
+                                      ? 90.w
+                                      : 43.w),
+                        ],
+                      ),
               ),
               CommonWidgets.profileMenuDash(),
             ],
@@ -308,17 +352,29 @@ class MyOrdersView extends GetView<MyOrdersController> {
     }
   }
 
-  Widget productImageView({String? imageUrl}) => Container(
+  Widget productImageView({String? imageUrl}) => ClipRRect(
+        borderRadius: BorderRadius.circular(4.px),
+        child: Image.network(
+          CommonMethods.imageUrl(url: imageUrl.toString()),
+          errorBuilder: (context, error, stackTrace) => CommonWidgets.defaultImage( height: 100.px,
+            width: 95.px,),
+          fit: BoxFit.cover,
+          alignment: Alignment.center,
+          height: 100.px,
+          width: 95.px,
+        ),
+      );
+
+  /* Widget productImageView({String? imageUrl}) => Container(
         height: 100.px,
         width: 95.px,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4.px),
             image: DecorationImage(
-                image: NetworkImage(
-                    CommonMethods.imageUrl(url: imageUrl.toString())),
+                image: NetworkImage(CommonMethods.imageUrl(url: imageUrl.toString())),
                 fit: BoxFit.cover,
                 alignment: Alignment.center)),
-      );
+      );*/
 
   Widget productDescription({String? productDescription}) => Text(
         productDescription ?? "",
@@ -340,7 +396,7 @@ class MyOrdersView extends GetView<MyOrdersController> {
                 Flexible(
                     child: itemOriginalPriceTextView(
                         value: controller.orderList[index].productPrice)),
-              howManyPercentOffTextView(value:""),
+              howManyPercentOffTextView(value: ""),
             ],
           ),
         ],
@@ -418,7 +474,8 @@ class MyOrdersView extends GetView<MyOrdersController> {
         ),
       );
 
-  Widget cancelOrderButtonView({required BuildContext context, required int index}) =>
+  Widget cancelOrderButtonView(
+          {required BuildContext context, required int index}) =>
       CommonWidgets.myOutlinedButton(
           text: cancelOrderTextView(),
           onPressed: () =>
@@ -428,10 +485,15 @@ class MyOrdersView extends GetView<MyOrdersController> {
           width: 43.w,
           margin: EdgeInsets.zero);
 
-  Widget trackButtonView({required double width,required int index,required String orderPlaceDate}) {
+  Widget trackButtonView(
+      {required double width,
+      required int index,
+      required String orderPlaceDate}) {
     return CommonWidgets.myOutlinedButton(
         text: trackTextView(),
-        onPressed: () => controller.clickOnTrackButton(orderPlaceDate: orderPlaceDate,orderNo: controller.orderList[index].ordNo.toString()??''),
+        onPressed: () => controller.clickOnTrackButton(
+            orderPlaceDate: orderPlaceDate,
+            orderNo: controller.orderList[index].ordNo.toString() ?? ''),
         margin: EdgeInsets.zero,
         height: 40.px,
         width: width,
@@ -447,5 +509,4 @@ class MyOrdersView extends GetView<MyOrdersController> {
         "TRACK ORDER",
         style: Theme.of(Get.context!).textTheme.headline3,
       );
-
 }

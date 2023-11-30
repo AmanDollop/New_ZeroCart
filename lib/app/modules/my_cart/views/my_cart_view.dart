@@ -15,7 +15,6 @@ import '../../../../my_common_method/my_common_method.dart';
 import '../controllers/my_cart_controller.dart';
 import 'package:http/http.dart' as http;
 
-// ignore: must_be_immutable
 class MyCartView extends GetView<MyCartController> {
   const MyCartView({Key? key}) : super(key: key);
 
@@ -26,15 +25,12 @@ class MyCartView extends GetView<MyCartController> {
           child: GestureDetector(
             onTap: () => MyCommonMethods.unFocsKeyBoard(),
             child: Scaffold(
-                backgroundColor: Theme
-                    .of(context)
-                    .scaffoldBackgroundColor,
+                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 appBar: const MyCustomContainer().myAppBar(
                     text: 'My Cart',
                     backIconOnPressed: () => controller.clickOnBackButton(),
                     isIcon: controller.wantBackButton),
-                body: Obx(
-                      () {
+                body: Obx(() {
                     controller.count.value;
                     if (CommonMethods.isConnect.value) {
                       if (controller.getCartDetailsModel != null &&
@@ -57,12 +53,10 @@ class MyCartView extends GetView<MyCartController> {
                                         crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                         children: [
-                                          if (controller.addressDetail !=
-                                              null)
+                                          if (controller.addressDetail != null)
                                             deliverToTextView(),
                                           SizedBox(height: 4.px),
-                                          if (controller.addressDetail !=
-                                              null)
+                                          if (controller.addressDetail != null)
                                             CommonWidgets.profileMenuDash(),
                                           SizedBox(height: 4.px),
                                           addressView(context: context),
@@ -71,8 +65,7 @@ class MyCartView extends GetView<MyCartController> {
                                     ),
                                     if (controller.checkedCarItemList.isNotEmpty)
                                       Padding(
-                                        padding: EdgeInsets.only(
-                                            left: 16.px, right: 16.px, top: 8.px),
+                                        padding: EdgeInsets.only(left: 16.px, right: 16.px, top: 8.px),
                                         child: readyToCheckOutItemListview(),
                                       ),
                                     if (controller.checkedCarItemList.isNotEmpty)
@@ -143,7 +136,7 @@ class MyCartView extends GetView<MyCartController> {
                 ),
             ),
           ),
-        ));
+        ),);
   }
 
   Widget couponRangeText() =>
@@ -266,59 +259,37 @@ class MyCartView extends GetView<MyCartController> {
                           if (controller.cartItem?.thumbnailImage != null)
                             readyToCheckOutItemImageView(
                                 index: index,
-                                path: controller.cartItem
-                                    ?.thumbnailImage ??
-                                    ''),
+                                path: controller.cartItem?.thumbnailImage ?? ''),
                           SizedBox(width: 8.px),
                           Expanded(
                             child: Column(
                               children: [
-                                if (controller.cartItem?.brandName !=
-                                    null &&
-                                    controller.cartItem?.productName !=
-                                        null)
+                                if (controller.cartItem?.brandName != null && controller.cartItem?.productName != null)
                                   Padding(
                                     padding: EdgeInsets.only(right: 12.px),
                                     child: Padding(
                                       padding: EdgeInsets.only(right: 8.px),
                                       child: readyToCheckOutItemDescriptionTextView(
                                           index: index,
-                                          value:
-                                          "${controller.cartItem
-                                              ?.brandName} ${controller.cartItem?.productName}"),
+                                          value: "${controller.cartItem?.brandName} ${controller.cartItem?.productName}"),
                                     ),
                                   ),
-                                if (controller.cartItem?.brandName !=
-                                    null &&
-                                    controller.cartItem?.productName !=
-                                        null)
+                                if (controller.cartItem?.brandName != null && controller.cartItem?.productName != null)
                                   SizedBox(height: 0.75.h),
                                 readyToCheckOutItemPriceView(index: index),
                                 SizedBox(height: 8.px),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment
-                                      .spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    if (controller
-                                        .checkedListItemQuantity[index] ==
-                                        null ||
-                                        controller.cartItem
-                                            ?.availability ==
-                                            "0")
+                                    if (controller.checkedListItemQuantity[index] == null || controller.cartItem?.availability == "0")
                                     /*if (controller.checkedListItemQuantity[index] >
                                     int.parse(controller
                                         .checkedListItemAvailability[index]))*/
                                       outOfStockTextView(),
-                                    if (controller.cartItem
-                                        ?.varientList !=
-                                        null &&
-                                        controller.cartItem!.varientList!
-                                            .isNotEmpty)
+                                    if (controller.cartItem?.varientList != null && controller.cartItem!.varientList!.isNotEmpty)
                                       readyToCheckOutItemSizeView(index: index),
-                                    readyToCheckOutItemQuantityView(
-                                        index: index),
-                                    readyToCheckOutItemDeleteItemFromCartView(
-                                        index: index),
+                                    readyToCheckOutItemQuantityView(index: index),
+                                    readyToCheckOutItemDeleteItemFromCartView(index: index),
                                   ],
                                 ),
                               ],
@@ -334,7 +305,29 @@ class MyCartView extends GetView<MyCartController> {
             );
           });
 
-  Widget readyToCheckOutItemImageView({required int index, required String path}) => Container(
+  Widget readyToCheckOutItemImageView({required int index, required String path}) => ClipRRect(
+    borderRadius: BorderRadius.circular(5.px),
+    child: Image.network(
+      CommonMethods.imageUrl(url: path,),
+      errorBuilder: (context, error, stackTrace) => CommonWidgets.defaultImage(
+        height: 125.px,
+        width: 95.px,
+      ),
+      loadingBuilder: (context, child, loadingProgress) {
+        if (loadingProgress == null) return child;
+        return CommonWidgets.commonShimmerViewForImage(
+          height: 125.px,
+          width: 95.px,
+        );
+      },
+      fit: BoxFit.cover,
+      alignment: Alignment.center,
+      height: 125.px,
+      width: 95.px,
+    ),
+  );
+
+  /*Widget readyToCheckOutItemImageView({required int index, required String path}) => Container(
         height: 125.px,
         width: 95.px,
         decoration: BoxDecoration(
@@ -345,7 +338,7 @@ class MyCartView extends GetView<MyCartController> {
             alignment: Alignment.center,
           ),
         ),
-      );
+      );*/
 
   Widget readyToCheckOutItemDescriptionTextView({required int index, required String value}) => Row(
         children: [
@@ -1094,6 +1087,29 @@ class MyCartView extends GetView<MyCartController> {
   }
 
   Widget uncheckedItemImageView({required int index, required String value}) =>
+      ClipRRect(
+        borderRadius: BorderRadius.circular(5.px),
+        child: Image.network(
+          CommonMethods.imageUrl(url: value,),
+          errorBuilder: (context, error, stackTrace) => CommonWidgets.defaultImage(
+            height: 125.px,
+            width: 95.px,
+          ),
+          loadingBuilder: (context, child, loadingProgress) {
+            if (loadingProgress == null) return child;
+            return CommonWidgets.commonShimmerViewForImage(
+              height: 125.px,
+              width: 95.px,
+            );
+          },
+          fit: BoxFit.cover,
+          alignment: Alignment.center,
+          height: 125.px,
+          width: 95.px,
+        ),
+      );
+
+  /*Widget uncheckedItemImageView({required int index, required String value}) =>
       Container(
         height: 125.px,
         width: 95.px,
@@ -1103,7 +1119,7 @@ class MyCartView extends GetView<MyCartController> {
                 image: NetworkImage(CommonMethods.imageUrl(url: value)),
                 fit: BoxFit.cover,
                 alignment: Alignment.center)),
-      );
+      );*/
 
   Widget uncheckedItemDescriptionTextView({required int index, required String value}) =>
       Row(

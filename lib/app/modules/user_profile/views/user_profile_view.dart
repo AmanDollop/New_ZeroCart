@@ -132,18 +132,11 @@ class UserProfileView extends GetView<UserProfileController> {
       width: 158.px,
       height: 138.px,
       decoration: BoxDecoration(
-        border:
-        Border.all(width: 0.5.px, color: MyColorsLight().borderColor),
+        border: Border.all(width: 0.5.px, color: MyColorsLight().borderColor),
         borderRadius: BorderRadius.circular(80.px),
         image: DecorationImage(
-          image: (controller.userDataMap[UserDataKeyConstant.profilePicture] !=
-              null &&
-              controller.userDataMap[UserDataKeyConstant.profilePicture]
-                  .toString()
-                  .isNotEmpty
-              ? NetworkImage(CommonMethods.imageUrl(
-              url: controller
-                  .userDataMap[UserDataKeyConstant.profilePicture]))
+          image: (controller.userDataMap[UserDataKeyConstant.profilePicture] != null && controller.userDataMap[UserDataKeyConstant.profilePicture].toString().isNotEmpty
+              ? NetworkImage(CommonMethods.imageUrl(url: controller.userDataMap[UserDataKeyConstant.profilePicture]))
               : CommonWidgets.defaultProfilePicture()) as ImageProvider,
           fit: BoxFit.contain,
         ),

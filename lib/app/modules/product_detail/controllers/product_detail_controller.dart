@@ -310,22 +310,27 @@ class ProductDetailController extends CommonMethods {
   }
 
   Future<void> clickOnBannerImage({required BuildContext context}) async {
+    print('bannerImagesListView::::::  $bannerImagesListView');
     Get.toNamed(Routes.SHOW_BANNER_IMAGES, arguments: bannerImagesListView);
   }
 
   Future<void> callGetProductReviewApi({String? productId}) async {
     queryParametersForGetProductReview = {'productId': productId};
-    getProductReviewApiModel = await CommonApis.getProductReviewApi(queryParameters: queryParametersForGetProductReview);
+    getProductReviewApiModel = await CommonApis.getProductReviewApi(
+        queryParameters: queryParametersForGetProductReview);
     if (getProductReviewApiModel != null) {
       if (getProductReviewApiModel?.bestReview != null) {
         bestReview = getProductReviewApiModel?.bestReview;
         print('bestReview:::::::::::::::::::::::::::    $bestReview');
-        print('bestReview?.customerName:::::::::::::::::::::::::::    ${bestReview?.customerName}');
-        if (bestReview?.createdDate != null && bestReview!.createdDate!.isNotEmpty) {
+        print(
+            'bestReview?.customerName:::::::::::::::::::::::::::    ${bestReview?.customerName}');
+        if (bestReview?.createdDate != null &&
+            bestReview!.createdDate!.isNotEmpty) {
           dateTime = DateTime.parse(bestReview!.createdDate!);
         }
       }
-      if (getProductReviewApiModel?.reviewList != null && getProductReviewApiModel!.reviewList!.isNotEmpty) {
+      if (getProductReviewApiModel?.reviewList != null &&
+          getProductReviewApiModel!.reviewList!.isNotEmpty) {
         reviewList = getProductReviewApiModel!.reviewList!;
       }
     }
@@ -671,10 +676,12 @@ class ProductDetailController extends CommonMethods {
     bannerImagesListView.clear();
     for (var element in productImageList) {
       if (element.productImage != null && element.productImage!.isNotEmpty) {
-        bannerImagesList
-            .add(CommonMethods.imageUrl(url: element.productImage.toString()));
-        bannerImagesListView.add(NetworkImage(
-            CommonMethods.imageUrl(url: element.productImage.toString())));
+        bannerImagesList.add(CommonMethods.imageUrl(url: element.productImage.toString()));
+        bannerImagesListView.add(
+          NetworkImage(
+            CommonMethods.imageUrl(url: element.productImage.toString(),),
+          ),
+        );
       }
     }
 
@@ -854,7 +861,7 @@ class ProductDetailController extends CommonMethods {
             productDetail!.categoryTypeId!.toString(),
         ApiKeyConstant.inventoryId: inventoryId.toString(),
       };
-     /* http.Response? response =
+      /* http.Response? response =
           await CommonApis.addToOutfitRoomApi(bodyParams: bodyParams);*/
       http.Response? response =
           await CommonApis.addToCollectionApi(bodyParams: bodyParams);
@@ -877,7 +884,7 @@ class ProductDetailController extends CommonMethods {
     // await Get.offAllNamed(Routes.NAVIGATOR_BOTTOM_BAR);
     await Get.delete<OutfitRoomController>();
     // Get.put(OutfitRoomController());
-    Get.lazyPut(()=>OutfitRoomController());
+    Get.lazyPut(() => OutfitRoomController());
     selectedIndex.value = 1;
     Get.offAllNamed(Routes.NAVIGATOR_BOTTOM_BAR);
     // Get.back();

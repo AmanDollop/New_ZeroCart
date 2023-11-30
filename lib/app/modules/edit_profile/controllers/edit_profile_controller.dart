@@ -207,9 +207,11 @@ class EditProfileController extends CommonMethods {
   }
 
   void setUserDataInTextField() {
+
     if(userDataMap[UserDataKeyConstant.dob] != null && userDataMap[UserDataKeyConstant.dob] != '') {
       dateTime = DateTime.parse(userDataMap[UserDataKeyConstant.dob]);
     }
+
     nameController.text = userDataMap[UserDataKeyConstant.fullName];
     securityEmailController.text = userDataMap[UserDataKeyConstant.securityEmail];
     securityMobileNumberController.text = userDataMap[UserDataKeyConstant.securityPhone];
@@ -329,8 +331,6 @@ class EditProfileController extends CommonMethods {
   }
 
   Future<void> updateUserProfileApiCalling({required BuildContext context}) async {
-    print('fashionCategoryId.join:::::      ${fashionCategoryId.join(',')}');
-    print('brandId.join:::::      ${brandId.join(',')}');
     bodyParamsForUpdateApi = {
       UserDataKeyConstant.fullName: nameController.text.trim().toString(),
       UserDataKeyConstant.securityEmail: securityEmailController.text.trim().toString(),
@@ -350,9 +350,6 @@ class EditProfileController extends CommonMethods {
     if (response != null && response.statusCode == 200) {
       userDataValue = await CommonApis.getUserProfileApi();
       if (userDataValue != null) {
-        print('userDataValue::::  categoryPreferenceName::::::    ${userDataValue?.customer?.categoryPreferenceName}');
-        print('userDataValue::::  customerPreferenceId::::::    ${userDataValue?.customer?.customerPreferenceId}');
-        print('userDataValue::::  brandPreferenceName::::::    ${userDataValue?.customer?.brandPreferenceName}');
         await CommonMethods.setUserData(userData: userDataValue);
         await MyCommonMethods.setString(key: UserDataKeyConstant.selectedState, value: stateName.toString());
         await MyCommonMethods.setString(key: ApiKeyConstant.stateId, value: stateId.toString());
@@ -370,10 +367,8 @@ class EditProfileController extends CommonMethods {
   ImageProvider selectImage() {
     if (image.value != null) {
       return FileImage(image.value!);
-    } else if (userDataMap[UserDataKeyConstant.profilePicture] != null &&
-        userDataMap[UserDataKeyConstant.profilePicture].toString().isNotEmpty) {
-      return NetworkImage(CommonMethods.imageUrl(
-          url: userDataMap[UserDataKeyConstant.profilePicture]));
+    } else if (userDataMap[UserDataKeyConstant.profilePicture] != null && userDataMap[UserDataKeyConstant.profilePicture].toString().isNotEmpty) {
+      return NetworkImage(CommonMethods.imageUrl(url: userDataMap[UserDataKeyConstant.profilePicture]));
     } else {
       return CommonWidgets.defaultProfilePicture();
     }
@@ -387,9 +382,7 @@ class EditProfileController extends CommonMethods {
     MyCommonMethods.unFocsKeyBoard();
     absorbing.value = CommonMethods.changeTheAbsorbingValueTrue();
     dropDownValidationChecker();
-    if (key.currentState!.validate() &&
-        !isStateSelectedValue.value &&
-        !isCitySelectedValue.value) {
+    if (key.currentState!.validate() && !isStateSelectedValue.value && !isCitySelectedValue.value) {
       isSubmitButtonClicked.value = true;
       if (selectedState != null) {
         if (selectedCity != null) {

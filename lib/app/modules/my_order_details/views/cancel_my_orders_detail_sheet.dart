@@ -107,7 +107,7 @@ class MyOrdersCancelDetailsBottomSheet extends GetView<MyOrderDetailsController>
   }
 
   Widget savedPriceTextView() => Text(
-    "${controller.productDetailsList?[0].productName} ${controller.productDetailsList?[0].brandName} $curr$price",
+    "${controller.productDetailsList[0].productName} ${controller.productDetailsList[0].brandName} $curr$price",
     style: Theme.of(Get.context!).textTheme.subtitle1?.copyWith(
       color: MyColorsLight().secondary,
     ),
@@ -115,7 +115,29 @@ class MyOrdersCancelDetailsBottomSheet extends GetView<MyOrderDetailsController>
     overflow: TextOverflow.ellipsis,
   );
 
-  Widget productImageView() => Container(
+  Widget productImageView() => ClipRRect(
+    borderRadius: BorderRadius.circular(5.px),
+    child: Image.network(
+      CommonMethods.imageUrl(url: controller.productDetailsList[0].thumbnailImage.toString(),),
+      errorBuilder: (context, error, stackTrace) => CommonWidgets.defaultImage(
+        height: 75.px,
+        width: 75.px,
+      ),
+      loadingBuilder: (context, child, loadingProgress) {
+        if (loadingProgress == null) return child;
+        return CommonWidgets.commonShimmerViewForImage(
+          height: 75.px,
+          width: 75.px,
+        );
+      },
+      fit: BoxFit.cover,
+      alignment: Alignment.center,
+      height: 75.px,
+      width: 75.px,
+    ),
+  );
+
+  /*Widget productImageView() => Container(
     height: 75.px,
     width: 75.px,
     decoration: BoxDecoration(
@@ -129,7 +151,7 @@ class MyOrdersCancelDetailsBottomSheet extends GetView<MyOrderDetailsController>
         fit: BoxFit.cover,
       ),
     ),
-  );
+  );*/
 
   Widget ifYouCancelTextView() => Text(
     "If you cancel now, you may not be able to available this deal again. Do you still want to cancel?",
