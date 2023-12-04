@@ -232,33 +232,28 @@ class MyOrderDetailsController extends CommonMethods {
 
   Future<void> clickOnAddAttachmentIcon() async {
     xFileTypeList = await MyImagePicker.pickMultipleImages();
-    selectedImageForRating =
-        MyImagePicker.convertXFilesToFiles(xFiles: xFileTypeList);
+    selectedImageForRating = MyImagePicker.convertXFilesToFiles(xFiles: xFileTypeList);
     count.value++;
   }
 
   Future<void> clickOnSubmitButton() async {
     isSubmitButtonVisible.value = false;
     MyCommonMethods.unFocsKeyBoard();
-    if (descriptionController.text.trim().isNotEmpty &&
-        selectedImageForRating.isNotEmpty) {
+    if (descriptionController.text.trim().isNotEmpty && selectedImageForRating.isNotEmpty) {
       isEmpty.value = false;
-      await userProductFeedbackApiCalling();
+      try{
+        await userProductFeedbackApiCalling();
+      }catch(e){
+        isSubmitButtonVisible.value = true;
+        MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
+      }
     } else {
       if (descriptionController.text.trim().isEmpty) {
-        MyCommonMethods.showSnackBar(
-            margin: EdgeInsets.only(
-                bottom: MediaQuery.of(Get.context!).size.height - 100,
-                right: 20.px,
-                left: 20.px),
+        MyCommonMethods.showSnackBar(margin: EdgeInsets.only(bottom: MediaQuery.of(Get.context!).size.height - 100, right: 20.px, left: 20.px),
             message: "Please enter some description",
             context: Get.context!);
       } else {
-        MyCommonMethods.showSnackBar(
-            margin: EdgeInsets.only(
-                bottom: MediaQuery.of(Get.context!).size.height - 100,
-                right: 20.px,
-                left: 20.px),
+        MyCommonMethods.showSnackBar(margin: EdgeInsets.only(bottom: MediaQuery.of(Get.context!).size.height - 100, right: 20.px, left: 20.px),
             message: "Please select Images",
             context: Get.context!);
       }

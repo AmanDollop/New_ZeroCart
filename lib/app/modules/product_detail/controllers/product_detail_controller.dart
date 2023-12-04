@@ -717,7 +717,12 @@ class ProductDetailController extends CommonMethods {
     required BuildContext context,
   }) async {
     inAsyncCall.value = CommonMethods.changeTheAbsorbingValueTrue();
-    await addToCartApiCalling();
+    try{
+      await addToCartApiCalling();
+    }catch(e){
+      MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
+      inAsyncCall.value = CommonMethods.changeTheAbsorbingValueFalse();
+    }
     inAsyncCall.value = CommonMethods.changeTheAbsorbingValueFalse();
   }
 

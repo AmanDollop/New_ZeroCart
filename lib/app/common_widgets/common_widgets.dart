@@ -310,9 +310,7 @@ class CommonWidgets {
             Theme.of(Get.context!).colorScheme.primary,
           ],
         ),*/
-        border: Border.all(
-            color:
-                Theme.of(Get.context!).textTheme.button!.color ?? Colors.white),
+        border: Border.all(color: Theme.of(Get.context!).textTheme.button!.color ?? Colors.white),
         borderRadius: BorderRadius.circular(borderRadius ?? 2.px),
       ),
       child: Center(child: text),

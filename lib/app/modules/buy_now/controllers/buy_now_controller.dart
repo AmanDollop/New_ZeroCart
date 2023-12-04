@@ -380,14 +380,7 @@ class BuyNowController extends CommonMethods {
     isClickOnProceedToCheckOut.value = true;
     bool isSuccess = false;
     var userMeasurement = await MyCommonMethods.getString(key: "measurement");
-    if (kDebugMode) {
-      print('userMeasurement:::::::   $userMeasurement');
-    }
-    if (kDebugMode) {
-      print('paymentMethod.value:::::::   ${paymentMethod.value}');
-    }
     if (userMeasurement != null && userMeasurement.isNotEmpty) {
-
       if (paymentMethod.value.toString() == "cashOnDelivery") {
         paymentType = "COD";
         bodyParametersForPlaceOrderApi = {
@@ -413,53 +406,57 @@ class BuyNowController extends CommonMethods {
           MyCommonMethods.showSnackBar(message: "Something went wrong!", context: Get.context!);
         }
       }
-
       else if (paymentMethod.value.toString() == "wallet") {
-        bodyParametersForPlaceOrderApi = {
-          ApiKeyConstant.transType: 'debit',
-          ApiKeyConstant.outAmt: totalPrice.value.toString(),
-        };
-        http.Response? response = await CommonApis.walletTransactionApi(bodyParams: bodyParametersForPlaceOrderApi);
-        if (response != null) {
-          if(response.statusCode == 200){
-            paymentType = "Wallet";
-            bodyParametersForPlaceOrderApi.clear();
-            bodyParametersForPlaceOrderApi = {
-              ApiKeyConstant.paymentMode: paymentType,
-              ApiKeyConstant.transId: '',
-              ApiKeyConstant.isCart: '0',
-              ApiKeyConstant.inventoryId: inventoryId,
-              ApiKeyConstant.userMeasurement: userMeasurement,
-              ApiKeyConstant.quantity: itemQuantity.value.toString(),
-            };
-            try{
-              isSuccess = await placeOrderApiCalling();
-              if (isSuccess) {
-                Get.toNamed(Routes.MY_ORDERS);
-                MyCommonMethods.showSnackBar(message: "Your order has been placed successfully", context: Get.context!);
-              }else {
+        try{
+          bodyParametersForPlaceOrderApi = {
+            ApiKeyConstant.transType: 'debit',
+            ApiKeyConstant.outAmt: totalPrice.value.toString(),
+          };
+          http.Response? response = await CommonApis.walletTransactionApi(bodyParams: bodyParametersForPlaceOrderApi);
+          if (response != null) {
+            if(response.statusCode == 200){
+              paymentType = "Wallet";
+              bodyParametersForPlaceOrderApi.clear();
+              bodyParametersForPlaceOrderApi = {
+                ApiKeyConstant.paymentMode: paymentType,
+                ApiKeyConstant.transId: '',
+                ApiKeyConstant.isCart: '0',
+                ApiKeyConstant.inventoryId: inventoryId,
+                ApiKeyConstant.userMeasurement: userMeasurement,
+                ApiKeyConstant.quantity: itemQuantity.value.toString(),
+              };
+              try{
+                isSuccess = await placeOrderApiCalling();
+                if (isSuccess) {
+                  Get.toNamed(Routes.MY_ORDERS);
+                  MyCommonMethods.showSnackBar(message: "Your order has been placed successfully", context: Get.context!);
+                }
+                else {
+                  Get.back();
+                  MyCommonMethods.showSnackBar(message: "Something went wrong!", context: Get.context!);
+                }
+              }catch(e){
                 Get.back();
                 MyCommonMethods.showSnackBar(message: "Something went wrong!", context: Get.context!);
               }
-            }catch(e){
+            }else{
               Get.back();
-              MyCommonMethods.showSnackBar(message: "Something went wrong!", context: Get.context!);
             }
-          }else{
-            Get.back();
           }
-        }else{
+          else{
+            Get.back();
+            MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
+          }
+        }catch(e){
           Get.back();
+          MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
         }
-
       }
-
       else if (paymentMethod.value.toString() == "others") {
         Get.back();
         paymentType = "Online";
         await openGateway(type: OpenGetWayType.buyNow, priceValue: int.parse(double.parse(totalPrice.value.toString()).toInt().toString()), inventoryId: inventoryId, description: productDetail?.productName ?? "", itemQuantity: itemQuantity.value);
       }
-
     } else {
       Get.back();
       await Get.toNamed(Routes.MEASUREMENTS);

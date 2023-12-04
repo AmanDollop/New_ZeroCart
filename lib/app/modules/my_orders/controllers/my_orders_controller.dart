@@ -252,13 +252,10 @@ class MyOrdersController extends CommonMethods {
 
           }*/
           if (orderListObject.isOffer == "1") {
-            price = price +
-                double.parse(double.parse(orderListObject.productDisPrice!)
-                    .toStringAsFixed(2));
+            price = price + double.parse(double.parse(orderListObject.productDisPrice!)
+                .toStringAsFixed(2));
           } else {
-            price = price +
-                double.parse(double.parse(orderListObject.productPrice!)
-                    .toStringAsFixed(2));
+            price = price + double.parse(double.parse(orderListObject.productPrice!).toStringAsFixed(2));
           }
           return MyOrdersCancelBottomSheet(
             index: index,

@@ -158,7 +158,12 @@ class CancelOrderController extends CommonMethods {
 
   Future<void> clickOnSubmitButton() async {
     isClickOnSubmitButton.value = true;
-    await cancelOrderApiCalling();
+    try{
+      await cancelOrderApiCalling();
+    }catch(e){
+      isClickOnSubmitButton.value = false;
+      MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
+    }
     isClickOnSubmitButton.value = false;
   }
 

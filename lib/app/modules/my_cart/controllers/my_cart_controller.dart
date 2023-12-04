@@ -793,41 +793,48 @@ class MyCartController extends CommonMethods {
         await getCartDetailsModelApiCalling();
       } else if (paymentMethod.value.toString() == "wallet") {
         print('totalPrice.value:::::   ${totalPrice.value}');
-        bodyParamsWalletTransactionApi.clear();
-        bodyParamsWalletTransactionApi = {
-          ApiKeyConstant.transType: 'debit',
-          ApiKeyConstant.outAmt: totalPrice.value.toString(),
-        };
-        http.Response? response = await CommonApis.walletTransactionApi(
-            bodyParams: bodyParamsWalletTransactionApi);
-        if (response != null) {
-          if (response.statusCode == 200) {
-            paymentType = "Wallet";
-            bodyParametersForPlaceOrderApi = {
-              ApiKeyConstant.paymentMode: paymentType,
-              ApiKeyConstant.transId: '',
-              ApiKeyConstant.isCart: '1',
-              ApiKeyConstant.userMeasurement: userMeasurement,
-            };
-            try{
-              isSuccess = await placeOrderApiCalling();
+
+        try{
+          bodyParamsWalletTransactionApi.clear();
+          bodyParamsWalletTransactionApi = {
+            ApiKeyConstant.transType: 'debit',
+            ApiKeyConstant.outAmt: totalPrice.value.toString(),
+          };
+          http.Response? response = await CommonApis.walletTransactionApi(bodyParams: bodyParamsWalletTransactionApi);
+          if (response != null) {
+            if (response.statusCode == 200) {
+              paymentType = "Wallet";
+              bodyParametersForPlaceOrderApi = {
+                ApiKeyConstant.paymentMode: paymentType,
+                ApiKeyConstant.transId: '',
+                ApiKeyConstant.isCart: '1',
+                ApiKeyConstant.userMeasurement: userMeasurement,
+              };
+              try{
+                isSuccess = await placeOrderApiCalling();
+                Get.back();
+              }catch(e){
+                Get.back();
+                MyCommonMethods.showSnackBar(message: "Something went wrong!", context: Get.context!);
+              }
+              if (isSuccess) {
+                Get.toNamed(Routes.MY_ORDERS);
+                MyCommonMethods.showSnackBar(message: "Your order has been placed successfully", context: Get.context!);
+              }
+              bodyParametersForPlaceOrderApi.clear();
+              await getCartDetailsModelApiCalling();
+            }else{
               Get.back();
-            }catch(e){
-              Get.back();
-              MyCommonMethods.showSnackBar(message: "Something went wrong!", context: Get.context!);
             }
-            if (isSuccess) {
-              Get.toNamed(Routes.MY_ORDERS);
-              MyCommonMethods.showSnackBar(message: "Your order has been placed successfully", context: Get.context!);
-            }
-            bodyParametersForPlaceOrderApi.clear();
-            await getCartDetailsModelApiCalling();
           }else{
             Get.back();
           }
-        }else{
+        }catch(e){
           Get.back();
+          MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
         }
+
+
       } else if (paymentMethod.value.toString() == "others") {
         Get.back();
         paymentType = "Online";
