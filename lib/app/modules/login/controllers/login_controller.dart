@@ -124,7 +124,7 @@ class LoginController extends GetxController {
   }
 
   Future<void> clickOnSendOtpButton() async {
-    absorbing.value=CommonMethods.changeTheAbsorbingValueTrue();
+    absorbing.value = CommonMethods.changeTheAbsorbingValueTrue();
     MyCommonMethods.unFocsKeyBoard();
     if(keyNumber.currentState!.validate())
       {
@@ -132,45 +132,44 @@ class LoginController extends GetxController {
           await sendOtpApiCalling(type: "login");
         }catch(e){
           MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
-          absorbing.value=CommonMethods.changeTheAbsorbingValueFalse();
+          absorbing.value = CommonMethods.changeTheAbsorbingValueFalse();
         }
       }
-    absorbing.value=CommonMethods.changeTheAbsorbingValueFalse();
+    absorbing.value = CommonMethods.changeTheAbsorbingValueFalse();
   }
 
   void clickOnForgotPasswordButton() {
-    absorbing.value=CommonMethods.changeTheAbsorbingValueTrue();
+    absorbing.value = CommonMethods.changeTheAbsorbingValueTrue();
     mobileNumberController.text="";
     passwordController.text="";
     MyCommonMethods.unFocsKeyBoard();
     Get.toNamed(Routes.FORGOT_PASSWORD);
-    absorbing.value= CommonMethods.changeTheAbsorbingValueFalse();
+    absorbing.value = CommonMethods.changeTheAbsorbingValueFalse();
   }
 
   Future<void> clickOnLoginButton() async {
-    absorbing.value=CommonMethods.changeTheAbsorbingValueTrue();
+    absorbing.value = CommonMethods.changeTheAbsorbingValueTrue();
     MyCommonMethods.unFocsKeyBoard();
-    print('isLoginButtonClicked.value::::::   ${isLoginButtonClicked.value}');
     if (keyNumber.currentState!.validate() && keyPassword.currentState!.validate()) {
       isLoginButtonClicked.value = true;
       try{
         await callLoginApi();
       }catch(e){
         MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
-        absorbing.value= CommonMethods.changeTheAbsorbingValueFalse();
+        absorbing.value = CommonMethods.changeTheAbsorbingValueFalse();
         isLoginButtonClicked.value = false;
       }
     }
-    absorbing.value= CommonMethods.changeTheAbsorbingValueFalse();
+    absorbing.value = CommonMethods.changeTheAbsorbingValueFalse();
   }
 
   Future<void> clickOnLoginWithGoogleButton() async {
-    absorbing.value= CommonMethods.changeTheAbsorbingValueTrue();
+    absorbing.value = CommonMethods.changeTheAbsorbingValueTrue();
     MyCommonMethods.unFocsKeyBoard();
     isGoogleLoginButtonClicked.value = true;
     userFirebaseData = await MyFirebaseSignIn.signInWithGoogle(context: Get.context!).whenComplete((){
       isGoogleLoginButtonClicked.value = false;
-      absorbing.value=CommonMethods.changeTheAbsorbingValueFalse();
+      absorbing.value = CommonMethods.changeTheAbsorbingValueFalse();
     });
     if (userFirebaseData != null) {
       try{
@@ -178,11 +177,11 @@ class LoginController extends GetxController {
       }catch(e){
         MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
         isGoogleLoginButtonClicked.value = false;
-        absorbing.value= CommonMethods.changeTheAbsorbingValueFalse();
+        absorbing.value = CommonMethods.changeTheAbsorbingValueFalse();
       }
     }
     isGoogleLoginButtonClicked.value = false;
-    absorbing.value= CommonMethods.changeTheAbsorbingValueFalse();
+    absorbing.value = CommonMethods.changeTheAbsorbingValueFalse();
   }
 
 }

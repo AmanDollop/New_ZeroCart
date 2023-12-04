@@ -27,19 +27,17 @@ class SliderView extends GetView<SliderController> {
               children: [
                 PageView.builder(
                   controller: controller.controller,
-                  physics: const BouncingScrollPhysics(),
+                  physics: const ScrollPhysics(),
                   itemCount: 3,
                   onPageChanged: (int index) => controller.indexChange(index),
-                  itemBuilder: ((context, index) =>
-                      pageViewBuilder(index: index)),
+                  itemBuilder: ((context, index) => pageViewBuilder(index: index)),
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Center(
                       child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: Zconstant.margin),
+                        padding: EdgeInsets.symmetric(horizontal: Zconstant.margin),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -75,9 +73,9 @@ class SliderView extends GetView<SliderController> {
             fit: BoxFit.cover,
           ),
         ),
-        child: Container(
+        /*child: Container(
           color: MyColorsDark().secondary.withOpacity(0.4),
-          /*child: Center(
+          child: Center(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: Zconstant.margin),
               child: Column(
@@ -93,8 +91,8 @@ class SliderView extends GetView<SliderController> {
                 ],
               ),
             ),
-          ),*/
-        ),
+          ),
+        ),*/
       );
 
   Widget nextOrLoginButtonView() => CommonWidgets.myElevatedButton(

@@ -112,36 +112,27 @@ class LoginView extends GetView<LoginController> {
         validator: (value) => FormValidator.isLoginPasswordValid(value: value),
         controller: controller.passwordController,
         hintText: 'Example@123',
+        iconVisible: true,
         icon: IconButton(
             icon: Icon(
               controller.passwordVisible.value
                   ? Icons.remove_red_eye_outlined
                   : Icons.visibility_off_outlined,
-              color:
-                  Theme.of(Get.context!).colorScheme.onSurface.withOpacity(.4),
+              color: Theme.of(Get.context!).colorScheme.onSurface.withOpacity(.4),
             ),
             splashRadius: 20,
             onPressed: () => controller.clickOnEyeButton()),
-        iconVisible: true,
       );
 
   Widget sendOTPButtonView() => TextButton(
         child: Text('Send OTP',
-            style: Theme.of(Get.context!).textTheme.headline3?.copyWith(
-                color: Theme.of(Get.context!)
-                    .colorScheme
-                    .onSurface
-                    .withOpacity(.4))),
+            style: Theme.of(Get.context!).textTheme.headline3?.copyWith(color: Theme.of(Get.context!).colorScheme.onSurface.withOpacity(.4),),),
         onPressed: () => controller.clickOnSendOtpButton(),
       );
 
   Widget forgotPasswordButtonView() => TextButton(
         child: Text('Forgot Password?',
-            style: Theme.of(Get.context!).textTheme.headline3?.copyWith(
-                color: Theme.of(Get.context!)
-                    .colorScheme
-                    .onSurface
-                    .withOpacity(.4))),
+            style: Theme.of(Get.context!).textTheme.headline3?.copyWith(color: Theme.of(Get.context!).colorScheme.onSurface.withOpacity(.4),),),
         onPressed: () => controller.clickOnForgotPasswordButton(),
       );
 
@@ -150,7 +141,6 @@ class LoginView extends GetView<LoginController> {
       if (!controller.isLoginButtonClicked.value) {
         return CommonWidgets.myElevatedButton(
             text: Text('Login', style: Theme.of(Get.context!).textTheme.button),
-            // ignore: avoid_returning_null_for_void
             onPressed: !controller.isLoginButtonClicked.value
                 ? () => controller.clickOnLoginButton()
                 // ignore: avoid_returning_null_for_void
@@ -173,9 +163,7 @@ class LoginView extends GetView<LoginController> {
     return Obx(() {
       if (!controller.isGoogleLoginButtonClicked.value) {
         return CommonWidgets.myOutlinedButton(
-            text: Text('Login With Google',
-                style: Theme.of(Get.context!).textTheme.subtitle1),
-            // ignore: avoid_returning_null_for_void
+            text: Text('Login With Google', style: Theme.of(Get.context!).textTheme.subtitle1),
             onPressed: !controller.isLoginButtonClicked.value
                 ? () => controller.clickOnLoginWithGoogleButton()
                 // ignore: avoid_returning_null_for_void
