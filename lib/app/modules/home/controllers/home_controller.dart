@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -28,6 +29,7 @@ import '../../../apis/api_modals/get_product_based_on_history_api_model.dart';
 class HomeController extends CommonMethods {
   final count = 0.obs;
   final current = 0.obs;
+  final CarouselController carouselController = CarouselController();
   final name = ''.obs;
   final walletAmount = ''.obs;
   final notificationCount = ''.obs;

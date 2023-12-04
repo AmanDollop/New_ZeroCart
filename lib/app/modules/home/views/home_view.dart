@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 // import 'package:light_carousel/light_carousel.dart';
@@ -325,7 +326,7 @@ class HomeView extends GetView<HomeController> {
             /*image:
                 DecorationImage(image: AssetImage('assets/default_image.jpg'))*/
             ),
-        ///Todo 
+        ///Todo
         child: /*LightCarousel(
           images: controller.bannerImageList,
           dotSize: 0,
@@ -336,7 +337,57 @@ class HomeView extends GetView<HomeController> {
           boxFit: BoxFit.fill,
           dotBgColor: Colors.transparent,
           defaultImage: CommonWidgets.defaultImage(),
-        )*/const SizedBox(),
+        )*/ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: CarouselSlider(
+            items: controller.bannerImageList.map((e) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Material(
+                    color: Colors.white,
+                    child: Image.network(
+                      '$e',
+                      fit: BoxFit.fill,
+                      width: double.infinity,
+                      // errorBuilder: (context, error, stackTrace) => defaultBanner(),
+                      loadingBuilder: (BuildContext context, Widget child,
+                          ImageChunkEvent? loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return SizedBox(
+                          height: 25,
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              backgroundColor: Colors.grey,
+                              color: Colors.pink,
+                              strokeWidth: 2.5,
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes!
+                                  : null,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              );
+            }).toList(),
+            carouselController: controller.carouselController,
+            options: CarouselOptions(
+              autoPlay: true,
+              // height: 145,
+              // enlargeCenterPage: true,
+              aspectRatio: 16 / 9,
+              viewportFraction: 1,
+              onPageChanged: (index, reason) {
+                controller.current.value = index;
+              },
+            ),
+          ),
+        ),
       ),
     );
   }
