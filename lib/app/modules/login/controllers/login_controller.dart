@@ -33,7 +33,6 @@ class LoginController extends GetxController {
   Map<String, dynamic> bodyParamsForFirebaseSignIn = {};
   String deviceType = "";
 
-
   @override
   Future<void> onInit() async {
     super.onInit();
@@ -112,6 +111,9 @@ class LoginController extends GetxController {
         MyCommonMethods.showSnackBar(message: "Login Successfully", context: Get.context!);
 
       } else {
+        mobileNumberController.clear();
+        passwordController.clear();
+        passwordVisible.value = false;
         Get.toNamed(Routes.REGISTRATION, arguments: userFirebaseData);
       }
     }
@@ -126,7 +128,12 @@ class LoginController extends GetxController {
     MyCommonMethods.unFocsKeyBoard();
     if(keyNumber.currentState!.validate())
       {
-        await sendOtpApiCalling(type: "login");
+        try{
+          await sendOtpApiCalling(type: "login");
+        }catch(e){
+          MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
+          absorbing.value=CommonMethods.changeTheAbsorbingValueFalse();
+        }
       }
     absorbing.value=CommonMethods.changeTheAbsorbingValueFalse();
   }
@@ -146,7 +153,13 @@ class LoginController extends GetxController {
     print('isLoginButtonClicked.value::::::   ${isLoginButtonClicked.value}');
     if (keyNumber.currentState!.validate() && keyPassword.currentState!.validate()) {
       isLoginButtonClicked.value = true;
-      await callLoginApi();
+      try{
+        await callLoginApi();
+      }catch(e){
+        MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
+        absorbing.value= CommonMethods.changeTheAbsorbingValueFalse();
+        isLoginButtonClicked.value = false;
+      }
     }
     absorbing.value= CommonMethods.changeTheAbsorbingValueFalse();
   }
@@ -155,10 +168,18 @@ class LoginController extends GetxController {
     absorbing.value= CommonMethods.changeTheAbsorbingValueTrue();
     MyCommonMethods.unFocsKeyBoard();
     isGoogleLoginButtonClicked.value = true;
-    userFirebaseData =
-        await MyFirebaseSignIn.signInWithGoogle(context: Get.context!);
+    userFirebaseData = await MyFirebaseSignIn.signInWithGoogle(context: Get.context!).whenComplete((){
+      isGoogleLoginButtonClicked.value = false;
+      absorbing.value=CommonMethods.changeTheAbsorbingValueFalse();
+    });
     if (userFirebaseData != null) {
-      await signInWithGoogleApiCalling();
+      try{
+        await signInWithGoogleApiCalling();
+      }catch(e){
+        MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
+        isGoogleLoginButtonClicked.value = false;
+        absorbing.value= CommonMethods.changeTheAbsorbingValueFalse();
+      }
     }
     isGoogleLoginButtonClicked.value = false;
     absorbing.value= CommonMethods.changeTheAbsorbingValueFalse();

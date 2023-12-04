@@ -398,12 +398,20 @@ class BuyNowController extends CommonMethods {
           ApiKeyConstant.userMeasurement: userMeasurement,
           ApiKeyConstant.quantity: itemQuantity.value.toString(),
         };
-        isSuccess = await placeOrderApiCalling();
-        Get.toNamed(Routes.MY_ORDERS);
-        if (isSuccess) {
-          MyCommonMethods.showSnackBar(message: "Your order has been placed successfully", context: Get.context!);
+        try{
+          isSuccess = await placeOrderApiCalling();
+          Get.toNamed(Routes.MY_ORDERS);
+          if (isSuccess) {
+            MyCommonMethods.showSnackBar(message: "Your order has been placed successfully", context: Get.context!);
+          }else {
+            Get.back();
+            MyCommonMethods.showSnackBar(message: "Something went wrong!", context: Get.context!);
+          }
+          bodyParametersForPlaceOrderApi.clear();
+        }catch(e){
+          Get.back();
+          MyCommonMethods.showSnackBar(message: "Something went wrong!", context: Get.context!);
         }
-        bodyParametersForPlaceOrderApi.clear();
       }
 
       else if (paymentMethod.value.toString() == "wallet") {
@@ -424,10 +432,18 @@ class BuyNowController extends CommonMethods {
               ApiKeyConstant.userMeasurement: userMeasurement,
               ApiKeyConstant.quantity: itemQuantity.value.toString(),
             };
-            isSuccess = await placeOrderApiCalling();
-            if (isSuccess) {
-              Get.toNamed(Routes.MY_ORDERS);
-              MyCommonMethods.showSnackBar(message: "Your order has been placed successfully", context: Get.context!);
+            try{
+              isSuccess = await placeOrderApiCalling();
+              if (isSuccess) {
+                Get.toNamed(Routes.MY_ORDERS);
+                MyCommonMethods.showSnackBar(message: "Your order has been placed successfully", context: Get.context!);
+              }else {
+                Get.back();
+                MyCommonMethods.showSnackBar(message: "Something went wrong!", context: Get.context!);
+              }
+            }catch(e){
+              Get.back();
+              MyCommonMethods.showSnackBar(message: "Something went wrong!", context: Get.context!);
             }
           }else{
             Get.back();

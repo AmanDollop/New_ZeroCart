@@ -164,18 +164,27 @@ class AddressController extends CommonMethods {
 
   Future<void> clickOnSelectButton({required int index}) async {
     inAsyncCall.value = true;
-    if (await setCustomerDefaultAddressApiCalling(index: index)) {
-      offset = 0;
-      await getCustomerAddressesApiCalling();
+    try{
+      if (await setCustomerDefaultAddressApiCalling(index: index)) {
+        offset = 0;
+        await getCustomerAddressesApiCalling();
+      }
+      await setCustomerDefaultAddressApiCalling(index: index);
+    }catch(e){
+      MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
+      inAsyncCall.value = false;
     }
-    await setCustomerDefaultAddressApiCalling(index: index);
     inAsyncCall.value = false;
   }
 
   Future<void> clickOnDeleteButton({required int index}) async {
     inAsyncCall.value = true;
-    if (await deleteCustomerAddressApiCalling(index: index)) {
-      listOfAddress.removeAt(index);
+    try{
+      if (await deleteCustomerAddressApiCalling(index: index)) {
+        listOfAddress.removeAt(index);
+      }
+    }catch(e){
+      MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
     }
     inAsyncCall.value = false;
   }

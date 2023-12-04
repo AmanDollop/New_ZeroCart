@@ -86,7 +86,13 @@ class ChangePasswordController extends GetxController {
     MyCommonMethods.unFocsKeyBoard();
     if (key.currentState!.validate()) {
       isContinueButtonClicked.value=true;
-      await changePasswordApiCalling(context: context);
+      try{
+        await changePasswordApiCalling(context: context);
+      }catch(e){
+        MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
+        isContinueButtonClicked.value=false;
+        absorbing.value=CommonMethods.changeTheAbsorbingValueFalse();
+      }
     }
     absorbing.value=CommonMethods.changeTheAbsorbingValueFalse();
   }

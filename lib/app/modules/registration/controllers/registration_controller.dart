@@ -102,23 +102,26 @@ class RegistrationController extends GetxController {
 
   Future<void> sendOtpApiCalling({required String type}) async {
     String? uuid = await MyCommonMethods.getString(key: ApiKeyConstant.uuid);
-    bodyParamsForSendOtp = {
-      ApiKeyConstant.mobile: mobileNumberController.text.trim().toString(),
-      ApiKeyConstant.countryCode: "+91",
-      ApiKeyConstant.type: type,
-      ApiKeyConstant.uuid: uuid,
-    };
-    http.Response? response =
-        await CommonApis.sendOtpApi(bodyParams: bodyParamsForSendOtp);
-    if (response != null) {
-      sendOtpApiResponse = jsonDecode(response.body);
-      Get.toNamed(Routes.VERIFICATION, arguments: [
-        3,
-        "Submit",
-        sendOtpApiResponse[ApiKeyConstant.otp],
-        "registration",
-        mobileNumberController.text.toString().trim()
-      ]);
+    try{
+      bodyParamsForSendOtp = {
+        ApiKeyConstant.mobile: mobileNumberController.text.trim().toString(),
+        ApiKeyConstant.countryCode: "+91",
+        ApiKeyConstant.type: type,
+        ApiKeyConstant.uuid: uuid,
+      };
+      http.Response? response = await CommonApis.sendOtpApi(bodyParams: bodyParamsForSendOtp);
+      if (response != null) {
+        sendOtpApiResponse = jsonDecode(response.body);
+        Get.toNamed(Routes.VERIFICATION, arguments: [
+          3,
+          "Submit",
+          sendOtpApiResponse[ApiKeyConstant.otp],
+          "registration",
+          mobileNumberController.text.toString().trim()
+        ]);
+      }
+    }catch(e){
+      MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
     }
   }
 
@@ -182,11 +185,9 @@ class RegistrationController extends GetxController {
   }
 
   Future<void> getAllFashionCategoryListApiCalling() async {
-    getAllFashionCategoryListApiModel.value =
-        await CommonApis.getAllFashionCategoryListApi();
+    getAllFashionCategoryListApiModel.value = await CommonApis.getAllFashionCategoryListApi();
     if (getAllFashionCategoryListApiModel.value != null) {
-      fashionCategoryList =
-          getAllFashionCategoryListApiModel.value?.fashionCategoryList;
+      fashionCategoryList = getAllFashionCategoryListApiModel.value?.fashionCategoryList;
     }
   }
 
@@ -204,7 +205,13 @@ class RegistrationController extends GetxController {
     absorbing.value = CommonMethods.changeTheAbsorbingValueTrue();
     MyCommonMethods.unFocsKeyBoard();
     isSendOtpButtonClicked.value = true;
-    await sendOtpApiCalling(type: 'registration');
+    try{
+      await sendOtpApiCalling(type: 'registration');
+    }catch(e){
+      MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
+      isSendOtpButtonClicked.value = false;
+      absorbing.value = CommonMethods.changeTheAbsorbingValueFalse();
+    }
     isSendOtpButtonClicked.value = false;
     absorbing.value = CommonMethods.changeTheAbsorbingValueFalse();
   }
@@ -216,9 +223,20 @@ class RegistrationController extends GetxController {
     if (key.currentState!.validate() && !isStateSelectedValue.value && !isCitySelectedValue.value) {
       isSubmitButtonClicked.value = true;
       if (checkTypeOfProductsValue.toString()=="-1" && idBrand.isEmpty && fashionCategoryId.isEmpty) {
-        await registrationApiCalling();
+        try{
+          await registrationApiCalling();
+        }catch(e){
+          isSubmitButtonClicked.value = false;
+          absorbing.value = CommonMethods.changeTheAbsorbingValueFalse();
+        }
       } else if ((checkTypeOfProductsValue.toString() !="-1" && idBrand.isNotEmpty && fashionCategoryId.isNotEmpty)) {
-        await registrationApiCalling();
+        try{
+          await registrationApiCalling();
+        }catch(e){
+          MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
+          isSubmitButtonClicked.value = false;
+          absorbing.value = CommonMethods.changeTheAbsorbingValueFalse();
+        }
       }else
         {
          MyCommonMethods.showSnackBar(message: "All field required", context: Get.context!);

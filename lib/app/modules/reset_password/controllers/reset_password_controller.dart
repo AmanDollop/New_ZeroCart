@@ -59,10 +59,15 @@ class ResetPasswordController extends GetxController {
     absorbing.value = CommonMethods.changeTheAbsorbingValueTrue();
     if (key.currentState!.validate()) {
       isLoginButtonClicked.value = true;
-      await callingResetPasswordApi();
+      try{
+        await callingResetPasswordApi();
+      }catch(e){
+        MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
+        isLoginButtonClicked.value = false;
+        absorbing.value = CommonMethods.changeTheAbsorbingValueFalse();
+      }
       isLoginButtonClicked.value = false;
     }
-
     absorbing.value = CommonMethods.changeTheAbsorbingValueFalse();
   }
 
@@ -73,8 +78,7 @@ class ResetPasswordController extends GetxController {
       ApiKeyConstant.password: passwordController.text.trim().toString(),
     };
 
-    http.Response? response =
-        await CommonApis.resetPasswordApi(bodyParams: bodyParamsForResetPassword);
+    http.Response? response = await CommonApis.resetPasswordApi(bodyParams: bodyParamsForResetPassword);
     if (response != null) {
       responseMap = jsonDecode(response.body);
       Get.offAllNamed(Routes.LOGIN);

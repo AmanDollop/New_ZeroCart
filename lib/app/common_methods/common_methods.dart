@@ -23,10 +23,11 @@ class CommonMethods extends GetxController {
 
   Connectivity connectivity = Connectivity();
 
-  static Future<bool> checkResponse({required http.Response response,
-    bool wantShowSuccessResponse = false,
-    bool wantShowFailResponse = false,
-    bool wantInternetFailResponse = false}) async {
+  static Future<bool> checkResponse(
+      {required http.Response response,
+      bool wantShowSuccessResponse = false,
+      bool wantShowFailResponse = false,
+      bool wantInternetFailResponse = false}) async {
     Map<String, dynamic> responseMap = jsonDecode(response.body);
     if (await MyCommonMethods.internetConnectionCheckerMethod()) {
       if (response.statusCode == StatusCodeConstant.OK) {
@@ -81,7 +82,7 @@ class CommonMethods extends GetxController {
     CommonMethods commonMethods = CommonMethods();
     try {
       connectivityResult =
-      await (commonMethods.connectivity.checkConnectivity());
+          await (commonMethods.connectivity.checkConnectivity());
       return commonMethods.updateConnectionState(connectivityResult);
       // ignore: empty_catches
     } on PlatformException catch (e) {
@@ -92,10 +93,11 @@ class CommonMethods extends GetxController {
   static checkNetworkConnection() {
     CommonMethods commonMethods = CommonMethods();
     final networkConnection = false.obs;
-    return commonMethods.connectivity.onConnectivityChanged.listen((event) async {
+    return commonMethods.connectivity.onConnectivityChanged
+        .listen((event) async {
       // ignore: void_checks
       networkConnection.value =
-      await MyCommonMethods.internetConnectionCheckerMethod();
+          await MyCommonMethods.internetConnectionCheckerMethod();
       if (networkConnection.value) {
         isConnect.value = true;
       } else {
@@ -127,8 +129,6 @@ class CommonMethods extends GetxController {
     }
   }
 
-
-
   static bool changeTheAbsorbingValueTrue() {
     return true;
   }
@@ -139,45 +139,83 @@ class CommonMethods extends GetxController {
 
   static Future<void> setUserData({UserData? userData}) async {
     if (userData != null) {
-      await MyCommonMethods.setString(key: UserDataKeyConstant.customerId, value: userData.customer?.customerId ?? "");
+      await MyCommonMethods.setString(
+          key: UserDataKeyConstant.customerId,
+          value: userData.customer?.customerId ?? "");
 
-      await MyCommonMethods.setString(key: UserDataKeyConstant.fullName, value: userData.customer?.fullName ?? "");
+      await MyCommonMethods.setString(
+          key: UserDataKeyConstant.fullName,
+          value: userData.customer?.fullName ?? "");
 
-      await MyCommonMethods.setString(key: UserDataKeyConstant.email, value: userData.customer?.email ?? "");
+      await MyCommonMethods.setString(
+          key: UserDataKeyConstant.email,
+          value: userData.customer?.email ?? "");
 
-      await MyCommonMethods.setString(key: UserDataKeyConstant.mobile, value: userData.customer?.mobile ?? "");
+      await MyCommonMethods.setString(
+          key: UserDataKeyConstant.mobile,
+          value: userData.customer?.mobile ?? "");
 
-      await MyCommonMethods.setString(key: UserDataKeyConstant.securityEmail, value: userData.customer?.securityEmail ?? "");
+      await MyCommonMethods.setString(
+          key: UserDataKeyConstant.securityEmail,
+          value: userData.customer?.securityEmail ?? "");
 
-      await MyCommonMethods.setString(key: UserDataKeyConstant.securityPhone, value: userData.customer?.securityPhone ?? "");
+      await MyCommonMethods.setString(
+          key: UserDataKeyConstant.securityPhone,
+          value: userData.customer?.securityPhone ?? "");
 
-      await MyCommonMethods.setString(key: UserDataKeyConstant.securityPhoneCountryCode, value: userData.customer?.securityPhoneCountryCode ?? "");
+      await MyCommonMethods.setString(
+          key: UserDataKeyConstant.securityPhoneCountryCode,
+          value: userData.customer?.securityPhoneCountryCode ?? "");
 
-      await MyCommonMethods.setString(key: UserDataKeyConstant.lastUpdate, value: userData.customer?.updatedDate ?? "");
+      await MyCommonMethods.setString(
+          key: UserDataKeyConstant.lastUpdate,
+          value: userData.customer?.updatedDate ?? "");
 
-      await MyCommonMethods.setString(key: UserDataKeyConstant.profilePicture, value: userData.customer?.profilePicture ?? "");
+      await MyCommonMethods.setString(
+          key: UserDataKeyConstant.profilePicture,
+          value: userData.customer?.profilePicture ?? "");
 
-      await MyCommonMethods.setString(key: UserDataKeyConstant.dob, value: userData.customer?.dob ?? "");
+      await MyCommonMethods.setString(
+          key: UserDataKeyConstant.dob, value: userData.customer?.dob ?? "");
 
-      await MyCommonMethods.setString(key: UserDataKeyConstant.walletAmount, value: userData.customer?.walletAmount ?? "0.00");
+      await MyCommonMethods.setString(
+          key: UserDataKeyConstant.walletAmount,
+          value: userData.customer?.walletAmount ?? "0.00");
 
-      await MyCommonMethods.setString(key: UserDataKeyConstant.progress, value: userData.customer?.progress ?? "0");
+      await MyCommonMethods.setString(
+          key: UserDataKeyConstant.progress,
+          value: userData.customer?.progress ?? "0");
 
-      await MyCommonMethods.setString(key: UserDataKeyConstant.deviceType, value: userData.customer?.deviceType ?? "");
+      await MyCommonMethods.setString(
+          key: UserDataKeyConstant.deviceType,
+          value: userData.customer?.deviceType ?? "");
 
-      await MyCommonMethods.setString(key: UserDataKeyConstant.brandPreferenceName, value: userData.customer?.brandPreferenceName ?? "");
+      await MyCommonMethods.setString(
+          key: UserDataKeyConstant.brandPreferenceName,
+          value: userData.customer?.brandPreferenceName ?? "");
 
-      await MyCommonMethods.setString(key: UserDataKeyConstant.brandPreferences, value: userData.customer?.brandPreferences ?? "");
+      await MyCommonMethods.setString(
+          key: UserDataKeyConstant.brandPreferences,
+          value: userData.customer?.brandPreferences ?? "");
 
-      await MyCommonMethods.setString(key: UserDataKeyConstant.categoryPreferences, value: userData.customer?.categoryPreferences ?? "");
+      await MyCommonMethods.setString(
+          key: UserDataKeyConstant.categoryPreferences,
+          value: userData.customer?.categoryPreferences ?? "");
 
-      await MyCommonMethods.setString(key: UserDataKeyConstant.selectedState, value: userData.customer?.stateName ?? "");
+      await MyCommonMethods.setString(
+          key: UserDataKeyConstant.selectedState,
+          value: userData.customer?.stateName ?? "");
 
-      await MyCommonMethods.setString(key: UserDataKeyConstant.selectedCity, value: userData.customer?.cityName ?? "");
+      await MyCommonMethods.setString(
+          key: UserDataKeyConstant.selectedCity,
+          value: userData.customer?.cityName ?? "");
 
-      await MyCommonMethods.setString(key: ApiKeyConstant.stateId, value: userData.customer?.stateId ?? "");
+      await MyCommonMethods.setString(
+          key: ApiKeyConstant.stateId, value: userData.customer?.stateId ?? "");
 
-      await MyCommonMethods.setString(key: UserDataKeyConstant.genderPreferences, value: userData.customer?.genderPreferences ?? "");
+      await MyCommonMethods.setString(
+          key: UserDataKeyConstant.genderPreferences,
+          value: userData.customer?.genderPreferences ?? "");
 
       String? token = await MyCommonMethods.getString(key: 'token');
       print("token:::::$token");
@@ -187,46 +225,48 @@ class CommonMethods extends GetxController {
   static Future<Map<String, dynamic>?> getUserData() async {
     Map<String, dynamic>? userDataMap;
     userDataMap = {
-
-      UserDataKeyConstant.customerId: await MyCommonMethods.getString(key: UserDataKeyConstant.customerId),
-
-      UserDataKeyConstant.fullName: await MyCommonMethods.getString(key: UserDataKeyConstant.fullName),
-
-      UserDataKeyConstant.email: await MyCommonMethods.getString(key: UserDataKeyConstant.email),
-
-      UserDataKeyConstant.mobile: await MyCommonMethods.getString(key: UserDataKeyConstant.mobile),
-
-      UserDataKeyConstant.securityEmail: await MyCommonMethods.getString(key: UserDataKeyConstant.securityEmail),
-
-      UserDataKeyConstant.securityPhone: await MyCommonMethods.getString(key: UserDataKeyConstant.securityPhone),
-
-      UserDataKeyConstant.securityPhoneCountryCode: await MyCommonMethods.getString(key: UserDataKeyConstant.securityPhoneCountryCode),
-
-      UserDataKeyConstant.lastUpdate: await MyCommonMethods.getString(key: UserDataKeyConstant.lastUpdate),
-
-      UserDataKeyConstant.profilePicture: await MyCommonMethods.getString(key: UserDataKeyConstant.profilePicture),
-
-      UserDataKeyConstant.dob: await MyCommonMethods.getString(key: UserDataKeyConstant.dob),
-
-      UserDataKeyConstant.walletAmount: await MyCommonMethods.getString(key: UserDataKeyConstant.walletAmount),
-
-      UserDataKeyConstant.deviceType: await MyCommonMethods.getString(key: UserDataKeyConstant.deviceType),
-
-      UserDataKeyConstant.selectedCity: await MyCommonMethods.getString(key: UserDataKeyConstant.selectedCity),
-
-      UserDataKeyConstant.selectedState: await MyCommonMethods.getString(key: UserDataKeyConstant.selectedState),
-
-      ApiKeyConstant.stateId: await MyCommonMethods.getString(key: ApiKeyConstant.stateId),
-
-      UserDataKeyConstant.brandPreferenceName: await MyCommonMethods.getString(key: UserDataKeyConstant.brandPreferenceName),
-
-      UserDataKeyConstant.brandPreferences: await MyCommonMethods.getString(key: UserDataKeyConstant.brandPreferences),
-
-      UserDataKeyConstant.categoryPreferences: await MyCommonMethods.getString(key: UserDataKeyConstant.categoryPreferences),
-
-      UserDataKeyConstant.categoryPreferenceName: await MyCommonMethods.getString(key: UserDataKeyConstant.categoryPreferenceName),
-
-      ApiKeyConstant.genderPreferences: await MyCommonMethods.getString(key: ApiKeyConstant.genderPreferences),
+      UserDataKeyConstant.customerId:
+          await MyCommonMethods.getString(key: UserDataKeyConstant.customerId),
+      UserDataKeyConstant.fullName:
+          await MyCommonMethods.getString(key: UserDataKeyConstant.fullName),
+      UserDataKeyConstant.email:
+          await MyCommonMethods.getString(key: UserDataKeyConstant.email),
+      UserDataKeyConstant.mobile:
+          await MyCommonMethods.getString(key: UserDataKeyConstant.mobile),
+      UserDataKeyConstant.securityEmail: await MyCommonMethods.getString(
+          key: UserDataKeyConstant.securityEmail),
+      UserDataKeyConstant.securityPhone: await MyCommonMethods.getString(
+          key: UserDataKeyConstant.securityPhone),
+      UserDataKeyConstant.securityPhoneCountryCode:
+          await MyCommonMethods.getString(
+              key: UserDataKeyConstant.securityPhoneCountryCode),
+      UserDataKeyConstant.lastUpdate:
+          await MyCommonMethods.getString(key: UserDataKeyConstant.lastUpdate),
+      UserDataKeyConstant.profilePicture: await MyCommonMethods.getString(
+          key: UserDataKeyConstant.profilePicture),
+      UserDataKeyConstant.dob:
+          await MyCommonMethods.getString(key: UserDataKeyConstant.dob),
+      UserDataKeyConstant.walletAmount: await MyCommonMethods.getString(
+          key: UserDataKeyConstant.walletAmount),
+      UserDataKeyConstant.deviceType:
+          await MyCommonMethods.getString(key: UserDataKeyConstant.deviceType),
+      UserDataKeyConstant.selectedCity: await MyCommonMethods.getString(
+          key: UserDataKeyConstant.selectedCity),
+      UserDataKeyConstant.selectedState: await MyCommonMethods.getString(
+          key: UserDataKeyConstant.selectedState),
+      ApiKeyConstant.stateId:
+          await MyCommonMethods.getString(key: ApiKeyConstant.stateId),
+      UserDataKeyConstant.brandPreferenceName: await MyCommonMethods.getString(
+          key: UserDataKeyConstant.brandPreferenceName),
+      UserDataKeyConstant.brandPreferences: await MyCommonMethods.getString(
+          key: UserDataKeyConstant.brandPreferences),
+      UserDataKeyConstant.categoryPreferences: await MyCommonMethods.getString(
+          key: UserDataKeyConstant.categoryPreferences),
+      UserDataKeyConstant.categoryPreferenceName:
+          await MyCommonMethods.getString(
+              key: UserDataKeyConstant.categoryPreferenceName),
+      ApiKeyConstant.genderPreferences: await MyCommonMethods.getString(
+          key: ApiKeyConstant.genderPreferences),
     };
 
     if (userDataMap.isNotEmpty) {
@@ -237,7 +277,9 @@ class CommonMethods extends GetxController {
   }
 
   static getSize({required BuildContext context}) {
-    double availableHeight = MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom;
+    double availableHeight = MediaQuery.of(context).size.height -
+        MediaQuery.of(context).padding.top -
+        MediaQuery.of(context).padding.bottom;
     return availableHeight;
   }
 
@@ -261,46 +303,53 @@ class CommonMethods extends GetxController {
     }
   }*/
 
+  OpenGetWayType? openGetWayType;
 
-  OpenGetWayType? openGetWayType ;
   String priceValue = "";
   String transId = "";
   String razorpayKeyName = "rzp_test_sBIiiURrNWQRTc";
   String razorpayKeyPassword = "UeGbEmzqYSb3tBjT7Mcphb2V";
-  bool inAmt=true;
-  bool cancelOrder=false;
-  String inventory="";
-  int itemQua=1;
-  final response=false.obs;
+  bool inAmt = true;
+  bool cancelOrder = false;
+  String inventory = "";
+  int itemQua = 1;
+  final response = false.obs;
   UserData? userData;
   Map<String, dynamic> bodyParametersForPlaceOrderApi = {};
   Map<String, dynamic> bodyParamsForWalletTransactionApi = {};
 
-  Future<void> openGateway(
-      {required OpenGetWayType type ,
-      required int priceValue,String? description,bool inAmt=true,bool cancelOrder=false,
-        String inventoryId="",int itemQuantity=1,
-      }) async {
+  Future<void> openGateway({
+    required OpenGetWayType type,
+    required int priceValue,
+    String? description,
+    bool inAmt = true,
+    bool cancelOrder = false,
+    String inventoryId = "",
+    int itemQuantity = 1,
+  }) async {
     openGetWayType = type;
     this.priceValue = priceValue.toString();
-    this.inAmt=inAmt;
-    this.cancelOrder=cancelOrder;
-    inventory=inventoryId;
-    itemQua=itemQuantity;
-    String userName = await MyCommonMethods.getString(key: UserDataKeyConstant.fullName) ?? "";
-    String userEmail = await MyCommonMethods.getString(key: UserDataKeyConstant.email) ?? "";
-    String userMobile = await MyCommonMethods.getString(key: UserDataKeyConstant.mobile) ?? "";
+    this.inAmt = inAmt;
+    this.cancelOrder = cancelOrder;
+    inventory = inventoryId;
+    itemQua = itemQuantity;
+    String userName =
+        await MyCommonMethods.getString(key: UserDataKeyConstant.fullName) ??
+            "";
+    String userEmail =
+        await MyCommonMethods.getString(key: UserDataKeyConstant.email) ?? "";
+    String userMobile =
+        await MyCommonMethods.getString(key: UserDataKeyConstant.mobile) ?? "";
     var option = {
       'key': razorpayKeyName,
       'amount': priceValue * 100,
       'name': userName,
-      'description': description ??"",
+      'description': description ?? "",
       'timeout': 60 * 2,
       'prefill': {'contect': userMobile, 'email': userEmail},
     };
     razorpay.open(option);
   }
-
 
   _handlePaymentSuccess(PaymentSuccessResponse paymentSuccessResponse) async {
     transId = paymentSuccessResponse.paymentId ?? "";
@@ -313,41 +362,54 @@ class CommonMethods extends GetxController {
     }
   }
 
-  Future<void> cartPayment() async{
+  Future<void> cartPayment() async {
     var userMeasurement = await MyCommonMethods.getString(key: "measurement");
     bodyParametersForPlaceOrderApi = {
       ApiKeyConstant.paymentMode: "Online",
       ApiKeyConstant.transId: transId,
       ApiKeyConstant.isCart: '1',
-      ApiKeyConstant.userMeasurement : userMeasurement,
+      ApiKeyConstant.userMeasurement: userMeasurement,
     };
-    final cartController=Get.find<MyCartController>();
-    cartController.getCartDetailsModel=null;
-    bool isSuccess = await placeOrderApiCalling();
-    if(isSuccess)
-    {
-      Get.toNamed(Routes.MY_ORDERS);
-      MyCommonMethods.showSnackBar(message: "Your order has been placed successfully", context: Get.context!);
+    final cartController = Get.find<MyCartController>();
+    cartController.getCartDetailsModel = null;
+    try {
+      bool isSuccess = await placeOrderApiCalling();
+      if (isSuccess) {
+        Get.toNamed(Routes.MY_ORDERS);
+        MyCommonMethods.showSnackBar(
+            message: "Your order has been placed successfully",
+            context: Get.context!);
+      } else {
+        MyCommonMethods.showSnackBar(message: "Something went wrong!", context: Get.context!);
+      }
+      cartController.getCartDetailsModelApiCalling();
+      bodyParametersForPlaceOrderApi.clear();
+    } catch (e) {
+      MyCommonMethods.showSnackBar(message: "Something went wrong!", context: Get.context!);
     }
-    cartController.getCartDetailsModelApiCalling();
-    bodyParametersForPlaceOrderApi.clear();
   }
 
-  Future<void> buyNowPayment() async{
+  Future<void> buyNowPayment() async {
     var userMeasurement = await MyCommonMethods.getString(key: "measurement");
-    bodyParametersForPlaceOrderApi={
-      ApiKeyConstant.paymentMode:"Online",
-      ApiKeyConstant.transId:transId,
-      ApiKeyConstant.isCart:'0',
-      ApiKeyConstant.inventoryId:inventory,
-      ApiKeyConstant.userMeasurement : userMeasurement,
-      ApiKeyConstant.quantity:itemQua.toString(),
+    bodyParametersForPlaceOrderApi = {
+      ApiKeyConstant.paymentMode: "Online",
+      ApiKeyConstant.transId: transId,
+      ApiKeyConstant.isCart: '0',
+      ApiKeyConstant.inventoryId: inventory,
+      ApiKeyConstant.userMeasurement: userMeasurement,
+      ApiKeyConstant.quantity: itemQua.toString(),
     };
-   bool isSuccess= await placeOrderApiCalling();
-    bodyParametersForPlaceOrderApi.clear();
-    if(isSuccess){
-      MyCommonMethods.showSnackBar(message: "Your order has been placed successfully", context: Get.context!);
-      Get.toNamed(Routes.MY_ORDERS);
+    try {
+      bool isSuccess = await placeOrderApiCalling();
+      bodyParametersForPlaceOrderApi.clear();
+      if (isSuccess) {
+        MyCommonMethods.showSnackBar(message: "Your order has been placed successfully", context: Get.context!);
+        Get.toNamed(Routes.MY_ORDERS);
+      }else {
+        MyCommonMethods.showSnackBar(message: "Something went wrong!", context: Get.context!);
+      }
+    } catch (e) {
+      MyCommonMethods.showSnackBar(message: "Something went wrong!", context: Get.context!);
     }
   }
 
@@ -355,19 +417,19 @@ class CommonMethods extends GetxController {
     if (transId.isNotEmpty) {
       await walletTransactionApiCalling();
       await getUserProfileApiCalling();
-      final zerocartWalletController =Get.find<ZerocartWalletController>();
-      zerocartWalletController.addMoneyController.text="";
-      zerocartWalletController.isAddedMoney.value=false;
+      final zerocartWalletController = Get.find<ZerocartWalletController>();
+      zerocartWalletController.addMoneyController.text = "";
+      zerocartWalletController.isAddedMoney.value = false;
       await zerocartWalletController.getCustomerWalletHistoryApiCalling();
     }
   }
 
   Future<bool> placeOrderApiCalling() async {
-    http.Response? response = await CommonApis.placeOrderApi(bodyParams: bodyParametersForPlaceOrderApi);
+    http.Response? response = await CommonApis.placeOrderApi(
+        bodyParams: bodyParametersForPlaceOrderApi);
     if (response != null) {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
   }
@@ -381,8 +443,7 @@ class CommonMethods extends GetxController {
           ApiKeyConstant.transId: transId,
           ApiKeyConstant.actionType: "order cancel"
         };
-      }
-      else {
+      } else {
         bodyParamsForWalletTransactionApi = {
           ApiKeyConstant.transType: "credit",
           ApiKeyConstant.inAmt: priceValue,
@@ -390,8 +451,7 @@ class CommonMethods extends GetxController {
           ApiKeyConstant.actionType: "addMoney"
         };
       }
-    }
-    else {
+    } else {
       bodyParamsForWalletTransactionApi = {
         ApiKeyConstant.transType: "debit",
         ApiKeyConstant.outAmt: priceValue,
@@ -400,11 +460,9 @@ class CommonMethods extends GetxController {
       };
     }
 
-    http.Response? response = await CommonApis.walletTransactionApi(bodyParams: bodyParamsForWalletTransactionApi);
-    if (response != null)
-    {
-
-    }
+    http.Response? response = await CommonApis.walletTransactionApi(
+        bodyParams: bodyParamsForWalletTransactionApi);
+    if (response != null) {}
     bodyParamsForWalletTransactionApi.clear();
   }
 
@@ -417,7 +475,7 @@ class CommonMethods extends GetxController {
         url: ApiConstUri.endPointGetUserDataApi,
         token: authorization,
         context: Get.context!);
-   /* homeController.responseCode = response?.statusCode ?? 0;
+    /* homeController.responseCode = response?.statusCode ?? 0;
     print("homeController.responseCode::::::::::::::::::::::${homeController.responseCode}");*/
     if (response != null) {
       if (await CommonMethods.checkResponse(response: response)) {
@@ -434,11 +492,6 @@ class CommonMethods extends GetxController {
   }
 
   _handleExternalWallet() {}
-
 }
 
- enum OpenGetWayType{
-  cart,
-  buyNow,
-  addMoneyWallet
- }
+enum OpenGetWayType { cart, buyNow, addMoneyWallet }

@@ -58,7 +58,7 @@ class NotificationServiceForAndroid {
 
   final AndroidInitializationSettings initializationSettingsAndroid = const AndroidInitializationSettings('@mipmap/ic_launcher');
 
-  void initNotification() async {
+  Future<void> initNotification() async {
     InitializationSettings initializationSettings = InitializationSettings(android: initializationSettingsAndroid);
     flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
@@ -66,8 +66,10 @@ class NotificationServiceForAndroid {
   Future<void> sendNotification({required String title, required String body}) async {
     AndroidNotificationDetails androidNotificationDetails = const AndroidNotificationDetails("channelId", "channelName", importance: Importance.max, priority: Priority.high);
     NotificationDetails notificationDetails = NotificationDetails(android: androidNotificationDetails);
+    // await initNotification();
     await flutterLocalNotificationsPlugin.show(0, title, body, notificationDetails);
   }
+
 }
 
 class NotificationServiceForAll {

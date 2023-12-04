@@ -22,13 +22,11 @@ class MeasurementsView extends GetView<MeasurementsController> {
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           appBar: const MyCustomContainer().myAppBar(
               isIcon: true,
-              backIconOnPressed: () =>
-                  controller.clickOnBackIcon(context: context),
+              backIconOnPressed: () => controller.clickOnBackIcon(context: context),
               text: 'Measurements'),
           body: Obx(() {
             if (CommonMethods.isConnect.value) {
-              if (controller.getCustomerMeasurementApiModel != null &&
-                  controller.responseCode == 200) {
+              if (controller.getCustomerMeasurementApiModel != null && controller.responseCode == 200) {
                 return CommonWidgets.commonRefreshIndicator(
                   onRefresh: () => controller.onRefresh(),
                   child: ListView(
@@ -48,8 +46,7 @@ class MeasurementsView extends GetView<MeasurementsController> {
                                   Expanded(
                                     child: Padding(
                                       padding: EdgeInsets.only(right: 2.w),
-                                      child:
-                                          measurementItemTextView(text: 'Chest'),
+                                      child: measurementItemTextView(text: 'Chest'),
                                     ),
                                   ),
                                   SizedBox(
@@ -58,21 +55,16 @@ class MeasurementsView extends GetView<MeasurementsController> {
                                     child: UnicornOutline(
                                       strokeWidth: 1,
                                       radius: 2,
-                                      gradient: CommonWidgets
-                                          .commonLinearGradientView(),
+                                      gradient: CommonWidgets.commonLinearGradientView(),
                                       child: Expanded(
                                         child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                                           children: [
                                             subtractIconVIew(index: 0),
                                             Expanded(
                                               flex: 1,
                                               child: sizeTextView(
-                                                text: controller.chest
-                                                    .toDouble()
-                                                    .toStringAsFixed(2)
-                                                    .toString(),
+                                                text: controller.chest.toDouble().toStringAsFixed(2).toString(),
                                               ),
                                             ),
                                             addIconView(index: 0),
@@ -107,21 +99,16 @@ class MeasurementsView extends GetView<MeasurementsController> {
                                     child: UnicornOutline(
                                       strokeWidth: 1,
                                       radius: 2,
-                                      gradient: CommonWidgets
-                                          .commonLinearGradientView(),
+                                      gradient: CommonWidgets.commonLinearGradientView(),
                                       child: Expanded(
                                         child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                                           children: [
                                             subtractIconVIew(index: 1),
                                             Expanded(
                                               flex: 1,
                                               child: sizeTextView(
-                                                text: controller.arm
-                                                    .toDouble()
-                                                    .toStringAsFixed(2)
-                                                    .toString(),
+                                                text: controller.arm.toDouble().toStringAsFixed(2).toString(),
                                               ),
                                             ),
                                             addIconView(index: 1),
@@ -147,8 +134,7 @@ class MeasurementsView extends GetView<MeasurementsController> {
                                   Expanded(
                                     child: Padding(
                                       padding: EdgeInsets.only(right: 2.w),
-                                      child: measurementItemTextView(
-                                          text: 'Shoulder'),
+                                      child: measurementItemTextView(text: 'Shoulder'),
                                     ),
                                   ),
                                   SizedBox(
@@ -157,21 +143,16 @@ class MeasurementsView extends GetView<MeasurementsController> {
                                     child: UnicornOutline(
                                       strokeWidth: 1,
                                       radius: 2,
-                                      gradient: CommonWidgets
-                                          .commonLinearGradientView(),
+                                      gradient: CommonWidgets.commonLinearGradientView(),
                                       child: Expanded(
                                         child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                                           children: [
                                             subtractIconVIew(index: 2),
                                             Expanded(
                                               flex: 1,
                                               child: sizeTextView(
-                                                text: controller.shoulder
-                                                    .toDouble()
-                                                    .toStringAsFixed(2)
-                                                    .toString(),
+                                                text: controller.shoulder.toDouble().toStringAsFixed(2).toString(),
                                               ),
                                             ),
                                             addIconView(index: 2),
@@ -197,8 +178,7 @@ class MeasurementsView extends GetView<MeasurementsController> {
                                   Expanded(
                                     child: Padding(
                                       padding: EdgeInsets.only(right: 2.w),
-                                      child:
-                                          measurementItemTextView(text: 'Waist'),
+                                      child: measurementItemTextView(text: 'Waist'),
                                     ),
                                   ),
                                   SizedBox(
@@ -207,21 +187,16 @@ class MeasurementsView extends GetView<MeasurementsController> {
                                     child: UnicornOutline(
                                       strokeWidth: 1,
                                       radius: 2,
-                                      gradient: CommonWidgets
-                                          .commonLinearGradientView(),
+                                      gradient: CommonWidgets.commonLinearGradientView(),
                                       child: Expanded(
                                         child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                                           children: [
                                             subtractIconVIew(index: 3),
                                             Expanded(
                                               flex: 1,
                                               child: sizeTextView(
-                                                text: controller.waist
-                                                    .toDouble()
-                                                    .toStringAsFixed(2)
-                                                    .toString(),
+                                                text: controller.waist.toDouble().toStringAsFixed(2).toString(),
                                               ),
                                             ),
                                             addIconView(index: 3),
@@ -247,8 +222,7 @@ class MeasurementsView extends GetView<MeasurementsController> {
                                   Expanded(
                                     child: Padding(
                                       padding: EdgeInsets.only(right: 2.w),
-                                      child:
-                                          measurementItemTextView(text: 'Neck'),
+                                      child: measurementItemTextView(text: 'Neck'),
                                     ),
                                   ),
                                   SizedBox(
@@ -257,21 +231,16 @@ class MeasurementsView extends GetView<MeasurementsController> {
                                     child: UnicornOutline(
                                       strokeWidth: 1,
                                       radius: 2,
-                                      gradient: CommonWidgets
-                                          .commonLinearGradientView(),
+                                      gradient: CommonWidgets.commonLinearGradientView(),
                                       child: Expanded(
                                         child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                                           children: [
                                             subtractIconVIew(index: 4),
                                             Expanded(
                                               flex: 1,
                                               child: sizeTextView(
-                                                text: controller.neck
-                                                    .toDouble()
-                                                    .toStringAsFixed(2)
-                                                    .toString(),
+                                                text: controller.neck.toDouble().toStringAsFixed(2).toString(),
                                               ),
                                             ),
                                             addIconView(index: 4),
@@ -307,21 +276,16 @@ class MeasurementsView extends GetView<MeasurementsController> {
                                     child: UnicornOutline(
                                       strokeWidth: 1,
                                       radius: 2,
-                                      gradient: CommonWidgets
-                                          .commonLinearGradientView(),
+                                      gradient: CommonWidgets.commonLinearGradientView(),
                                       child: Expanded(
                                         child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                                           children: [
                                             subtractIconVIew(index: 5),
                                             Expanded(
                                               flex: 1,
                                               child: sizeTextView(
-                                                text: controller.height
-                                                    .toDouble()
-                                                    .toStringAsFixed(2)
-                                                    .toString(),
+                                                text: controller.height.toDouble().toStringAsFixed(2).toString(),
                                               ),
                                             ),
                                             addIconView(index: 5),
@@ -347,8 +311,7 @@ class MeasurementsView extends GetView<MeasurementsController> {
                                   Expanded(
                                     child: Padding(
                                       padding: EdgeInsets.only(right: 2.w),
-                                      child: measurementItemTextView(
-                                          text: 'Weight(kg)'),
+                                      child: measurementItemTextView(text: 'Weight(kg)'),
                                     ),
                                   ),
                                   SizedBox(
@@ -357,21 +320,16 @@ class MeasurementsView extends GetView<MeasurementsController> {
                                     child: UnicornOutline(
                                       strokeWidth: 1,
                                       radius: 2,
-                                      gradient: CommonWidgets
-                                          .commonLinearGradientView(),
+                                      gradient: CommonWidgets.commonLinearGradientView(),
                                       child: Expanded(
                                         child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                                           children: [
                                             subtractIconVIew(index: 6),
                                             Expanded(
                                               flex: 1,
                                               child: sizeTextView(
-                                                text: controller.weight
-                                                    .toDouble()
-                                                    .toStringAsFixed(2)
-                                                    .toString(),
+                                                text: controller.weight.toDouble().toStringAsFixed(2).toString(),
                                               ),
                                             ),
                                             addIconView(index: 6),
@@ -406,23 +364,17 @@ class MeasurementsView extends GetView<MeasurementsController> {
                                     child: UnicornOutline(
                                       strokeWidth: 1,
                                       radius: 2,
-                                      gradient: CommonWidgets
-                                          .commonLinearGradientView(),
+                                      gradient: CommonWidgets.commonLinearGradientView(),
                                       child: Expanded(
                                         child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             Expanded(
                                               flex: 1,
                                               child: sizeTextView(
-                                                text: controller.height == 0.0 &&
-                                                        controller.weight == 0.0
+                                                text: controller.height == 0.0 && controller.weight == 0.0
                                                     ? "0.0"
-                                                    : controller.bMI
-                                                        .toDouble()
-                                                        .toStringAsFixed(2)
-                                                        .toString(),
+                                                    : controller.bMI.toDouble().toStringAsFixed(2).toString(),
                                               ),
                                             ),
                                           ],
@@ -445,13 +397,15 @@ class MeasurementsView extends GetView<MeasurementsController> {
                     ],
                   ),
                 );
-              } else if (controller.responseCode == 0) {
+              }
+              else if (controller.responseCode == 0) {
                 return const SizedBox();
               }
               return CommonWidgets.commonSomethingWentWrongImage(
                 onRefresh: () => controller.onRefresh(),
               );
-            } else {
+            }
+            else {
               return CommonWidgets.commonNoInternetImage(
                 onRefresh: () => controller.onRefresh(),
               );
@@ -519,10 +473,7 @@ class MeasurementsView extends GetView<MeasurementsController> {
 
   Widget sizeTextView({required String text}) => Text(
         text,
-        style: Theme.of(Get.context!)
-            .textTheme
-            .subtitle1
-            ?.copyWith(fontSize: 14.px),
+        style: Theme.of(Get.context!).textTheme.subtitle1?.copyWith(fontSize: 14.px),
         textAlign: TextAlign.center,
         overflow: TextOverflow.ellipsis,
       );
@@ -536,10 +487,7 @@ class MeasurementsView extends GetView<MeasurementsController> {
             child: GradientText(
               "-",
               gradient: CommonWidgets.commonLinearGradientView(),
-              style: Theme.of(Get.context!)
-                  .textTheme
-                  .subtitle1
-                  ?.copyWith(fontSize: 18.px),
+              style: Theme.of(Get.context!).textTheme.subtitle1?.copyWith(fontSize: 18.px),
             ),
           ),
         ),
@@ -552,13 +500,11 @@ class MeasurementsView extends GetView<MeasurementsController> {
           child: Text(
             "Reset",
             maxLines: 1,
-            style: Theme.of(Get.context!)
-                .textTheme
-                .headline3
-                ?.copyWith(fontSize: 10.px),
+            style: Theme.of(Get.context!).textTheme.headline3?.copyWith(fontSize: 10.px),
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.right,
           ),
         ),
       );
+
 }

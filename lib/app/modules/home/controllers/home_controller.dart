@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zerocart/my_responsive_sizer/src/extension.dart';
@@ -17,7 +18,6 @@ import 'package:zerocart/app/common_widgets/alert_dialog.dart';
 import 'package:zerocart/app/routes/app_pages.dart';
 import 'package:zerocart/my_colors/my_colors.dart';
 import 'package:http/http.dart' as http;
-
 import '../../../../my_common_method/my_common_method.dart';
 import '../../../../my_firebase/my_firebase.dart';
 import '../../../../my_http/my_http.dart';
@@ -264,7 +264,7 @@ class HomeController extends CommonMethods {
     increment();
   }
 
-/*  Future<void> getRecentProduct() async {
+  /*  Future<void> getRecentProduct() async {
     queryParametersForRecentProductApi = {'cId': customerId.toString()};
     Map<String, String> authorization = {};
     String? token = await MyCommonMethods.getString(key: ApiKeyConstant.token);
@@ -344,9 +344,6 @@ class HomeController extends CommonMethods {
     increment();
   }*/
 
-
-
-
   Future<void> getProductBasedOnPreferenceApi() async {
     Map<String, String> authorization = {};
     String? token = await MyCommonMethods.getString(key: ApiKeyConstant.token);
@@ -363,7 +360,9 @@ class HomeController extends CommonMethods {
           if (getProductBasedOnPreferenceApiModel?.productDetails != null && getProductBasedOnPreferenceApiModel!.productDetails!.isNotEmpty) {
               getProductBasedOnPreferenceApiList = getProductBasedOnPreferenceApiModel?.productDetails ?? [];
           }
-          print('getProductBasedOnPreferenceApiList::::::     $getProductBasedOnPreferenceApiList');
+          if (kDebugMode) {
+            print('getProductBasedOnPreferenceApiList::::::     $getProductBasedOnPreferenceApiList');
+          }
         }
       }
     }
@@ -387,7 +386,9 @@ class HomeController extends CommonMethods {
           if (getProductBasedOnHistoryApiModel?.productDetails != null && getProductBasedOnHistoryApiModel!.productDetails!.isNotEmpty) {
               getProductBasedOnHistoryApiList = getProductBasedOnHistoryApiModel?.productDetails ?? [];
           }
-          print('getProductBasedOnHistoryApiList:::::     $getProductBasedOnHistoryApiList');
+          if (kDebugMode) {
+            print('getProductBasedOnHistoryApiList:::::     $getProductBasedOnHistoryApiList');
+          }
         }
       }
     }
@@ -495,7 +496,9 @@ class HomeController extends CommonMethods {
   Future<void> getUserData() async {
     name.value = await MyCommonMethods.getString(key: UserDataKeyConstant.fullName) ?? "";
     walletAmount.value = await MyCommonMethods.getString(key: UserDataKeyConstant.walletAmount) ?? "0.00";
-    print('walletAmount::::::::      $walletAmount');
+    if (kDebugMode) {
+      print('walletAmount::::::::      $walletAmount');
+    }
   }
 
   Future<void> clickOnCard({required String productId}) async {
@@ -559,7 +562,5 @@ class HomeController extends CommonMethods {
     });
 
   }
-
-
 
 }

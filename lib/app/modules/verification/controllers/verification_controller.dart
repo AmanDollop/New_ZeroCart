@@ -70,7 +70,13 @@ class VerificationController extends GetxController {
     absorbing.value = CommonMethods.changeTheAbsorbingValueTrue();
     MyCommonMethods.unFocsKeyBoard();
     isClickOnLoginButton.value = true;
-    await matchOtpApiCalling();
+    try{
+      await matchOtpApiCalling();
+    }catch(e){
+      MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
+      isClickOnLoginButton.value = false;
+      absorbing.value = CommonMethods.changeTheAbsorbingValueFalse();
+    }
     isClickOnLoginButton.value = false;
     absorbing.value = CommonMethods.changeTheAbsorbingValueFalse();
   }
@@ -129,9 +135,13 @@ class VerificationController extends GetxController {
     }
   }
 
-  clickOnResendButton() async {
+  void clickOnResendButton() async {
     timer.value = !timer.value;
-    await sendOtpApiCalling(type: type);
+    try{
+      await sendOtpApiCalling(type: type);
+    }catch(e){
+      MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
+    }
   }
 
   Future<void> sendOtpApiCalling({required String type}) async {

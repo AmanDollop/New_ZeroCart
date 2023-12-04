@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zerocart/app/apis/api_constant/api_constant.dart';
@@ -7,11 +6,11 @@ import 'package:zerocart/app/apis/api_modals/get_customer_measurement_api_model.
 import 'package:zerocart/app/apis/common_apis/common_apis.dart';
 import 'package:http/http.dart' as http;
 import 'package:zerocart/app/common_methods/common_methods.dart';
-
 import '../../../../my_common_method/my_common_method.dart';
 import '../../../../my_http/my_http.dart';
 
 class MeasurementsController extends CommonMethods {
+
   final inAsyncCall = false.obs;
   int responseCode = 0;
   int load = 0;
@@ -70,11 +69,9 @@ class MeasurementsController extends CommonMethods {
     });
   }
 
-
   Future<void> onRefresh() async {
     await onInit();
   }
-
 
   Future<void> getCustomerMeasurementApi() async {
     Map<String, String> authorization = {};
@@ -87,8 +84,7 @@ class MeasurementsController extends CommonMethods {
     responseCode=response?.statusCode??0;
     if (response != null) {
       if (await CommonMethods.checkResponse(response: response)) {
-        getCustomerMeasurementApiModel =
-            GetCustomerMeasurementApiModel.fromJson(jsonDecode(response.body));
+        getCustomerMeasurementApiModel = GetCustomerMeasurementApiModel.fromJson(jsonDecode(response.body));
         if (getCustomerMeasurementApiModel != null) {
           if (getCustomerMeasurementApiModel!.measurement != null) {
             measurement = getCustomerMeasurementApiModel!.measurement!;
@@ -127,7 +123,6 @@ class MeasurementsController extends CommonMethods {
 
   }
 
-
   Future<bool> updateApiCalling() async {
     Map<String, double> measurement = {
       "Chest": chest.toDouble(),
@@ -139,8 +134,7 @@ class MeasurementsController extends CommonMethods {
       "Weight": weight.toDouble(),
       "BMI": bMI.toDouble(),
     };
-    await MyCommonMethods.setString(
-        key: 'measurement', value: json.encode(measurement));
+    await MyCommonMethods.setString(key: 'measurement', value: json.encode(measurement));
     bodyParamsForUpdateApi = {
       ApiKeyConstant.measurement: json.encode(measurement),
     };
@@ -153,9 +147,6 @@ class MeasurementsController extends CommonMethods {
       return false;
     }
   }
-
-
-
 
   void increment() {
     count.value++;
@@ -279,12 +270,16 @@ class MeasurementsController extends CommonMethods {
 
   Future<void> clickOnConfirmButton() async {
     inAsyncCall.value = true;
-    await updateApiCalling();
+    try{
+      await updateApiCalling();
+    }catch(e){
+      MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
+      inAsyncCall.value = false;
+    }
     inAsyncCall.value = false;
   }
 
-  void calculateBMI(
-      {required String measurementHeight, required String measurementWeight}) {
+  void calculateBMI({required String measurementHeight, required String measurementWeight}) {
     double height = double.parse(measurementHeight.toString()) / 100;
     double weight = double.parse(measurementWeight.toString());
     double heightSquare = height * height;

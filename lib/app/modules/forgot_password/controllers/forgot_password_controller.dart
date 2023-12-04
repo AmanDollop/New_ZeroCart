@@ -41,7 +41,13 @@ class ForgotPasswordController extends GetxController {
     MyCommonMethods.unFocsKeyBoard();
     if (key.currentState!.validate()) {
       isClickOnSendOtpButton.value=true;
-      await sendOtpApiCalling(type: 'forgetPassword');
+      try{
+        await sendOtpApiCalling(type: 'forgetPassword');
+      }catch(e){
+        MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
+        isClickOnSendOtpButton.value=false;
+        absorbing.value=CommonMethods.changeTheAbsorbingValueFalse();
+      }
       isClickOnSendOtpButton.value=false;
     }
     absorbing.value=CommonMethods.changeTheAbsorbingValueFalse();

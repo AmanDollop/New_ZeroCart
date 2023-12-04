@@ -145,10 +145,8 @@ class CancelOrderView extends GetView<CancelOrderController> {
                       ),
                     );
                   } else {
-                    return Expanded(
-                      child: CommonWidgets.commonNoDataFoundImage(
-                        onRefresh: () => controller.onRefresh(),
-                      ),
+                    return CommonWidgets.commonNoDataFoundImage(
+                      onRefresh: () => controller.onRefresh(),
                     );
                   }
                 } else {

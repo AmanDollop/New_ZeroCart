@@ -523,12 +523,21 @@ class OutfitRoomController extends CommonMethods {
 
   Future<void> clickOnSaveButton() async {
     // await callingApiAndClearDataMethod();
-    addToOutfitsApi();
+    try{
+      addToOutfitsApi();
+    }catch(e){
+      MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
+    }
   }
 
   Future<void> clickOnAddToCartButton() async {
     inAsyncCall.value = true;
-    await moveOutfitToCartApi();
+    try{
+      await moveOutfitToCartApi();
+    }catch(e){
+      MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
+      inAsyncCall.value = false;
+    }
     inAsyncCall.value = false;
   }
 

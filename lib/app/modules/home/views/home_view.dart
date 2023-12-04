@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:light_carousel/light_carousel.dart';
+// import 'package:light_carousel/light_carousel.dart';
 import 'package:zerocart/app/constant/zconstant.dart';
 import 'package:zerocart/my_responsive_sizer/src/extension.dart';
 import 'package:zerocart/app/custom/scroll_splash_gone.dart';
@@ -63,8 +63,7 @@ class HomeView extends GetView<HomeController> {
                                   onRefresh: () => controller.onRefresh(),*/
                                 child: ListView(
                                   padding: EdgeInsets.zero,
-                                  physics:
-                                      const AlwaysScrollableScrollPhysics(),
+                                  physics: const AlwaysScrollableScrollPhysics(),
                                   children: [
                                     Visibility(
                                       maintainSize: true,
@@ -74,12 +73,8 @@ class HomeView extends GetView<HomeController> {
                                       child: Column(
                                         children: [
                                           Container(
-                                              color: Theme.of(Get.context!)
-                                                  .colorScheme
-                                                  .onBackground,
-                                              child: const MyCustomContainer()
-                                                  .myCustomContainer(
-                                                      context: context)),
+                                              color: Theme.of(Get.context!).colorScheme.onBackground,
+                                              child: const MyCustomContainer().myCustomContainer(context: context)),
                                         ],
                                       ),
                                     ),
@@ -97,94 +92,49 @@ class HomeView extends GetView<HomeController> {
                                                 ),
                                                 customDotIndicatorList(),
                                                 Padding(
-                                                  padding: EdgeInsets.only(
-                                                      top: 16.px,
-                                                      left: 20.px,
-                                                      right: 20.px),
+                                                  padding: EdgeInsets.only(top: 16.px, left: 20.px, right: 20.px),
                                                   child: Center(
                                                     child: Container(
-                                                      padding:
-                                                          EdgeInsets.symmetric(
+                                                      padding: EdgeInsets.symmetric(
                                                         vertical: 10.px,
                                                         horizontal: 10.px,
                                                       ),
                                                       decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                                    10.px),
-                                                        color: Theme.of(context)
-                                                                    .brightness ==
-                                                                Brightness.light
-                                                            ? MyColorsLight()
-                                                                .secondary
-                                                            : MyColorsLight()
-                                                                .card
-                                                                .withOpacity(
-                                                                    .9),
+                                                        borderRadius: BorderRadius.circular(10.px),
+                                                        color: Theme.of(context).brightness == Brightness.light
+                                                            ? MyColorsLight().secondary
+                                                            : MyColorsLight().card.withOpacity(.9),
                                                       ),
                                                       child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
                                                           Text(
                                                             "Customize your wardrobe",
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
+                                                            overflow: TextOverflow.ellipsis,
                                                             maxLines: 1,
-                                                            style: Theme.of(
-                                                                    context)
-                                                                .textTheme
-                                                                .bodyText1
-                                                                ?.copyWith(
-                                                                    color: MyColorsLight()
-                                                                        .onText,
-                                                                    fontSize:
-                                                                        14.px),
+                                                            style: Theme.of(context).textTheme.bodyText1?.copyWith(color: MyColorsLight().onText, fontSize: 14.px),
                                                           ),
                                                           SizedBox(
                                                               height: 8.px),
                                                           Text(
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
+                                                            overflow: TextOverflow.ellipsis,
                                                             maxLines: 2,
                                                             "Make your own clothes based on your choice of colour, texture, material and many others.",
-                                                            style: Theme.of(
-                                                                    context)
-                                                                .textTheme
-                                                                .headline4
-                                                                ?.copyWith(
-                                                                    color: MyColorsLight()
-                                                                        .onText,
-                                                                    fontSize:
-                                                                        12.px),
+                                                            style: Theme.of(context).textTheme.headline4
+                                                                ?.copyWith(color: MyColorsLight().onText, fontSize: 12.px),
                                                           ),
                                                           SizedBox(
                                                               height: 12.px),
                                                           Center(
-                                                            child: CommonWidgets
-                                                                .myElevatedButton(
-                                                              borderRadius:
-                                                                  5.px,
+                                                            child: CommonWidgets.myElevatedButton(
+                                                              borderRadius: 5.px,
                                                               width: 50.w,
                                                               height: 28.px,
                                                               text: Text(
                                                                 'TAILOR',
-                                                                style: Theme.of(
-                                                                        context)
-                                                                    .textTheme
-                                                                    .button
-                                                                    ?.copyWith(
-                                                                        fontSize:
-                                                                            12.px),
+                                                                style: Theme.of(context).textTheme.button?.copyWith(fontSize: 12.px),
                                                               ),
-                                                              onPressed: () => controller
-                                                                  .clickOnTailorButton(
-                                                                      context:
-                                                                          context),
+                                                              onPressed: () => controller.clickOnTailorButton(context: context),
                                                             ),
                                                           ),
                                                         ],
@@ -204,51 +154,30 @@ class HomeView extends GetView<HomeController> {
                                       }
                                     }),
                                     SizedBox(height: 16.px),
-                                    controller.getProductBasedOnHistoryApiList
-                                                .isNotEmpty ||
-                                            controller
-                                                .getProductBasedOnPreferenceApiList
-                                                .isNotEmpty
+                                    controller.getProductBasedOnHistoryApiList.isNotEmpty || controller.getProductBasedOnPreferenceApiList.isNotEmpty
                                         ? Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 16.px),
+                                            padding: EdgeInsets.symmetric(horizontal: 16.px),
                                             child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-                                                if (controller
-                                                    .getProductBasedOnHistoryApiList
-                                                    .isNotEmpty)
-                                                  sectionHeading(
-                                                      "Product Based On History"),
-                                                if (controller
-                                                    .getProductBasedOnHistoryApiList
-                                                    .isNotEmpty)
+                                                if (controller.getProductBasedOnHistoryApiList.isNotEmpty)
+                                                  sectionHeading("Product Based On History"),
+                                                if (controller.getProductBasedOnHistoryApiList.isNotEmpty)
                                                   SizedBox(height: 8.px),
-                                                if (controller
-                                                    .getProductBasedOnHistoryApiList
-                                                    .isNotEmpty)
+                                                if (controller.getProductBasedOnHistoryApiList.isNotEmpty)
                                                   ScrollConfiguration(
                                                       behavior: MyBehavior(),
-                                                      child:
-                                                          getProductBasedOnHistory()),
-                                                if (controller
-                                                    .getProductBasedOnPreferenceApiList
-                                                    .isNotEmpty)
-                                                  sectionHeading(
-                                                      "Product Based On Preference"),
-                                                if (controller
-                                                    .getProductBasedOnPreferenceApiList
-                                                    .isNotEmpty)
+                                                      child: getProductBasedOnHistory(),
+                                                  ),
+                                                if (controller.getProductBasedOnPreferenceApiList.isNotEmpty)
+                                                  sectionHeading("Product Based On Preference"),
+                                                if (controller.getProductBasedOnPreferenceApiList.isNotEmpty)
                                                   SizedBox(height: 8.px),
-                                                if (controller
-                                                    .getProductBasedOnPreferenceApiList
-                                                    .isNotEmpty)
+                                                if (controller.getProductBasedOnPreferenceApiList.isNotEmpty)
                                                   ScrollConfiguration(
                                                       behavior: MyBehavior(),
-                                                      child:
-                                                          getProductBasedOnPreference()),
-
+                                                      child: getProductBasedOnPreference(),
+                                                  ),
                                                 /*
                                           if (controller
                                               .recentProductsList.isNotEmpty)
@@ -331,7 +260,8 @@ class HomeView extends GetView<HomeController> {
                                                 children: [
                                                   Image.asset(Zconstant.imageNoDataFound,
                                                       height: 220.px,
-                                                      width: 220.px),
+                                                      width: 220.px,
+                                                  ),
                                                   Text(
                                                     'No result found.',
                                                     textAlign: TextAlign.center,
@@ -350,12 +280,9 @@ class HomeView extends GetView<HomeController> {
                         Column(
                           children: [
                             Container(
-                                color: Theme.of(Get.context!)
-                                    .colorScheme
-                                    .onBackground
-                                    .withOpacity(0.5),
-                                child: const MyCustomContainer()
-                                    .myCustomContainer(context: context)),
+                                color: Theme.of(Get.context!).colorScheme.onBackground.withOpacity(0.5),
+                                child: const MyCustomContainer().myCustomContainer(context: context),
+                            ),
                           ],
                         ),
                       ],
@@ -398,17 +325,18 @@ class HomeView extends GetView<HomeController> {
             /*image:
                 DecorationImage(image: AssetImage('assets/default_image.jpg'))*/
             ),
-        child: LightCarousel(
+        ///Todo 
+        child: /*LightCarousel(
           images: controller.bannerImageList,
           dotSize: 0,
           autoPlay: true,
           onImageChange: (reason, index) {
             controller.current.value = index;
           },
-          boxFit: BoxFit.cover,
+          boxFit: BoxFit.fill,
           dotBgColor: Colors.transparent,
           defaultImage: CommonWidgets.defaultImage(),
-        ),
+        )*/const SizedBox(),
       ),
     );
   }
@@ -911,9 +839,9 @@ class HomeView extends GetView<HomeController> {
         });
   }
 
-//TODO This Code Comment By Aman
+  //TODO This Code Comment By Aman
 
-/* Widget recentGridView() {
+  /* Widget recentGridView() {
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
@@ -965,7 +893,7 @@ class HomeView extends GetView<HomeController> {
     );
   }*/
 
-/*Widget trendingGridView() {
+  /*Widget trendingGridView() {
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
@@ -1015,4 +943,5 @@ class HomeView extends GetView<HomeController> {
       ),
     );
   }*/
+
 }

@@ -162,8 +162,7 @@ class CommonWidgets {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.asset(Zconstant.imageSomethingWentWrong),
-                  commonTitleForError(
-                      title: Zconstant.textSomethingWentWrongTitle),
+                  commonTitleForError(title: Zconstant.textSomethingWentWrongTitle),
                   commonDisForError(dis: Zconstant.textSomethingWentWrongDis)
                 ],
               ),

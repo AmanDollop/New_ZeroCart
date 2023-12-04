@@ -37,24 +37,27 @@ class LoginView extends GetView<LoginController> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Center(
-                            child: Padding(
-                          padding: EdgeInsets.only(top: 10.h),
-                          child: CommonWidgets.zeroCartImage(),
-                        )),
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 10.h),
+                            child: CommonWidgets.zeroCartImage(),
+                          ),
+                        ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             wellComeBackTextView(),
                             SizedBox(height: 2.h),
                             Form(
-                                autovalidateMode: AutovalidateMode.disabled,
-                                key: controller.keyNumber,
-                                child: mobileNumberTextFieldView()),
+                              autovalidateMode: AutovalidateMode.disabled,
+                              key: controller.keyNumber,
+                              child: mobileNumberTextFieldView(),
+                            ),
                             SizedBox(height: 2.h),
                             Form(
-                                autovalidateMode: AutovalidateMode.disabled,
-                                key: controller.keyPassword,
-                                child: passwordTextFieldView()),
+                              autovalidateMode: AutovalidateMode.disabled,
+                              key: controller.keyPassword,
+                              child: passwordTextFieldView(),
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -66,14 +69,12 @@ class LoginView extends GetView<LoginController> {
                         ),
                         Column(
                           children: [
-                            Center(child: logInButtonView()),
-                            SizedBox(
-                              height: Zconstant.margin16,
+                            Center(
+                              child: logInButtonView(),
                             ),
+                            SizedBox(height: Zconstant.margin16),
                             Center(child: logInWithGoogleButtonView()),
-                            SizedBox(
-                              height: Zconstant.margin,
-                            ),
+                            SizedBox(height: Zconstant.margin),
                           ],
                         )
                       ],
@@ -88,11 +89,7 @@ class LoginView extends GetView<LoginController> {
     });
   }
 
-  Widget wellComeBackTextView() => Text('Welcome  Back !',
-      style: Theme.of(Get.context!)
-          .textTheme
-          .subtitle1
-          ?.copyWith(fontSize: 24.px));
+  Widget wellComeBackTextView() => Text('Welcome  Back !', style: Theme.of(Get.context!).textTheme.subtitle1?.copyWith(fontSize: 24.px));
 
   Widget mobileNumberTextFieldView() => CommonWidgets.myTextField(
       controller: controller.mobileNumberController,
@@ -127,8 +124,6 @@ class LoginView extends GetView<LoginController> {
             onPressed: () => controller.clickOnEyeButton()),
         iconVisible: true,
       );
-
-
 
   Widget sendOTPButtonView() => TextButton(
         child: Text('Send OTP',

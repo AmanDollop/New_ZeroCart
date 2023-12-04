@@ -21,15 +21,13 @@ class CategoryView extends GetView<CategoryController> {
         child: Scaffold(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             appBar: const MyCustomContainer().myAppBar(
-              text: 'Categories',
+              text: 'Categories'
             ),
             body: Obx(
               () {
                 if (CommonMethods.isConnect.value) {
-                  if (controller.getCategories != null &&
-                      controller.responseCode == 200) {
-                    if (controller.listOfCategories.isNotEmpty ||
-                        controller.tailor != null) {
+                  if (controller.getCategories != null && controller.responseCode == 200) {
+                    if (controller.listOfCategories.isNotEmpty || controller.tailor != null) {
                       return ScrollConfiguration(
                         behavior: MyBehavior(),
                         child: ListView(
@@ -59,17 +57,19 @@ class CategoryView extends GetView<CategoryController> {
                                             child: Row(
                                               crossAxisAlignment: CrossAxisAlignment.center,
                                               children: [
-                                                categoryImageView(imageUrl: controller.tailor!.categoryImage.toString()),
-                                                SizedBox(
-                                                  width: Zconstant.margin - 8.px
-                                                ),
-                                                if (controller.tailor!.name != null &&
-                                                    controller.tailor!.name!.isNotEmpty)
-                                                  Flexible(child: categoryTitleTextView(title: controller.tailor!.name.toString(),),),
-                                                if (controller.tailor!.name != null && controller.tailor!.name!.isNotEmpty)
-                                                  SizedBox(
-                                                    width: Zconstant.margin - 8.px
+                                                controller.tailor?.categoryImage != null && controller.tailor!.categoryImage!.isNotEmpty
+                                                    ? categoryImageView(
+                                                    imageUrl: controller.tailor!.categoryImage.toString())
+                                                    : CommonWidgets.defaultImage(height: 60.px, width: 64.px,),
+                                                   SizedBox(width: Zconstant.margin - 8.px),
+                                                  Flexible(
+                                                    child: categoryTitleTextView(
+                                                      title: controller.tailor?.name != null && controller.tailor!.name!.isNotEmpty
+                                                          ?controller.tailor!.name.toString():'Tailor',
+                                                    ),
                                                   ),
+                                                if (controller.tailor?.name != null && controller.tailor!.name!.isNotEmpty)
+                                                  SizedBox(width: Zconstant.margin - 8.px),
                                               ],
                                             ),
                                           ),
@@ -163,14 +163,12 @@ class CategoryView extends GetView<CategoryController> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             categoryImageView(imageUrl: controller.categories!.categoryImage.toString()),
-                            SizedBox(
-                              width: Zconstant.margin - 8.px
-                            ),
+                            SizedBox(width: Zconstant.margin - 8.px),
                             Flexible(
-                                child: categoryTitleTextView(title: controller.categories!.name.toString()),),
-                            SizedBox(
-                              width: Zconstant.margin - 8.px
+                              child: categoryTitleTextView(
+                                  title: controller.categories!.name.toString()),
                             ),
+                            SizedBox(width: Zconstant.margin - 8.px),
                           ],
                         ),
                       ),
@@ -209,6 +207,7 @@ class CategoryView extends GetView<CategoryController> {
         title,
         maxLines: 1,
         style: Theme.of(Get.context!).textTheme.subtitle1,
+    overflow: TextOverflow.ellipsis,
       );
 
   Widget arrowView() => Icon(Icons.arrow_forward_ios_rounded,

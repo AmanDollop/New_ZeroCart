@@ -19,7 +19,7 @@ class SplashView extends GetView<SplashController> {
           appBar: AppBar(
             toolbarHeight: 0.0,
             elevation: 0,
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            backgroundColor: Colors.red,
           ),
           body: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

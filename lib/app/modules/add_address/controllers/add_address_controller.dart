@@ -71,15 +71,24 @@ class AddAddressController extends GetxController {
     isUseMyLocationButtonClicked.value = true;
     absorbing.value = CommonMethods.changeTheAbsorbingValueTrue();
     MyCommonMethods.unFocsKeyBoard();
-    await getDataFromGoogleMap();
+    try{
+      await getDataFromGoogleMap();
+    }catch(e){
+      MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
+      absorbing.value = CommonMethods.changeTheAbsorbingValueFalse();
+      isUseMyLocationButtonClicked.value = false;
+    }
     absorbing.value = CommonMethods.changeTheAbsorbingValueFalse();
     isUseMyLocationButtonClicked.value = false;
   }
 
   Future<void> getDataFromGoogleMap() async {
-    googleMapData =
-        await MyLocation.getCurrentLocation(context: Get.context!) ?? {};
-    setGoogleMapDataInTextField();
+    try{
+      googleMapData = await MyLocation.getCurrentLocation(context: Get.context!) ?? {};
+      setGoogleMapDataInTextField();
+    }catch(e){
+      MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
+    }
   }
 
   void setGoogleMapDataInTextField() {
@@ -126,6 +135,7 @@ class AddAddressController extends GetxController {
           }
         }
       }catch(e){
+        absorbing.value = CommonMethods.changeTheAbsorbingValueFalse();
         isSaveButtonClicked.value= false;
       }
     }

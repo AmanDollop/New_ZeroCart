@@ -180,18 +180,21 @@ class PrivacySecurityController extends CommonMethods {
   Future<void> clickOnDialogDeleteButton() async {
     Get.back();
     inAsyncCall.value=true;
-    if(await sendOtpApiCalling(type: "deleteAccount"))
-    {
-      Get.toNamed(Routes.VERIFICATION, arguments: [
-        4,
-        "Delete",
-        sendOtpApiResponseMap[ApiKeyConstant.otp],
-        "deleteAccount",
-        mobile
-      ]);
+    try{
+      if(await sendOtpApiCalling(type: "deleteAccount"))
+      {
+        Get.toNamed(Routes.VERIFICATION, arguments: [
+          4,
+          "Delete",
+          sendOtpApiResponseMap[ApiKeyConstant.otp],
+          "deleteAccount",
+          mobile
+        ]);
+      }
+    }catch(e){
+      inAsyncCall.value=false;
     }
     inAsyncCall.value=false;
-
   }
 
 

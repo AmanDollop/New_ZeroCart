@@ -386,14 +386,26 @@ class EditProfileController extends CommonMethods {
       isSubmitButtonClicked.value = true;
       if (selectedState != null) {
         if (selectedCity != null) {
-          await updateUserProfileApiCalling(context: context);
+          try{
+            await updateUserProfileApiCalling(context: context);
+          }catch(e){
+            MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
+            isSubmitButtonClicked.value = false;
+            absorbing.value = CommonMethods.changeTheAbsorbingValueFalse();
+          }
         } else {
           isSubmitButtonClicked.value = false;
           isCitySelectedValue.value = true;
           MyCommonMethods.showSnackBar(message: "Please select city", context: context);
         }
       } else {
-        await updateUserProfileApiCalling(context: context);
+        try{
+          await updateUserProfileApiCalling(context: context);
+        }catch(e){
+          MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
+          isSubmitButtonClicked.value = false;
+          absorbing.value = CommonMethods.changeTheAbsorbingValueFalse();
+        }
       }
     }
     absorbing.value = CommonMethods.changeTheAbsorbingValueFalse();

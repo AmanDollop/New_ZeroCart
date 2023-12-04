@@ -8,32 +8,38 @@ class CustomOutlineButton extends StatelessWidget {
   final double _radius;
   final EdgeInsetsGeometry _padding;
 
-  CustomOutlineButton({super.key,
+  CustomOutlineButton({
+    super.key,
     required double strokeWidth,
     required double radius,
     required Gradient gradient,
     required Widget child,
-     EdgeInsetsGeometry? padding ,
+    EdgeInsetsGeometry? padding,
     required VoidCallback onPressed,
   })  : _painter = _GradientPainter(
-      strokeWidth: strokeWidth, radius: radius, gradient: gradient),
+            strokeWidth: strokeWidth, radius: radius, gradient: gradient),
         _child = child,
         _callback = onPressed,
         _radius = radius,
-        _padding=padding ?? EdgeInsets.all(3.5.px);
+        _padding = padding ?? EdgeInsets.all(3.5.px);
 
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
+      foregroundPainter: _painter,
       painter: _painter,
-      child: OutlinedButton(style: OutlinedButton.styleFrom(
-          foregroundColor: Theme.of(context).colorScheme.onSecondary,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(_radius),
-          ),
-          backgroundColor: Colors.transparent,
-          shadowColor: Colors.transparent,
-          padding: _padding),onPressed: _callback, child: _child,),
+      child: OutlinedButton(
+        style: OutlinedButton.styleFrom(
+            foregroundColor: Theme.of(context).colorScheme.onSecondary,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(_radius),
+            ),
+            backgroundColor: Colors.transparent,
+            shadowColor: Colors.transparent,
+            padding: _padding),
+        onPressed: _callback,
+        child: _child,
+      ),
     );
   }
 }
@@ -43,13 +49,14 @@ class UnicornOutline extends StatelessWidget {
   final Widget _child;
   final double _radius;
 
-  UnicornOutline({super.key,
+  UnicornOutline({
+    super.key,
     required double strokeWidth,
     required double radius,
     required Gradient gradient,
     required Widget child,
   })  : _painter = _GradientPainter(
-      strokeWidth: strokeWidth, radius: radius, gradient: gradient),
+            strokeWidth: strokeWidth, radius: radius, gradient: gradient),
         _child = child,
         _radius = radius;
 
@@ -74,7 +81,6 @@ class UnicornOutline extends StatelessWidget {
   }
 }
 
-
 class _GradientPainter extends CustomPainter {
   final Paint _paint = Paint();
   final double radius;
@@ -83,21 +89,21 @@ class _GradientPainter extends CustomPainter {
 
   _GradientPainter(
       {required double strokeWidth,
-        required double radius,
-        required Gradient gradient})
+      required double radius,
+      required Gradient gradient})
       // ignore: prefer_initializing_formals
       : strokeWidth = strokeWidth,
-  // ignore: prefer_initializing_formals
-      radius = radius,
-  // ignore: prefer_initializing_formals
-      gradient = gradient;
+        // ignore: prefer_initializing_formals
+        radius = radius,
+        // ignore: prefer_initializing_formals
+        gradient = gradient;
 
   @override
   void paint(Canvas canvas, Size size) {
     // create outer rectangle equals size
     Rect outerRect = Offset.zero & size;
     var outerRRect =
-    RRect.fromRectAndRadius(outerRect, Radius.circular(radius));
+        RRect.fromRectAndRadius(outerRect, Radius.circular(radius));
 
     // create inner rectangle smaller by strokeWidth
     Rect innerRect = Rect.fromLTWH(strokeWidth, strokeWidth,

@@ -778,13 +778,16 @@ class MyCartController extends CommonMethods {
           ApiKeyConstant.isCart: '1',
           ApiKeyConstant.userMeasurement: userMeasurement,
         };
-        isSuccess = await placeOrderApiCalling();
-        Get.back();
+        try{
+          isSuccess = await placeOrderApiCalling();
+          Get.back();
+        }catch(e){
+          Get.back();
+          MyCommonMethods.showSnackBar(message: "Something went wrong!", context: Get.context!);
+        }
         if (isSuccess) {
           Get.toNamed(Routes.MY_ORDERS);
-          MyCommonMethods.showSnackBar(
-              message: "Your order has been placed successfully",
-              context: Get.context!);
+          MyCommonMethods.showSnackBar(message: "Your order has been placed successfully", context: Get.context!);
         }
         bodyParametersForPlaceOrderApi.clear();
         await getCartDetailsModelApiCalling();
@@ -828,12 +831,10 @@ class MyCartController extends CommonMethods {
       } else if (paymentMethod.value.toString() == "others") {
         Get.back();
         paymentType = "Online";
-        totalPrice.value =
-            (sellPrice.value - discountPrice.value + deliveryPrice.value);
+        totalPrice.value = (sellPrice.value - discountPrice.value + deliveryPrice.value);
         await openGateway(
           type: OpenGetWayType.cart,
-          priceValue: int.parse(
-              double.parse(totalPrice.value.toString()).toInt().toString()),
+          priceValue: int.parse(double.parse(totalPrice.value.toString()).toInt().toString()),
           description: "Order From Cart",
         );
       }
