@@ -245,9 +245,8 @@ class MyCustomContainer extends GetView<HomeController> {
       String? buttonText}) {
     return AppBar(
       automaticallyImplyLeading: false,
-      elevation: 1,
-      shadowColor:
-          Theme.of(Get.context!).scaffoldBackgroundColor.withOpacity(.4),
+      elevation: 0,
+      shadowColor: Theme.of(Get.context!).scaffoldBackgroundColor.withOpacity(.4),
       centerTitle: false,
       leadingWidth: isIcon ? null/*24.px*/ : 0.px,
       backgroundColor: Theme.of(Get.context!).scaffoldBackgroundColor,

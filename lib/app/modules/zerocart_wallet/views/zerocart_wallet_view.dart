@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:zerocart/my_responsive_sizer/src/extension.dart';
@@ -43,14 +44,15 @@ class ZerocartWalletView extends GetView<ZerocartWalletController> {
                 ),
                 flexibleSpace: Container(
                   decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      Theme.of(Get.context!).colorScheme.primary,
-                      Theme.of(Get.context!).primaryColor,
-                    ],
-                  ),),
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Theme.of(Get.context!).colorScheme.primary,
+                        Theme.of(Get.context!).primaryColor,
+                      ],
+                    ),
+                  ),
                 ),
               ),
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -60,7 +62,8 @@ class ZerocartWalletView extends GetView<ZerocartWalletController> {
                   onTap: () => MyCommonMethods.unFocsKeyBoard(),
                   child: Obx(() {
                     if (CommonMethods.isConnect.value) {
-                      if (controller.getWalletHistoryModel != null && controller.responseCode == 200) {
+                      if (controller.getWalletHistoryModel != null &&
+                          controller.responseCode == 200) {
                         return Stack(
                           children: [
                             gradiantBackGround(),
@@ -68,9 +71,11 @@ class ZerocartWalletView extends GetView<ZerocartWalletController> {
                               children: [
                                 SizedBox(height: 2.h),
                                 Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: Zconstant.margin),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: Zconstant.margin),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         mainAxisAlignment:
@@ -148,7 +153,11 @@ class ZerocartWalletView extends GetView<ZerocartWalletController> {
                               ],
                             ),
                             Padding(
-                              padding: EdgeInsets.only(left: Zconstant.margin, right: Zconstant.margin, top: 23.h, bottom: Zconstant.margin),
+                              padding: EdgeInsets.only(
+                                  left: Zconstant.margin,
+                                  right: Zconstant.margin,
+                                  top: 23.h,
+                                  bottom: Zconstant.margin),
                               child: Obx(() {
                                 controller.count.value;
                                 if (controller.listOfWalletHistory.isNotEmpty) {
@@ -158,7 +167,8 @@ class ZerocartWalletView extends GetView<ZerocartWalletController> {
                                       behavior: MyBehavior(),
                                       child: RefreshLoadMore(
                                         isLastPage: controller.isLastPage.value,
-                                        onLoadMore: () => controller.onLoadMore(),
+                                        onLoadMore: () =>
+                                            controller.onLoadMore(),
                                         child: listOfTransectionView(),
                                       ),
                                     ),
@@ -325,83 +335,83 @@ class ZerocartWalletView extends GetView<ZerocartWalletController> {
       );
 
   Widget listOfTransectionView() => ListView(
-    shrinkWrap: true,
-    physics: const NeverScrollableScrollPhysics(),
-    children: [
-      ListView.builder(
-        itemBuilder: (context, index) {
-          controller.walletHistoryModel = controller.listOfWalletHistory[index];
-          if (controller.walletHistoryModel!.createdDate != null && controller.walletHistoryModel!.createdDate!.isNotEmpty) {
-            controller.dateTime = DateTime.parse(controller.walletHistoryModel!.createdDate!);
-          }
-          return ClipRRect(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 5.0.px, sigmaY: 5.0.px),
-              child: Column(
-                children: [
-                  InkWell(
-                    /*onTap: () => controller.clickOnParticularTransection(index: index),
-                    borderRadius: BorderRadius.circular(10.px),*/
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                        vertical: 1.5.h,
-                        horizontal: 4.w,
-                      ),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.px),
-                          color: Theme.of(context).brightness ==
-                                  Brightness.dark
-                              ? MyColorsLight().secondary.withOpacity(0.2)
-                              : MyColorsDark()
-                                  .secondary
-                                  .withOpacity(0.2)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            flex: 8,
-                            child: Column(
-                              crossAxisAlignment:
-                                  CrossAxisAlignment.start,
-                              children: [
-                                dateOfTransectionTextView(index: index),
-                                SizedBox(height: 1.h),
-                                transectionTitleTextVIew(index: index)
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            flex: 5,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                if (controller
-                                        .walletHistoryModel?.transType !=
-                                    null)
-                                  transectionAmountTextView(index: index),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 1.3.h)
-                ],
-              ),
-            ),
-          );
-        },
-        padding: EdgeInsets.zero,
         shrinkWrap: true,
-        itemCount: controller.listOfWalletHistory.length,
         physics: const NeverScrollableScrollPhysics(),
-      ),
-      SizedBox(
-        height: 4.h,
-      ),
-    ],
-  );
+        children: [
+          ListView.builder(
+            itemBuilder: (context, index) {
+              controller.walletHistoryModel =
+                  controller.listOfWalletHistory[index];
+              if (controller.walletHistoryModel!.createdDate != null &&
+                  controller.walletHistoryModel!.createdDate!.isNotEmpty) {
+                controller.dateTime =
+                    DateTime.parse(controller.walletHistoryModel!.createdDate!);
+              }
+              return ClipRRect(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 5.0.px, sigmaY: 5.0.px),
+                  child: Column(
+                    children: [
+                      InkWell(
+                        /*onTap: () => controller.clickOnParticularTransection(index: index),
+                    borderRadius: BorderRadius.circular(10.px),*/
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                            vertical: 1.5.h,
+                            horizontal: 4.w,
+                          ),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.px),
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? MyColorsLight().secondary.withOpacity(0.2)
+                                  : MyColorsDark().secondary.withOpacity(0.2)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                flex: 8,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    dateOfTransectionTextView(index: index),
+                                    SizedBox(height: 1.h),
+                                    transectionTitleTextVIew(index: index)
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 5,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    if (controller
+                                            .walletHistoryModel?.transType !=
+                                        null)
+                                      transectionAmountTextView(index: index),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 1.3.h)
+                    ],
+                  ),
+                ),
+              );
+            },
+            padding: EdgeInsets.zero,
+            shrinkWrap: true,
+            itemCount: controller.listOfWalletHistory.length,
+            physics: const NeverScrollableScrollPhysics(),
+          ),
+          SizedBox(
+            height: 4.h,
+          ),
+        ],
+      );
 
   Widget dateOfTransectionTextView({required int index}) => Text(
         "${getDayOfMonthSuffix(controller.dateTime!.day)} ${DateFormat.MMMM().format(controller.dateTime!)} ${controller.dateTime?.year}",
@@ -454,4 +464,49 @@ class ZerocartWalletView extends GetView<ZerocartWalletController> {
                 ? MyColorsLight().success
                 : MyColorsLight().error),
       );
+}
+
+
+class Page extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(children : <Widget>[GradientAppBar("Custom Gradient App Bar"), Container()],);
+  }
+}
+
+
+class GradientAppBar extends StatelessWidget {
+
+  final String title;
+  final double barHeight = 50.0;
+
+  GradientAppBar(this.title);
+
+  @override
+  Widget build(BuildContext context) {
+    final double statusbarHeight = MediaQuery
+        .of(context)
+        .padding
+        .top;
+
+    return new Container(
+      padding: EdgeInsets.only(top: statusbarHeight),
+      height: statusbarHeight + barHeight,
+      child: Center(
+        child: Text(
+          title,
+          style: TextStyle(fontSize: 20.0, color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+      ),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+            colors: [Colors.red, Colors.blue],
+            begin: const FractionalOffset(0.0, 0.0),
+            end: const FractionalOffset(0.5, 0.0),
+            stops: [0.0, 1.0],
+            tileMode: TileMode.clamp
+        ),
+      ),
+    );
+  }
 }

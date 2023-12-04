@@ -314,7 +314,7 @@ class OutfitRoomView extends GetView<OutfitRoomController> {
 
   PreferredSizeWidget appBarView() => AppBar(
     automaticallyImplyLeading: false,
-    elevation: 1,
+    elevation: 0,
     shadowColor:
     Theme.of(Get.context!).scaffoldBackgroundColor.withOpacity(.4),
     centerTitle: false,

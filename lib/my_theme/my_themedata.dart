@@ -13,9 +13,8 @@ class MyThemeData {
       appBarTheme: AppBarTheme(
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: MyColorsLight().scaffoldBackgroundColor,
-          statusBarBrightness: Brightness.light, // For iOS: (dark icons)
-          statusBarIconBrightness:
-          Brightness.light, // For Android(M and greater): (dark icons)
+          statusBarBrightness: Brightness.dark, // For iOS: (dark icons)
+          statusBarIconBrightness: Brightness.dark, // For Android(M and greater): (dark icons)
         ),
       ),
       textTheme: MyTextThemeLight().myTextTheme(fontFamily: fontFamily),
@@ -34,8 +33,7 @@ class MyThemeData {
           surface: MyColorsLight().text,
           onSurface: MyColorsLight().onText,
           onSecondaryContainer: MyColorsLight().onSecondary),
-      textSelectionTheme:
-          TextSelectionThemeData(cursorColor: MyColorsLight().primaryColor),
+      textSelectionTheme: TextSelectionThemeData(cursorColor: MyColorsLight().primaryColor),
       inputDecorationTheme: InputDecorationTheme(
         contentPadding: const EdgeInsets.only(top: 1),
         constraints: BoxConstraints(maxHeight: 70.px),
@@ -91,9 +89,8 @@ class MyThemeData {
       appBarTheme: AppBarTheme(
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: MyColorsDark().scaffoldBackgroundColor,
-          statusBarBrightness: Brightness.dark, // For iOS: (dark icons)
-          statusBarIconBrightness:
-              Brightness.dark, // For Android(M and greater): (dark icons)
+          statusBarBrightness: Brightness.light, // For iOS: (dark icons)
+          statusBarIconBrightness: Brightness.light, // For Android(M and greater): (dark icons)
         ),
       ),
       textTheme: MyTextThemeDark().myTextTheme(fontFamily: fontFamily),

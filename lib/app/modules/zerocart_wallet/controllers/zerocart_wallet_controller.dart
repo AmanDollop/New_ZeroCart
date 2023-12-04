@@ -45,13 +45,14 @@ class ZerocartWalletController extends CommonMethods
         duration: const Duration(milliseconds: 30000), vsync: this);
     try {
       await getUserProfileApiCalling();
-    } catch (e) {}
+    } catch (e) {
+      MyCommonMethods.showSnackBar(message: "Something went wrong", context: Get.context!);
+    }
     try {
       await getCustomerWalletHistoryApiCalling();
     } catch (e) {
       responseCode = 100;
-      MyCommonMethods.showSnackBar(
-          message: "Something went wrong", context: Get.context!);
+      MyCommonMethods.showSnackBar(message: "Something went wrong", context: Get.context!);
     }
     inAsyncCall.value = CommonMethods.changeTheAbsorbingValueFalse();
     isAnimation = true;

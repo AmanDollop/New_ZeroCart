@@ -312,8 +312,7 @@ class HomeView extends GetView<HomeController> {
   Widget sectionHeading(String text) {
     return Text(
       text,
-      style:
-          Theme.of(Get.context!).textTheme.subtitle1?.copyWith(fontSize: 14.px),
+      style: Theme.of(Get.context!).textTheme.subtitle1?.copyWith(fontSize: 14.px),
     );
   }
 
@@ -323,8 +322,7 @@ class HomeView extends GetView<HomeController> {
       child: Container(
         decoration: BoxDecoration(
             color: Theme.of(Get.context!).colorScheme.onPrimary.withOpacity(.4)
-            /*image:
-                DecorationImage(image: AssetImage('assets/default_image.jpg'))*/
+            /*image: DecorationImage(image: AssetImage('assets/default_image.jpg'))*/
             ),
         ///Todo
         child: /*LightCarousel(
@@ -337,7 +335,8 @@ class HomeView extends GetView<HomeController> {
           boxFit: BoxFit.fill,
           dotBgColor: Colors.transparent,
           defaultImage: CommonWidgets.defaultImage(),
-        )*/ClipRRect(
+        )*/
+        ClipRRect(
           borderRadius: BorderRadius.circular(12),
           child: CarouselSlider(
             items: controller.bannerImageList.map((e) {
