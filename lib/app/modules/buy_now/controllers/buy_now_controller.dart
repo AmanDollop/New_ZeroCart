@@ -361,12 +361,12 @@ class BuyNowController extends CommonMethods {
       showModalBottomSheet(
         isScrollControlled: true,
         //backgroundColor: MyColorsLight().secondary,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20.px),
-            topRight: Radius.circular(20.px),
-          ),
-        ),
+        // shape: RoundedRectangleBorder(
+        //   borderRadius: BorderRadius.only(
+        //     topLeft: Radius.circular(20.px),
+        //     topRight: Radius.circular(20.px),
+        //   ),
+        // ),
         context: Get.context!,
         builder: (context) => const PaymentProceedBuyNow(),
       );

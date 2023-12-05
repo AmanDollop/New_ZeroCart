@@ -142,12 +142,15 @@ class MyOrderDetailsController extends CommonMethods {
       barrierDismissible: true,
       builder: (BuildContext context) {
         return AlertDialog(
-          actions: [
-            Image.network(
-              CommonMethods.imageUrl(url: productDetailsList[0].brandChartImg.toString()),
-              errorBuilder: (context, error, stackTrace) => CommonWidgets.defaultImage(),
-            )
-          ],
+          // contentPadding: EdgeInsets.zero,
+          content:
+            ClipRRect(
+              borderRadius: BorderRadius.circular(6.px),
+              child: Image.network(
+                CommonMethods.imageUrl(url: productDetailsList[0].brandChartImg.toString()),
+                errorBuilder: (context, error, stackTrace) => CommonWidgets.defaultImage(),
+              ),
+            ),
         );
       },
     );
@@ -160,12 +163,12 @@ class MyOrderDetailsController extends CommonMethods {
         isScrollControlled: true,
         isDismissible: false,
         // backgroundColor: MyColorsLight().secondary,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20.px),
-            topRight: Radius.circular(20.px),
-          ),
-        ),
+        // shape: RoundedRectangleBorder(
+        //   borderRadius: BorderRadius.only(
+        //     topLeft: Radius.circular(20.px),
+        //     topRight: Radius.circular(20.px),
+        //   ),
+        // ),
         context: Get.context!,
         builder: (context) {
           ProductDetails productDetailsListObject = productDetailsList[0];
@@ -191,12 +194,12 @@ class MyOrderDetailsController extends CommonMethods {
         isScrollControlled: true,
         isDismissible: false,
         // backgroundColor: MyColorsLight().secondary,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20.px),
-            topRight: Radius.circular(20.px),
-          ),
-        ),
+        // shape: RoundedRectangleBorder(
+        //   borderRadius: BorderRadius.only(
+        //     topLeft: Radius.circular(20.px),
+        //     topRight: Radius.circular(20.px),
+        //   ),
+        // ),
         context: Get.context!,
         builder: (context) =>  TrackingBottomSheet(orderPlaceDate: orderPlaceDate,orderNo: orderNo,));
   }

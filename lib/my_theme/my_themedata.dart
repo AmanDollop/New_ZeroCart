@@ -79,8 +79,18 @@ class MyThemeData {
             padding: EdgeInsets.all(3.5.px),
             tapTargetSize: MaterialTapTargetSize.shrinkWrap),
       ),
-
-      bottomSheetTheme: BottomSheetThemeData(backgroundColor: MyColorsLight().secondary,elevation: 1.px),
+      bottomSheetTheme: BottomSheetThemeData(
+        backgroundColor: MyColorsLight().secondary,
+        elevation: 1.px,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20.px),
+            topRight: Radius.circular(20.px),
+          ),
+        ),
+        modalBackgroundColor: MyColorsLight().secondary,
+        modalBarrierColor: MyColorsDark().secondary.withOpacity(.4)
+      ),
     );
   }
 
@@ -93,7 +103,8 @@ class MyThemeData {
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: MyColorsDark().scaffoldBackgroundColor,
           statusBarBrightness: Brightness.light, // For iOS: (dark icons)
-          statusBarIconBrightness: Brightness.light, // For Android(M and greater): (dark icons)
+          statusBarIconBrightness:
+              Brightness.light, // For Android(M and greater): (dark icons)
         ),
       ),
       textTheme: MyTextThemeDark().myTextTheme(fontFamily: fontFamily),
@@ -157,9 +168,18 @@ class MyThemeData {
             padding: EdgeInsets.all(3.5.px),
             tapTargetSize: MaterialTapTargetSize.shrinkWrap),
       ),
-
-      bottomSheetTheme: BottomSheetThemeData(backgroundColor: MyColorsDark().secondary,elevation: 1.px),
-
+      bottomSheetTheme: BottomSheetThemeData(
+        backgroundColor: MyColorsDark().secondary,
+        elevation: 1.px,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20.px),
+            topRight: Radius.circular(20.px),
+          ),
+        ),
+        modalBackgroundColor: MyColorsDark().secondary,
+        modalBarrierColor: MyColorsLight().secondary.withOpacity(.04)
+      ),
     );
   }
 }

@@ -18,6 +18,7 @@ import 'package:zerocart/app/modules/my_cart/controllers/my_cart_controller.dart
 import 'package:http/http.dart' as http;
 import 'package:zerocart/app/modules/outfit_room/controllers/outfit_room_controller.dart';
 import 'package:zerocart/app/routes/app_pages.dart';
+import 'package:zerocart/my_responsive_sizer/src/extension.dart';
 import '../../../../my_common_method/my_common_method.dart';
 import '../../../../my_http/my_http.dart';
 import '../../../../my_image_pic_crop/my_image_pic_crop.dart';
@@ -700,14 +701,16 @@ class ProductDetailController extends CommonMethods {
       barrierDismissible: true,
       builder: (BuildContext context) {
         return AlertDialog(
-          actions: [
-            Image.network(
-              CommonMethods.imageUrl(
-                  url: productDetail!.brandChartImg.toString()),
-              errorBuilder: (context, error, stackTrace) =>
-                  CommonWidgets.defaultImage(),
-            )
-          ],
+          content:
+            ClipRRect(
+              borderRadius: BorderRadius.circular(6.px),
+              child: Image.network(
+                CommonMethods.imageUrl(
+                    url: productDetail!.brandChartImg.toString()),
+                errorBuilder: (context, error, stackTrace) =>
+                    CommonWidgets.defaultImage(),
+              ),
+            ),
         );
       },
     );

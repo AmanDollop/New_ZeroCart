@@ -731,13 +731,7 @@ class MyCartController extends CommonMethods {
     if (addressDetail != null) {
       showModalBottomSheet(
         isDismissible: true,
-        // backgroundColor: MyColorsLight().secondary,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20.px),
-            topRight: Radius.circular(20.px),
-          ),
-        ),
+        // backgroundColor: MyColorsLight().secondary,'
         context: Get.context!,
         builder: (context) => const PaymentProceed(),
       );
