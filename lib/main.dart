@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:zerocart/app/common_methods/common_methods.dart';
+import 'package:zerocart/app/custom/scroll_splash_gone.dart';
 import 'package:zerocart/firebase_options.dart';
 import 'package:zerocart/my_responsive_sizer/src/widget.dart';
 import 'package:zerocart/my_theme/my_themedata.dart';
@@ -58,6 +59,10 @@ Future<void> main() async {
               orientation: orientation,
               fontFamily: "Nunito",
             ),
+
+            defaultTransition: Transition.rightToLeftWithFade,
+            // transitionDuration: const Duration(milliseconds: 600),
+            scrollBehavior: MyBehavior(),
           ),
         ),
       ),

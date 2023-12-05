@@ -108,7 +108,9 @@ class MyOrdersController extends CommonMethods {
     authorization = {"Authorization": token!};
     queryParametersForGetOrderListApi = {
       ApiKeyConstant.orderStatus: orderFilterType.value != "-1"
-          ? orderStatusList[int.parse(orderFilterType.value)].toString().replaceAll(" ", "")
+          ? orderStatusList[int.parse(orderFilterType.value)]
+              .toString()
+              .replaceAll(" ", "")
           : "",
       ApiKeyConstant.limit: limit,
       ApiKeyConstant.offset: offset.toString(),
@@ -161,7 +163,7 @@ class MyOrdersController extends CommonMethods {
     showModalBottomSheet(
         isScrollControlled: true,
         isDismissible: false,
-        backgroundColor: MyColorsLight().secondary,
+        // backgroundColor: MyColorsLight().secondary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20.px),
@@ -210,33 +212,12 @@ class MyOrdersController extends CommonMethods {
     await onInit();
   }
 
-  void clickOnTrackButton({
-    required String orderPlaceDate,
-    required String orderNo,
-  }) {
-    showModalBottomSheet(
-        isScrollControlled: true,
-        isDismissible: false,
-        backgroundColor: MyColorsLight().secondary,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20.px),
-            topRight: Radius.circular(20.px),
-          ),
-        ),
-        context: Get.context!,
-        builder: (context) => TrackingBottomSheet(
-              orderNo: orderNo,
-              orderPlaceDate: orderPlaceDate,
-            ));
-  }
-
   void clickOnCancelButton(
       {required BuildContext context, required int index}) {
     showModalBottomSheet(
         isScrollControlled: true,
         isDismissible: false,
-        backgroundColor: MyColorsLight().secondary,
+        // backgroundColor: MyColorsLight().secondary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20.px),
@@ -252,16 +233,40 @@ class MyOrdersController extends CommonMethods {
 
           }*/
           if (orderListObject.isOffer == "1") {
-            price = price + double.parse(double.parse(orderListObject.productDisPrice!)
-                .toStringAsFixed(2));
+            price = price +
+                double.parse(double.parse(orderListObject.productDisPrice!)
+                    .toStringAsFixed(2));
           } else {
-            price = price + double.parse(double.parse(orderListObject.productPrice!).toStringAsFixed(2));
+            price = price +
+                double.parse(double.parse(orderListObject.productPrice!)
+                    .toStringAsFixed(2));
           }
           return MyOrdersCancelBottomSheet(
             index: index,
             price: price,
           );
         });
+  }
+
+  void clickOnTrackButton({
+    required String orderPlaceDate,
+    required String orderNo,
+  }) {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        isDismissible: false,
+        // backgroundColor: MyColorsLight().secondary,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20.px),
+            topRight: Radius.circular(20.px),
+          ),
+        ),
+        context: Get.context!,
+        builder: (context) => TrackingBottomSheet(
+              orderNo: orderNo,
+              orderPlaceDate: orderPlaceDate,
+            ));
   }
 
   void clickOnDoNotCancelButton() {

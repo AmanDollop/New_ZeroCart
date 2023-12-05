@@ -731,7 +731,7 @@ class MyCartController extends CommonMethods {
     if (addressDetail != null) {
       showModalBottomSheet(
         isDismissible: true,
-        backgroundColor: MyColorsLight().secondary,
+        // backgroundColor: MyColorsLight().secondary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20.px),
@@ -742,8 +742,7 @@ class MyCartController extends CommonMethods {
         builder: (context) => const PaymentProceed(),
       );
     } else {
-      MyCommonMethods.showSnackBar(
-          message: "Please Add Delivery Address", context: context);
+      MyCommonMethods.showSnackBar(message: "Please Add Delivery Address", context: context);
     }
   }
 

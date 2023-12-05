@@ -232,9 +232,14 @@ class HomeController extends CommonMethods {
         if (getBanner != null) {
           listOfBanner = getBanner?.banner;
           listOfBanner?.forEach((element) {
-            bannerImageList.add(NetworkImage(
+
+            // bannerImageList.add(NetworkImage(
+            //   CommonMethods.imageUrl(url: element.bannerImage.toString()),
+            // ));
+
+            bannerImageList.add(
               CommonMethods.imageUrl(url: element.bannerImage.toString()),
-            ));
+            );
           });
         }
       }

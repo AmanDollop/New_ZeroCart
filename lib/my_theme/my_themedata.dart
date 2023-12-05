@@ -14,7 +14,8 @@ class MyThemeData {
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: MyColorsLight().scaffoldBackgroundColor,
           statusBarBrightness: Brightness.dark, // For iOS: (dark icons)
-          statusBarIconBrightness: Brightness.dark, // For Android(M and greater): (dark icons)
+          statusBarIconBrightness:
+              Brightness.dark, // For Android(M and greater): (dark icons)
         ),
       ),
       textTheme: MyTextThemeLight().myTextTheme(fontFamily: fontFamily),
@@ -78,6 +79,8 @@ class MyThemeData {
             padding: EdgeInsets.all(3.5.px),
             tapTargetSize: MaterialTapTargetSize.shrinkWrap),
       ),
+
+      bottomSheetTheme: BottomSheetThemeData(backgroundColor: MyColorsLight().secondary,elevation: 1.px),
     );
   }
 
@@ -109,8 +112,7 @@ class MyThemeData {
           surface: MyColorsDark().text,
           onSurface: MyColorsDark().onText,
           onSecondaryContainer: MyColorsDark().onSecondary),
-      textSelectionTheme:
-          TextSelectionThemeData(cursorColor: MyColorsDark().primaryColor),
+      textSelectionTheme: TextSelectionThemeData(cursorColor: MyColorsDark().primaryColor),
       inputDecorationTheme: InputDecorationTheme(
         contentPadding: const EdgeInsets.only(top: 1),
         constraints: BoxConstraints(maxHeight: 70.px),
@@ -155,6 +157,9 @@ class MyThemeData {
             padding: EdgeInsets.all(3.5.px),
             tapTargetSize: MaterialTapTargetSize.shrinkWrap),
       ),
+
+      bottomSheetTheme: BottomSheetThemeData(backgroundColor: MyColorsDark().secondary,elevation: 1.px),
+
     );
   }
 }

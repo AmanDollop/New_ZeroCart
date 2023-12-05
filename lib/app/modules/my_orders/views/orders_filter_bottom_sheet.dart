@@ -62,18 +62,18 @@ class OderFilterBottomSheet extends GetView<MyOrdersController> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          filtersTextView(),
-                          clearFiltersTextButtonView(),
+                          filtersTextView(context: context),
+                          clearFiltersTextButtonView(context: context),
                         ],
                       ),
                       SizedBox(
                         height: Zconstant.margin - 12
                       ),
-                      orderStatusTextView(),
+                      orderStatusTextView(context: context),
                       SizedBox(
                         height: Zconstant.margin16
                       ),
-                      orderStatusGridView(),
+                      orderStatusGridView(context: context),
                       SizedBox(
                         height: Zconstant.margin16
                       ),
@@ -82,7 +82,7 @@ class OderFilterBottomSheet extends GetView<MyOrdersController> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            cancelButtonView(),
+                            cancelButtonView(context: context),
                             applyButtonView(context: context),
                           ],
                         ),
@@ -99,22 +99,18 @@ class OderFilterBottomSheet extends GetView<MyOrdersController> {
     });
   }
 
-  Widget filtersTextView() => Text(
+  Widget filtersTextView({required BuildContext context}) => Text(
         "Filters",
-        style: Theme.of(Get.context!)
+        style: Theme.of(context)
             .textTheme
-            .subtitle1
-            ?.copyWith(color: MyColorsDark().secondary),
+            .subtitle1,
       );
 
-  Widget clearFiltersTextButtonView(){
+  Widget clearFiltersTextButtonView({required BuildContext context}){
     if( controller.orderFilterType.value == '-1'){
       return Text(
         "Clear Filters",
-        style: Theme.of(Get.context!)
-            .textTheme
-            .subtitle1
-            ?.copyWith(color: MyColorsDark().textGrayColor),
+        style: Theme.of(context).textTheme.subtitle1?.copyWith(color: MyColorsLight().onPrimary),
       );
     }else{
       return InkWell(
@@ -122,24 +118,18 @@ class OderFilterBottomSheet extends GetView<MyOrdersController> {
         onTap: () => controller.clickOnClearFilterButton(),
         child: Text(
           "Clear Filters",
-          style: Theme.of(Get.context!)
-              .textTheme
-              .subtitle1
-              ?.copyWith(color: MyColorsDark().secondary),
+          style: Theme.of(context).textTheme.subtitle1,
         ),
       );
     }
   }
 
-  Widget orderStatusTextView() => Text(
+  Widget orderStatusTextView({required BuildContext context}) => Text(
         "Order Status",
-        style: Theme.of(Get.context!)
-            .textTheme
-            .subtitle1
-            ?.copyWith(color: MyColorsDark().secondary),
+        style: Theme.of(context).textTheme.subtitle1,
       );
 
-  Widget orderStatusGridView() => GridView.builder(
+  Widget orderStatusGridView({required BuildContext context,}) => GridView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -150,33 +140,31 @@ class OderFilterBottomSheet extends GetView<MyOrdersController> {
         ),
         itemBuilder: (context, index) {
           return index.toString() == controller.orderFilterType.value
-              ? selectedOrderStatusButtonView(index: index)
-              : orderStatusButtonView(index: index);
+              ? selectedOrderStatusButtonView(index: index,context: context)
+              : orderStatusButtonView(index: index,context: context);
         },
         itemCount: controller.orderStatusList.length,
         padding: EdgeInsets.zero,
       );
 
-  Widget orderStatusContentTextView({required String text}) => Row(
+  Widget orderStatusContentTextView({required String text,required BuildContext context}) => Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
             text,
-            style: Theme.of(Get.context!).textTheme.subtitle2?.copyWith(
-                  color: MyColorsLight().onText,
-                ),
+            style: Theme.of(context).textTheme.subtitle2,
           ),
           SizedBox(width: 1.w),
           Icon(Icons.add, size: 16.px, color: MyColorsLight().onText),
         ],
       );
 
-  Widget selectedOrderStatusContentTextView({required String text}) => Row(
+  Widget selectedOrderStatusContentTextView({required String text,required BuildContext context}) => Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           GradientText(
             text,
-            style: Theme.of(Get.context!).textTheme.subtitle2,
+            style: Theme.of(context).textTheme.subtitle2,
             gradient: CommonWidgets.commonLinearGradientView(),
           ),
           SizedBox(width: 1.w),
@@ -188,20 +176,20 @@ class OderFilterBottomSheet extends GetView<MyOrdersController> {
         ],
       );
 
-  Widget orderStatusButtonView({required int index}) => CommonWidgets.myOutlinedButton(
-        text: orderStatusContentTextView(text: controller.orderStatusList[index]),
+  Widget orderStatusButtonView({required int index,required BuildContext context}) => CommonWidgets.myOutlinedButton(
+        text: orderStatusContentTextView(text: controller.orderStatusList[index],context: context),
         onPressed: () => controller.clickOnOrderStatus(index: index),
         height: 35.px,
         radius: 17.px,
         margin: EdgeInsets.zero,
         wantFixedSize: false,
         strokeWidth: 0.8.px,
-        linearGradient: commonLinearGradient(),
+        linearGradient: commonLinearGradient(context: context),
       );
 
-  Widget selectedOrderStatusButtonView({required int index}) => CommonWidgets.myOutlinedButton(
+  Widget selectedOrderStatusButtonView({required int index,required BuildContext context}) => CommonWidgets.myOutlinedButton(
         text: selectedOrderStatusContentTextView(
-            text: controller.orderStatusList[index]),
+            text: controller.orderStatusList[index],context: context),
         onPressed: () => controller.clickOnOrderStatus(index: index),
         height: 35.px,
         radius: 17.px,
@@ -263,12 +251,12 @@ class OderFilterBottomSheet extends GetView<MyOrdersController> {
   //       children: [
   //         Text(
   //           text,
-  //           style: Theme.of(Get.context!).textTheme.subtitle2,
+  //           style: Theme.of(context).textTheme.subtitle2,
   //         ),
   //         SizedBox(width: 1.w),
   //         Icon(Icons.add,
   //             size: 16.px,
-  //             color: Theme.of(Get.context!).textTheme.subtitle2?.color),
+  //             color: Theme.of(context).textTheme.subtitle2?.color),
   //       ],
   //     );
 
@@ -288,7 +276,7 @@ class OderFilterBottomSheet extends GetView<MyOrdersController> {
               Text(
                 text,
                 style: Theme
-                    .of(Get.context!)
+                    .of(context)
                     .textTheme
                     .subtitle2
                     ?.copyWith(color: MyColorsDark().secondary),
@@ -297,7 +285,7 @@ class OderFilterBottomSheet extends GetView<MyOrdersController> {
               Icon(Icons.add,
                   size: 16.px,
                   color: Theme
-                      .of(Get.context!)
+                      .of(context)
                       .textTheme
                       .subtitle2
                       ?.color),
@@ -306,8 +294,8 @@ class OderFilterBottomSheet extends GetView<MyOrdersController> {
         ),
       );*/
 
-  Widget cancelButtonView() => CommonWidgets.myOutlinedButton(
-      text: cancelTextView(),
+  Widget cancelButtonView({required BuildContext context}) => CommonWidgets.myOutlinedButton(
+      text: cancelTextView(context: context),
       onPressed: () => controller.clickOnCancelFiltersBottomSheetButton(),
       width: 43.w,
       height: 40.px,
@@ -317,7 +305,7 @@ class OderFilterBottomSheet extends GetView<MyOrdersController> {
   Widget applyButtonView({required BuildContext context}) => Obx(() {
         if (!controller.isApplyButtonClicked.value) {
           return CommonWidgets.myElevatedButton(
-              text: applyTextView(),
+              text: applyTextView(context: context),
               onPressed: () => controller.clickOnApplyButton(context: context),
               width: 43.w,
               margin: EdgeInsets.zero,
@@ -335,32 +323,32 @@ class OderFilterBottomSheet extends GetView<MyOrdersController> {
         }
       });
 
-  Widget cancelTextView() => Text(
+  Widget cancelTextView({required BuildContext context}) => Text(
         "CANCEL",
-        style: Theme.of(Get.context!)
+        style: Theme.of(context)
             .textTheme
             .headline3
-            ?.copyWith(color: MyColorsDark().secondary),
+            ,
       );
 
-  Widget applyTextView() => Text(
+  Widget applyTextView({required BuildContext context}) => Text(
         "Apply",
-        style: Theme.of(Get.context!)
+        style: Theme.of(context)
             .textTheme
             .headline3
             ?.copyWith(color: MyColorsLight().text),
       );
 
-  LinearGradient commonLinearGradient() {
+  LinearGradient commonLinearGradient({required BuildContext context}) {
     return LinearGradient(
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
       colors: [
-        Theme.of(Get.context!).brightness == Brightness.dark
-            ? MyColorsDark().secondary
+        Theme.of(context).brightness == Brightness.dark
+            ? MyColorsLight().secondary
             : MyColorsDark().secondary,
-        Theme.of(Get.context!).brightness == Brightness.dark
-            ? MyColorsDark().secondary
+        Theme.of(context).brightness == Brightness.dark
+            ? MyColorsLight().secondary
             : MyColorsDark().secondary,
       ],
     );

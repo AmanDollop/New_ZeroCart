@@ -159,7 +159,7 @@ class MyOrderDetailsController extends CommonMethods {
     showModalBottomSheet(
         isScrollControlled: true,
         isDismissible: false,
-        backgroundColor: MyColorsLight().secondary,
+        // backgroundColor: MyColorsLight().secondary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20.px),
@@ -190,7 +190,7 @@ class MyOrderDetailsController extends CommonMethods {
     showModalBottomSheet(
         isScrollControlled: true,
         isDismissible: false,
-        backgroundColor: MyColorsLight().secondary,
+        // backgroundColor: MyColorsLight().secondary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20.px),

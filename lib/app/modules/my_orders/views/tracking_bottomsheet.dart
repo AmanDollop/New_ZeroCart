@@ -2,6 +2,7 @@ import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
+import 'package:zerocart/app/constant/zconstant.dart';
 import 'package:zerocart/my_responsive_sizer/src/extension.dart';
 import 'package:zerocart/app/common_widgets/common_widgets.dart';
 import 'package:zerocart/app/modules/my_orders/controllers/my_orders_controller.dart';
@@ -17,7 +18,7 @@ class TrackingBottomSheet extends GetView<MyOrdersController> {
     return ListView(
       shrinkWrap: true,
       physics: const ScrollPhysics(),
-      padding: EdgeInsets.all(10.px),
+      padding: EdgeInsets.only(right: 10.px,left: 10.px,bottom: 10.px),
       children: [
         // Padding(
         //   padding: EdgeInsets.symmetric(
@@ -212,20 +213,30 @@ class TrackingBottomSheet extends GetView<MyOrdersController> {
         //     ],
         //   ),
         // )
-        Text('Order Tracking',style: Theme.of(Get.context!)
-        .textTheme
-        .bodyText1
-        ?.copyWith(color: MyColorsDark().secondary,fontSize: 18.px),textAlign: TextAlign.center),
-        SizedBox(height: 10.px),
-        Text('Order Placed On -: $orderPlaceDate',style: Theme.of(Get.context!)
-        .textTheme
-        .bodyText1
-        ?.copyWith(color: MyColorsDark().secondary,fontSize: 12.px)),
+        SizedBox(height: Zconstant.margin16/3 ),
+        Center(
+          child: FractionallySizedBox(
+            widthFactor: 0.1.px,
+            child: Container(
+              margin: EdgeInsets.symmetric(
+                vertical: 8.px,
+              ),
+              child: Container(
+                height: 3.5.px,
+                decoration: BoxDecoration(
+                  color: MyColorsLight().onPrimary,
+                  borderRadius: BorderRadius.all(Radius.circular(2.5.px)),
+                ),
+              ),
+            ),
+          ),
+        ),
         SizedBox(height: 5.px),
-        Text('Order No.-: $orderNo',style: Theme.of(Get.context!)
-        .textTheme
-        .bodyText1
-        ?.copyWith(color: MyColorsDark().secondary,fontSize: 12.px)),
+        Text('Order Tracking',style: Theme.of(Get.context!).textTheme.subtitle1?.copyWith(fontSize: 18.px),textAlign: TextAlign.center),
+        SizedBox(height: 10.px),
+        Text('Order Placed On -: $orderPlaceDate',style: Theme.of(Get.context!).textTheme.subtitle1?.copyWith(fontSize: 12.px)),
+        SizedBox(height: 5.px),
+        Text('Order No.-: $orderNo',style: Theme.of(Get.context!).textTheme.subtitle1?.copyWith(fontSize: 12.px)),
         SizedBox(height: 10.px),
         ListView.builder(
           padding: EdgeInsets.all(8.px),
@@ -240,8 +251,8 @@ class TrackingBottomSheet extends GetView<MyOrdersController> {
                   'Date -: 22 Nov 2023',
                   style: Theme.of(Get.context!)
                       .textTheme
-                      .bodyText1
-                      ?.copyWith(color: MyColorsDark().secondary,fontSize: 14.px),
+                      .subtitle1
+                      ?.copyWith(fontSize: 14.px),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -259,7 +270,7 @@ class TrackingBottomSheet extends GetView<MyOrdersController> {
                             flex: 1,
                             child: Text(
                               '9:20 AM',
-                              style: Theme.of(Get.context!).textTheme.bodyText1?.copyWith(color: MyColorsDark().secondary,fontSize: 12.px),
+                              style: Theme.of(Get.context!).textTheme.subtitle1?.copyWith(fontSize: 12.px),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -278,8 +289,8 @@ class TrackingBottomSheet extends GetView<MyOrdersController> {
                                   'Title',
                                   style: Theme.of(Get.context!)
                                       .textTheme
-                                      .bodyText1
-                                      ?.copyWith(color: MyColorsDark().secondary,fontSize: 10.px),
+                                      .subtitle1
+                                      ?.copyWith(fontSize: 10.px),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
@@ -287,8 +298,8 @@ class TrackingBottomSheet extends GetView<MyOrdersController> {
                                   'Sub Title',
                                   style: Theme.of(Get.context!)
                                       .textTheme
-                                      .bodyText1
-                                      ?.copyWith(color: MyColorsDark().bottomBar,fontSize: 8.px),
+                                      .subtitle1
+                                      ?.copyWith(fontSize: 8.px),
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                 ),

@@ -22,7 +22,7 @@ class PaymentProceed extends GetView<MyCartController> {
               children: [
                 Center(
                   child: FractionallySizedBox(
-                    widthFactor: 0.35.px,
+                    widthFactor: 0.1.px,
                     child: Container(
                       margin: EdgeInsets.symmetric(
                         vertical: 8.px,
@@ -46,49 +46,60 @@ class PaymentProceed extends GetView<MyCartController> {
                       padding: EdgeInsets.only(left: 3.w),
                       child: Text(
                         "Payment Methods",
-                        style: Theme.of(Get.context!)
-                            .textTheme
-                            .subtitle1
-                            ?.copyWith(color: MyColorsDark().secondary),
+                        style: Theme.of(context).textTheme.subtitle1,
                       ),
                     ),
                     SizedBox(height: 2.h),
                     walletRadioButtonView(
                         value: controller.wallets.value,
                         groupValue: controller.paymentMethod.value,
-                        title: textViewDebitCreditCard(text: 'Wallets')),
+                        title: textViewDebitCreditCard(
+                            text: 'Wallets', context: context),
+                        context: context),
                     Center(
                       child: dividerForBottomSheet(),
                     ),
                     cashOnDeliveryRadioButtonView(
                         value: controller.cashOnDelivery.value,
                         groupValue: controller.paymentMethod.value,
-                        title:
-                            textViewDebitCreditCard(text: 'Cash On Delivery')),
+                        title: textViewDebitCreditCard(
+                            text: 'Cash On Delivery', context: context),
+                        context: context),
                     Center(
                       child: dividerForBottomSheet(),
                     ),
                     othersRadioButtonView(
                         value: controller.others.value,
                         groupValue: controller.paymentMethod.value,
-                        title: textViewDebitCreditCard(text: 'Others')),
+                        title: textViewDebitCreditCard(
+                            text: 'Others', context: context),
+                        context: context),
                     Center(
                       child: dividerForBottomSheet(),
                     ),
                     SizedBox(height: 4.h),
-                    Obx(() => Center(
-                          child: CommonWidgets.myElevatedButton(
-                              height: 42.px,
-                              width: 80.w,
-                              borderRadius: 5.px,
-                              text: controller.isClickOnProceedToCheckOut.value
-                                  ? CommonWidgets.buttonProgressBarView()
-                                  : Text(style: Theme.of(Get.context!).textTheme.subtitle1?.copyWith(fontSize: 14.px, color: MyColorsLight().secondary), "PROCEED TO CHECKOUT"),
-                              onPressed: () =>
-                                  controller.isClickOnProceedToCheckOut.value
-                                      ? null
-                                      : controller.clickOnProceedToCheckout()),
-                        )),
+                    Obx(
+                      () => Center(
+                        child: CommonWidgets.myElevatedButton(
+                            height: 42.px,
+                            width: 80.w,
+                            borderRadius: 5.px,
+                            text: controller.isClickOnProceedToCheckOut.value
+                                ? CommonWidgets.buttonProgressBarView()
+                                : Text(
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .subtitle1
+                                        ?.copyWith(
+                                            fontSize: 14.px,
+                                            color: MyColorsLight().secondary),
+                                    "PROCEED TO CHECKOUT"),
+                            onPressed: () =>
+                                controller.isClickOnProceedToCheckOut.value
+                                    ? null
+                                    : controller.clickOnProceedToCheckout()),
+                      ),
+                    ),
                     SizedBox(height: 4.h),
                   ],
                 ),
@@ -100,25 +111,24 @@ class PaymentProceed extends GetView<MyCartController> {
     });
   }
 
-  Widget textViewDebitCreditCard({required String text}) => Text(
+  Widget textViewDebitCreditCard(
+          {required String text, required BuildContext context}) =>
+      Text(
         text,
-        style: Theme.of(Get.context!)
-            .textTheme
-            .subtitle1
-            ?.copyWith(fontSize: 14.px, color: MyColorsDark().secondary),
+        style: Theme.of(context).textTheme.subtitle1?.copyWith(fontSize: 14.px),
       );
 
   Widget dividerForBottomSheet() => SizedBox(
       width: 90.w,
-      child:
-          CommonWidgets.profileMenuDash(color: MyColorsLight().dashMenuColor));
+      child: CommonWidgets.profileMenuDash(color: CommonWidgets.method()));
 
   Widget walletRadioButtonView(
           {required final value,
           required final groupValue,
-          required Widget title}) =>
+          required Widget title,
+          required BuildContext context}) =>
       Theme(
-        data: Theme.of(Get.context!).copyWith(
+        data: Theme.of(context).copyWith(
           unselectedWidgetColor: MyColorsLight().onText.withOpacity(.4),
         ),
         child: RadioListTile(
@@ -126,7 +136,7 @@ class PaymentProceed extends GetView<MyCartController> {
           title: title,
           value: value,
           groupValue: groupValue,
-          activeColor: Theme.of(Get.context!).primaryColor,
+          activeColor: Theme.of(context).primaryColor,
           onChanged: (value) {
             controller.paymentMethod.value = value;
           },
@@ -136,9 +146,10 @@ class PaymentProceed extends GetView<MyCartController> {
   Widget cashOnDeliveryRadioButtonView(
           {required final value,
           required final groupValue,
-          required Widget title}) =>
+          required Widget title,
+          required BuildContext context}) =>
       Theme(
-        data: Theme.of(Get.context!).copyWith(
+        data: Theme.of(context).copyWith(
           unselectedWidgetColor: MyColorsLight().onText.withOpacity(.4),
         ),
         child: RadioListTile(
@@ -146,7 +157,7 @@ class PaymentProceed extends GetView<MyCartController> {
           title: title,
           value: value,
           groupValue: groupValue,
-          activeColor: Theme.of(Get.context!).primaryColor,
+          activeColor: Theme.of(context).primaryColor,
           onChanged: (value) {
             controller.paymentMethod.value = value;
           },
@@ -156,14 +167,15 @@ class PaymentProceed extends GetView<MyCartController> {
   Widget othersRadioButtonView(
           {required final value,
           required final groupValue,
-          required Widget title}) =>
+          required Widget title,
+          required BuildContext context}) =>
       Theme(
-        data: Theme.of(Get.context!).copyWith(
+        data: Theme.of(context).copyWith(
           unselectedWidgetColor: MyColorsLight().onText.withOpacity(.4),
         ),
         child: RadioListTile(
           //tileColor: Colors.grey.withOpacity(0.4),
-          activeColor: Theme.of(Get.context!).primaryColor,
+          activeColor: Theme.of(context).primaryColor,
           title: title,
           value: value,
           groupValue: groupValue,

@@ -64,20 +64,20 @@ class RatingBottomSheet extends GetView<MyOrderDetailsController> {
                   ),
                 ),
                 SizedBox(height: 2.px),
-                ratingTextView(),
+                ratingTextView(context: context),
                 SizedBox(height: 5.px),
                 CommonWidgets.zeroCartImage(),
                 SizedBox(height: 2.px),
-                setRatingTextView(),
+                setRatingTextView(context: context),
                 SizedBox(height: 15.px),
-                ratingBuilderView(),
+                ratingBuilderView(context: context),
                 SizedBox(height: 10.px),
                 Row(
                   children: [
                     Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: 4.w, vertical: 5.px),
-                      child: reviewTextView(),
+                      child: reviewTextView(context: context),
                     ),
                   ],
                 ),
@@ -128,7 +128,7 @@ class RatingBottomSheet extends GetView<MyOrderDetailsController> {
                                           padding: EdgeInsets.only(left: 16.px),
                                           child: Icon(
                                             Icons.cancel,
-                                            color: Theme.of(Get.context!)
+                                            color: Theme.of(context)
                                                 .textTheme
                                                 .subtitle2
                                                 ?.color,
@@ -164,6 +164,10 @@ class RatingBottomSheet extends GetView<MyOrderDetailsController> {
                               FormValidator.isEmptyField(value: value),
                           controller: controller.descriptionController,
                           keyboardType: TextInputType.multiline,
+                          style: Theme.of(context)
+                              .textTheme
+                              .subtitle1
+                              ?.copyWith(fontSize: 14.px),
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 2.h, horizontal: 2.w),
@@ -201,7 +205,7 @@ class RatingBottomSheet extends GetView<MyOrderDetailsController> {
                         ),
                       ),
                       SizedBox(height: 8.px),
-                      submitButtonView()
+                      submitButtonView(context: context)
                     ],
                   ),
                 ),
@@ -214,28 +218,30 @@ class RatingBottomSheet extends GetView<MyOrderDetailsController> {
     });
   }
 
-  Widget ratingTextView() => Text(
+  Widget ratingTextView({required BuildContext context}) => Text(
         "Rating Dialog",
-        style: Theme.of(Get.context!)
+        style: Theme.of(context)
             .textTheme
             .subtitle1
             ?.copyWith(fontSize: 16.px, fontWeight: FontWeight.normal),
       );
 
-  Widget pleaseEnterSomeDescriptionTextView() => Text(
+  Widget pleaseEnterSomeDescriptionTextView({required BuildContext context}) =>
+      Text(
         "Please Enter Some Description",
-        style: Theme.of(Get.context!).textTheme.subtitle1?.copyWith(
+        style: Theme.of(context).textTheme.subtitle1?.copyWith(
             fontSize: 16.px,
             fontWeight: FontWeight.normal,
             color: MyColorsLight().error),
       );
 
-  Widget setRatingTextView() => Text(
+  Widget setRatingTextView({required BuildContext context}) => Text(
         "Tap a star to set product rating.",
-        style: Theme.of(Get.context!).textTheme.subtitle2,
+        style: Theme.of(context).textTheme.subtitle2,
       );
 
-  Widget ratingBuilderView() => RatingBar.builder(
+  Widget ratingBuilderView({required BuildContext context}) =>
+      RatingBar.builder(
         initialRating: 1,
         minRating: 1,
         direction: Axis.horizontal,
@@ -252,28 +258,28 @@ class RatingBottomSheet extends GetView<MyOrderDetailsController> {
         },
       );
 
-  Widget reviewTextView() => Text(
+  Widget reviewTextView({required BuildContext context}) => Text(
         "Review",
-        style: Theme.of(Get.context!)
+        style: Theme.of(context)
             .textTheme
             .subtitle1
             ?.copyWith(fontSize: 14.px, fontWeight: FontWeight.normal),
       );
 
-  Widget cancelledTextButtonView() => Text(
+  Widget cancelledTextButtonView({required BuildContext context}) => Text(
         "Cancel",
-        style: Theme.of(Get.context!)
+        style: Theme.of(context)
             .textTheme
             .subtitle2
             ?.copyWith(color: MyColorsLight().error),
       );
 
-  Widget submitButtonView() {
+  Widget submitButtonView({required BuildContext context}) {
     return Obx(() {
       if (controller.isSubmitButtonVisible.value) {
         return CommonWidgets.myElevatedButton(
           onPressed: () => controller.clickOnSubmitButton(),
-          text: submitTextButtonView(),
+          text: submitTextButtonView(context: context),
         );
       } else {
         return CommonWidgets.myElevatedButton(
@@ -285,9 +291,9 @@ class RatingBottomSheet extends GetView<MyOrderDetailsController> {
     });
   }
 
-  Widget submitTextButtonView() => Text(
+  Widget submitTextButtonView({required BuildContext context}) => Text(
         "Submit",
-        style: Theme.of(Get.context!)
+        style: Theme.of(context)
             .textTheme
             .subtitle2
             ?.copyWith(color: MyColorsLight().secondary),

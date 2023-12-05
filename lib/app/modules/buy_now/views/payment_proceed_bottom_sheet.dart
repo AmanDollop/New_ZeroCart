@@ -21,7 +21,7 @@ class PaymentProceedBuyNow extends GetView<BuyNowController> {
             children: [
               Center(
                 child: FractionallySizedBox(
-                  widthFactor: 0.35.px,
+                  widthFactor: 0.1.px,
                   child: Container(
                     margin: EdgeInsets.symmetric(
                       vertical: 8.px,
@@ -44,31 +44,31 @@ class PaymentProceedBuyNow extends GetView<BuyNowController> {
                     padding: EdgeInsets.only(left: 20.px),
                     child: Text(
                       "Payment Methods",
-                      style: Theme.of(Get.context!)
-                          .textTheme
-                          .subtitle1
-                          ?.copyWith(color: MyColorsDark().secondary),
+                      style: Theme.of(context).textTheme.subtitle1,
                     ),
                   ),
                   SizedBox(height: 2.h),
                   walletRadioButtonView(
+                    context: context,
                       value: controller.wallets.value,
                       groupValue: controller.paymentMethod.value,
-                      title: textViewDebitCreditCard(text: 'Wallets')),
+                      title: textViewDebitCreditCard(text: 'Wallets',context: context)),
                   Center(
                     child: dividerForBottomSheet(),
                   ),
                   cashOnDeliveryRadioButtonView(
+                      context: context,
                       value: controller.cashOnDelivery.value,
                       groupValue: controller.paymentMethod.value,
-                      title: textViewDebitCreditCard(text: 'Cash On Delivery')),
+                      title: textViewDebitCreditCard(text: 'Cash On Delivery',context: context)),
                   Center(
                     child: dividerForBottomSheet(),
                   ),
                   othersRadioButtonView(
+                      context: context,
                       value: controller.others.value,
                       groupValue: controller.paymentMethod.value,
-                      title: textViewDebitCreditCard(text: 'Others')),
+                      title: textViewDebitCreditCard(text: 'Others',context: context)),
                   Center(
                     child: dividerForBottomSheet(),
                   ),
@@ -103,12 +103,12 @@ class PaymentProceedBuyNow extends GetView<BuyNowController> {
     });
   }
 
-  Widget textViewDebitCreditCard({required String text}) => Text(
+  Widget textViewDebitCreditCard({required String text,required BuildContext context}) => Text(
         text,
-        style: Theme.of(Get.context!)
+        style: Theme.of(context)
             .textTheme
             .subtitle1
-            ?.copyWith(fontSize: 14.px, color: MyColorsDark().secondary),
+            ?.copyWith(fontSize: 14.px,),
       );
 
   Widget dividerForBottomSheet() => SizedBox(
@@ -119,15 +119,16 @@ class PaymentProceedBuyNow extends GetView<BuyNowController> {
   Widget walletRadioButtonView(
           {required final value,
           required final groupValue,
-          required Widget title}) =>
+          required Widget title,
+          required BuildContext context}) =>
       Theme(
-        data: Theme.of(Get.context!).copyWith(
+        data: Theme.of(context).copyWith(
           unselectedWidgetColor: MyColorsLight().onText.withOpacity(.4),
         ),
         child: RadioListTile(
           // tileColor: Colors.grey.withOpacity(0.4),
           title: title,
-          activeColor: Theme.of(Get.context!).primaryColor,
+          activeColor: Theme.of(context).primaryColor,
           value: value,
           groupValue: groupValue,
           onChanged: (value) {
@@ -139,15 +140,15 @@ class PaymentProceedBuyNow extends GetView<BuyNowController> {
   Widget cashOnDeliveryRadioButtonView(
           {required final value,
           required final groupValue,
-          required Widget title}) =>
+          required Widget title, required BuildContext context}) =>
       Theme(
-        data: Theme.of(Get.context!).copyWith(
+        data: Theme.of(context).copyWith(
           unselectedWidgetColor: MyColorsLight().onText.withOpacity(.4),
         ),
         child: RadioListTile(
           //tileColor: Colors.grey.withOpacity(0.4),
           title: title,
-          activeColor: Theme.of(Get.context!).primaryColor,
+          activeColor: Theme.of(context).primaryColor,
           value: value,
           groupValue: groupValue,
           onChanged: (value) {
@@ -159,15 +160,15 @@ class PaymentProceedBuyNow extends GetView<BuyNowController> {
   Widget othersRadioButtonView(
           {required final value,
           required final groupValue,
-          required Widget title}) =>
+          required Widget title, required BuildContext context}) =>
       Theme(
-        data: Theme.of(Get.context!).copyWith(
+        data: Theme.of(context).copyWith(
           unselectedWidgetColor: MyColorsLight().onText.withOpacity(.4),
         ),
         child: RadioListTile(
           // tileColor: Colors.grey.withOpacity(0.4),
           title: title,
-          activeColor: Theme.of(Get.context!).primaryColor,
+          activeColor: Theme.of(context).primaryColor,
           value: value,
           groupValue: groupValue,
           onChanged: (value) {

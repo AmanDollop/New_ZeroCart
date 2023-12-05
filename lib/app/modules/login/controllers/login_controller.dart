@@ -156,10 +156,11 @@ class LoginController extends GetxController {
         await callLoginApi();
       }catch(e){
         MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
-        absorbing.value = CommonMethods.changeTheAbsorbingValueFalse();
         isLoginButtonClicked.value = false;
+        absorbing.value = CommonMethods.changeTheAbsorbingValueFalse();
       }
     }
+    isLoginButtonClicked.value = false;
     absorbing.value = CommonMethods.changeTheAbsorbingValueFalse();
   }
 
@@ -167,18 +168,18 @@ class LoginController extends GetxController {
     absorbing.value = CommonMethods.changeTheAbsorbingValueTrue();
     MyCommonMethods.unFocsKeyBoard();
     isGoogleLoginButtonClicked.value = true;
-    userFirebaseData = await MyFirebaseSignIn.signInWithGoogle(context: Get.context!).whenComplete((){
-      isGoogleLoginButtonClicked.value = false;
-      absorbing.value = CommonMethods.changeTheAbsorbingValueFalse();
-    });
-    if (userFirebaseData != null) {
-      try{
-        await signInWithGoogleApiCalling();
-      }catch(e){
-        MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
+    try{
+      userFirebaseData = await MyFirebaseSignIn.signInWithGoogle(context: Get.context!).whenComplete((){
         isGoogleLoginButtonClicked.value = false;
         absorbing.value = CommonMethods.changeTheAbsorbingValueFalse();
+      });
+      if (userFirebaseData != null) {
+        await signInWithGoogleApiCalling();
       }
+    }catch(e){
+      MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
+      isGoogleLoginButtonClicked.value = false;
+      absorbing.value = CommonMethods.changeTheAbsorbingValueFalse();
     }
     isGoogleLoginButtonClicked.value = false;
     absorbing.value = CommonMethods.changeTheAbsorbingValueFalse();

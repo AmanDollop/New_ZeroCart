@@ -46,13 +46,12 @@ class MyOrdersCancelBottomSheet extends GetView<MyOrdersController> {
               padding: EdgeInsets.only(left: 20.px),
               child: Text(
                 "Cancel Order",
-                style: Theme.of(Get.context!).textTheme.subtitle1?.copyWith(
-                    color: MyColorsDark().secondary, fontSize: 18.px),
+                style: Theme.of(Get.context!).textTheme.subtitle1?.copyWith(fontSize: 18.px),
               ),
             ),
             SizedBox(height: 10.px),
             CommonWidgets.profileMenuDash(
-                height: 4.px, color: MyColorsLight().dashMenuColor),
+                height: 4.px, color: CommonWidgets.method()),
             Container(
               height: 12.h,
               width: double.infinity,
@@ -78,14 +77,12 @@ class MyOrdersCancelBottomSheet extends GetView<MyOrdersController> {
                 ),
               ),
             ),
-            CommonWidgets.profileMenuDash(
-                height: 4.px, color: MyColorsLight().dashMenuColor),
+            CommonWidgets.profileMenuDash(height: 4.px, color: CommonWidgets.method()),
             Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: Zconstant.margin, vertical: 8.px),
-              child: ifYouCancelTextView(),
+              padding: EdgeInsets.symmetric(horizontal: Zconstant.margin, vertical: 8.px),
+              child: ifYouCancelTextView(context: context),
             ),
-            CommonWidgets.profileMenuDash(color: MyColorsLight().dashMenuColor),
+            CommonWidgets.profileMenuDash(color: CommonWidgets.method()),
             Row(
               children: [
                 Expanded(
@@ -97,7 +94,7 @@ class MyOrdersCancelBottomSheet extends GetView<MyOrdersController> {
                 ),
               ],
             ),
-            CommonWidgets.profileMenuDash(color: MyColorsLight().dashMenuColor),
+            CommonWidgets.profileMenuDash(color: CommonWidgets.method()),
             SizedBox(height: 1.h),
           ],
         ),
@@ -152,12 +149,12 @@ class MyOrdersCancelBottomSheet extends GetView<MyOrdersController> {
         ),
       );*/
 
-  Widget ifYouCancelTextView() => Text(
+  Widget ifYouCancelTextView({required BuildContext context}) => Text(
         "If you cancel now, you may not be able to available this deal again. Do you still want to cancel?",
-        style: Theme.of(Get.context!)
+        style: Theme.of(context)
             .textTheme
             .subtitle1
-            ?.copyWith(fontSize: 14.px, color: MyColorsDark().secondary),
+            ?.copyWith(fontSize: 14.px),
       );
 
   Widget cancelTextButtonView() => InkWell(
@@ -176,8 +173,7 @@ class MyOrdersCancelBottomSheet extends GetView<MyOrdersController> {
         ),
       );
 
-  Widget verticalDividerView() => VerticalDivider(
-      width: 0.px, thickness: 1.px, color: MyColorsLight().dashMenuColor);
+  Widget verticalDividerView() => VerticalDivider(width: 0.px, thickness: 1.px, color: CommonWidgets.method());
 
   Widget okTextButtonView(
           {required BuildContext context, required int index}) =>

@@ -360,7 +360,7 @@ class BuyNowController extends CommonMethods {
     if (addressDetail != null) {
       showModalBottomSheet(
         isScrollControlled: true,
-        backgroundColor: MyColorsLight().secondary,
+        //backgroundColor: MyColorsLight().secondary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20.px),

@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:get/get.dart';
 import '../modules/add_address/bindings/add_address_binding.dart';
 import '../modules/add_address/views/add_address_view.dart';
@@ -75,7 +77,6 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  // ignore: constant_identifier_names
   static const INITIAL = Routes.MAIN_SPLASH;
 
   static final routes = [
@@ -189,7 +190,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.MY_CART,
-      page: () => MyCartView(),
+      page: () => const MyCartView(),
       binding: MyCartBinding(),
     ),
     GetPage(

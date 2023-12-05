@@ -78,20 +78,22 @@ class SplashController extends GetxController {
   Future<void> clickOnRegisterWithGoogleButton() async {
     absorbing.value=CommonMethods.changeTheAbsorbingValueTrue();
     isGoogleRegistrationButtonClicked.value = true;
-    userFirebaseData = await MyFirebaseSignIn.signInWithGoogle(context: Get.context!).whenComplete(() {
-      isGoogleRegistrationButtonClicked.value = false;
-      absorbing.value=CommonMethods.changeTheAbsorbingValueFalse();
-    });
-    if (userFirebaseData != null) {
-      try{
-        await signInWithGoogleApiCalling();
-      }catch(e){
-        MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
+    try{
+      userFirebaseData = await MyFirebaseSignIn.signInWithGoogle(context: Get.context!).whenComplete(() {
         isGoogleRegistrationButtonClicked.value = false;
         absorbing.value=CommonMethods.changeTheAbsorbingValueFalse();
+      });
+      if (userFirebaseData != null) {
+        await signInWithGoogleApiCalling();
       }
+    }catch(e){
+      MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
+      isGoogleRegistrationButtonClicked.value = false;
+      absorbing.value=CommonMethods.changeTheAbsorbingValueFalse();
     }
 
+    isGoogleRegistrationButtonClicked.value = false;
+    absorbing.value=CommonMethods.changeTheAbsorbingValueFalse();
   }
 
 }
