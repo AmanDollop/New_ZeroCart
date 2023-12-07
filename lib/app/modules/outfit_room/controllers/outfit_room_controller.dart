@@ -533,8 +533,10 @@ class OutfitRoomController extends CommonMethods {
   Future<void> clickOnAddToCartButton() async {
     inAsyncCall.value = true;
     try{
+      isAddToCartButtonClicked.value=true;
       await moveOutfitToCartApi();
     }catch(e){
+      isAddToCartButtonClicked.value=false;
       MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
       inAsyncCall.value = false;
     }
@@ -545,13 +547,15 @@ class OutfitRoomController extends CommonMethods {
     Map<String, String> authorization = {};
     String? token = await MyCommonMethods.getString(key: ApiKeyConstant.token);
     authorization = {"Authorization": token!};
-    http.Response? response = await MyHttp.getMethod(
-        url: ApiConstUri.endPointMoveOutfitToCartApi,
-        token: authorization,
-        context: Get.context!);
+    http.Response? response = await MyHttp.getMethod(url: ApiConstUri.endPointMoveOutfitToCartApi, token: authorization, context: Get.context!);
     responseCode = response?.statusCode ?? 0;
     if (response != null) {
+      isAddToCartButtonClicked.value=false;
       increment();
+      MyCommonMethods.showSnackBar(message: 'Product successfully add in cart.', context: Get.context!);
+      // selectedIndex.value = 3;
+    }else{
+      isAddToCartButtonClicked.value=false;
     }
   }
 

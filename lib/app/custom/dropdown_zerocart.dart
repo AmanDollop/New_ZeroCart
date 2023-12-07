@@ -68,6 +68,7 @@ class DropdownZeroCart<T> extends StatefulWidget {
   T? selected;
   bool wantDivider = true;
   bool? wantDividerError = false;
+  EdgeInsetsGeometry? margin;
 
   DropdownZeroCart({
     Key? key,
@@ -78,6 +79,7 @@ class DropdownZeroCart<T> extends StatefulWidget {
     this.wantDividerError,
     this.selected,
     this.wantDivider = true,
+    this.margin
   }) : super(key: key);
 
   @override
@@ -99,7 +101,7 @@ class _DropdownZeroCartState<T> extends State<DropdownZeroCart<T>> {
 
           ),
           child: Container(
-            margin: EdgeInsets.only(bottom: 4.px),
+            margin: widget.margin ?? EdgeInsets.only(bottom: 4.px),
             child: DropdownButton(
               value: selectedValue,
               hint: widget.hint,

@@ -8,6 +8,7 @@ import 'package:zerocart/app/common_widgets/common_widgets.dart';
 import 'package:zerocart/app/custom/scroll_splash_gone.dart';
 import 'package:zerocart/my_colors/my_colors.dart';
 import '../../../../model_progress_bar/model_progress_bar.dart';
+import '../../navigator_bottom_bar/controllers/navigator_bottom_bar_controller.dart';
 import '../controllers/outfit_room_controller.dart';
 
 class OutfitRoomView extends GetView<OutfitRoomController> {
@@ -315,18 +316,16 @@ class OutfitRoomView extends GetView<OutfitRoomController> {
   PreferredSizeWidget appBarView() => AppBar(
     automaticallyImplyLeading: false,
     elevation: 0,
-    shadowColor:
-    Theme.of(Get.context!).scaffoldBackgroundColor.withOpacity(.4),
+    shadowColor: Theme.of(Get.context!).scaffoldBackgroundColor.withOpacity(.4),
     centerTitle: false,
     leadingWidth:  0.px,
-    backgroundColor: Theme.of(Get.context!).scaffoldBackgroundColor,
-
+    // backgroundColor: Theme.of(Get.context!).scaffoldBackgroundColor,
     title: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Flexible(flex: 8,child: appBarTitleTextView(text: 'Outfit Room')),
+        Flexible(flex: 7,child: appBarTitleTextView(text: 'Outfit Room')),
         if(controller.subCategoriesList != null && controller.subCategoriesList!.isNotEmpty)
-        Flexible(flex: 2,child: categoriesDropdown(),),
+        Flexible(flex: 3,child: categoriesDropdown(),),
       ],
     ),
   );
@@ -345,17 +344,20 @@ class OutfitRoomView extends GetView<OutfitRoomController> {
         border: Border.all(color: Colors.grey),
         borderRadius: BorderRadius.circular(6.px)
       ),
-      padding: EdgeInsets.symmetric(horizontal: 4.px),
+      padding: EdgeInsets.symmetric(horizontal: 4.px,),
       child: Center(
         child: DropdownZeroCart<SubCategories>(
           wantDivider: false,
-          hint: Text(
-            "Select type",
-            style:
-            Theme.of(Get.context!).textTheme.caption?.copyWith(fontSize: 10.px),
+          margin: EdgeInsets.zero,
+          hint: Padding(
+            padding:  EdgeInsets.only(left: 4.px),
+            child: Text(
+              "Select type",
+              style:
+              Theme.of(Get.context!).textTheme.caption?.copyWith(fontSize: 10.px),
+            ),
           ),
-          icon: Icon(Icons.keyboard_arrow_down_rounded,
-              color: MyColorsLight().onText, size: 18.px),
+          icon: Icon(Icons.keyboard_arrow_down_rounded, color: Theme.of(Get.context!).colorScheme.onSecondary, size: 18.px),
           selected: controller.subCategories,
           items: controller.subCategoriesList!.map((SubCategories? e) => DropdownMenuItem<SubCategories>(
               value: e,

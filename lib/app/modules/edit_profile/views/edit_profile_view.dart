@@ -49,9 +49,7 @@ class EditProfileView extends GetView<EditProfileController> {
                                   onRefresh: () => controller.onRefresh(),
                                   child: ListView(
                                     children: [
-                                      SizedBox(
-                                        height: Zconstant.margin
-                                      ),
+                                      SizedBox(height: Zconstant.margin),
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
@@ -93,8 +91,11 @@ class EditProfileView extends GetView<EditProfileController> {
                                         );
                                       }),*/
                                             SizedBox(height: 2.h),
-                                            if (controller.stateName != null && controller.stateName != '')
-                                              Align(
+                                            stateTextFieldViewBottom(),
+                                            SizedBox(height: 2.h),
+                                            cityTextFieldViewBottom(),
+                                            /*if (controller.stateName != null && controller.stateName != '')
+                                            Align(
                                                 alignment: Alignment.topLeft,
                                                 child: Text(
                                                   'State Name',
@@ -107,7 +108,7 @@ class EditProfileView extends GetView<EditProfileController> {
                                             stateTextFieldView(),
                                             SizedBox(height: 2.h),
                                             if (controller.cityName != null && controller.cityName != '' && controller.cityModel != null && controller.cityModel?.cities != null && controller.cityModel!.cities!.isNotEmpty)
-                                              Align(
+                                            Align(
                                                 alignment: Alignment.topLeft,
                                                 child: Text(
                                                   'City Name',
@@ -118,7 +119,7 @@ class EditProfileView extends GetView<EditProfileController> {
                                                       ),
                                                 ),
                                               ),
-                                            cityTextFieldView(),
+                                            cityTextFieldView(),*/
                                             SizedBox(height: 2.h),
                                             titleTextView(text: 'Type Of Products'),
                                             SizedBox(height: 1.h),
@@ -154,7 +155,7 @@ class EditProfileView extends GetView<EditProfileController> {
                                             ),
                                             SizedBox(height: 2.h),
                                             if (controller.fashionCategoryList.isNotEmpty)
-                                              Obx(() {
+                                            Obx(() {
                                                 return controller.count.value >= 0
                                                     ? Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -253,7 +254,7 @@ class EditProfileView extends GetView<EditProfileController> {
                                               }),
                                             SizedBox(height: 2.h),
                                             if (controller.brandList.isNotEmpty)
-                                              Column(
+                                             Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
                                                   titleTextView(text: 'Favourite Brand'),
@@ -521,6 +522,38 @@ class EditProfileView extends GetView<EditProfileController> {
         iconVisible: false,
       );
 
+  Widget stateTextFieldViewBottom() => CommonWidgets.myTextField(
+        labelText: 'Select State',
+        hintText: 'Select State',
+        readOnly: true,
+        onTap: () => controller.clickOnStateTextField(),
+        controller: controller.stateController,
+         validator: (value){
+           if (value == null || value.trim().toString().isEmpty) {
+             return "Please select state".tr;
+           } else {
+             return null;
+           }
+         },
+        iconVisible: false,
+      );
+
+  Widget cityTextFieldViewBottom() => CommonWidgets.myTextField(
+        labelText: 'Select City',
+        hintText: 'Select City',
+        readOnly: true,
+        onTap: () => controller.clickOnCityTextField(),
+        controller: controller.cityController,
+        validator: (value){
+      if (value == null || value.trim().toString().isEmpty) {
+        return "Please select city".tr;
+      } else {
+        return null;
+      }
+    },
+        iconVisible: false,
+      );
+
   /*
   Widget sendOTPButtonView() {
     return Obx(() {
@@ -626,27 +659,17 @@ class EditProfileView extends GetView<EditProfileController> {
             child: DropdownZeroCart(
               wantDividerError: controller.isStateSelectedValue.value,
               selected: controller.selectedState,
-              items: controller.stateModel!.states!.map(
-                    (States e) => DropdownMenuItem<States>(
+              items: controller.stateModel!.states!.map((States e) => DropdownMenuItem<States>(
                       value: e,
                       child: Text(e.name.toString()),
-                    ),
-                  ).toList(),
+                    ),).toList(),
               hint: controller.stateName != ''
-                  ? Text(
-                      "${controller.stateName}",
-                      style: Theme.of(Get.context!).textTheme.subtitle2
-                          ?.copyWith(
-                              fontSize: 16.px,
-                              color: Theme.of(Get.context!).colorScheme.onSurface),
+                  ? Text("${controller.stateName}",
+                      style: Theme.of(Get.context!).textTheme.subtitle2?.copyWith(fontSize: 16.px, color: Theme.of(Get.context!).colorScheme.onSurface),
                     )
                   : Text(
                       'Select State',
-                      style: Theme.of(Get.context!).textTheme.subtitle2
-                          ?.copyWith(
-                              fontSize: 16.px,
-                              fontWeight: FontWeight.w600,
-                              color: Theme.of(Get.context!).colorScheme.onSurface.withOpacity(.4)),
+                      style: Theme.of(Get.context!).textTheme.subtitle2?.copyWith(fontSize: 16.px, fontWeight: FontWeight.w600, color: Theme.of(Get.context!).colorScheme.onSurface.withOpacity(.4)),
                     ),
               onChanged: (States? value) async {
                 controller.inAsyncCall.value=true;
@@ -667,21 +690,19 @@ class EditProfileView extends GetView<EditProfileController> {
               },
             ),
           ),
-        if (controller.isStateSelectedValue.value) SizedBox(height: 5.px),
+        if (controller.isStateSelectedValue.value)
+        SizedBox(height: 5.px),
         if (controller.isStateSelectedValue.value)
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 5.px),
             child: Text(
               'Please Select State',
-              style: Theme.of(Get.context!).textTheme.subtitle2
-                  ?.copyWith(fontSize: 14.px, color: MyColorsLight().error),
+              style: Theme.of(Get.context!).textTheme.subtitle2?.copyWith(fontSize: 14.px, color: MyColorsLight().error),
             ),
           ),
       ],
     );
   }
-
-  //3145.76
 
   /*  Widget stateTextFieldView() {
     return DropdownSearch<States>(

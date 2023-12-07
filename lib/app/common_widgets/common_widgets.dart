@@ -481,6 +481,32 @@ class CommonWidgets {
           );
   }
 
+  static commonTestFieldForSearch({required String labelText,
+    required String hintText,TextEditingController? controller,ValueChanged<String>? onChanged,}){
+    return TextField(
+      controller: controller,
+      onChanged: onChanged,
+      style: Theme.of(Get.context!).textTheme.subtitle2?.copyWith(fontSize: 16.px),
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: Theme.of(Get.context!).colorScheme.onSecondary.withOpacity(.2),
+        enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Theme.of(Get.context!).colorScheme.onSecondary)
+        ),
+        focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Theme.of(Get.context!).colorScheme.primary)
+        ),
+        labelText: labelText,
+        labelStyle: Theme.of(Get.context!).textTheme.subtitle1?.copyWith(color: Theme.of(Get.context!).colorScheme.onSurface.withOpacity(.4)),
+        hintText: hintText,
+        hintStyle: Theme.of(Get.context!).textTheme.subtitle2?.copyWith(fontSize: 16.px, color: Theme.of(Get.context!).colorScheme.onSurface.withOpacity(.4)),
+        suffixIcon: const Icon(Icons.search),
+        contentPadding: EdgeInsets.only(left: 10.px),
+        suffixIconColor: Theme.of(Get.context!).brightness == Brightness.dark?MyColorsLight().secondary:MyColorsDark().secondary,
+      ),
+    );
+  }
+
   static LinearGradient commonLinearGradientView() => LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,

@@ -249,7 +249,11 @@ class MyCustomContainer extends GetView<HomeController> {
       shadowColor: Theme.of(Get.context!).scaffoldBackgroundColor.withOpacity(.4),
       centerTitle: false,
       leadingWidth: isIcon ? null/*24.px*/ : 0.px,
-      backgroundColor: Theme.of(Get.context!).scaffoldBackgroundColor,
+      // backgroundColor: Theme.of(Get.context!).scaffoldBackgroundColor,
+      // flexibleSpace: Container(
+      //   height: MediaQuery.of(Get.context!).padding.top,
+      //   color: Theme.of(Get.context!).scaffoldBackgroundColor,
+      // ),
       leading: isIcon
           ? backIconView(onPressed: backIconOnPressed ?? () {})
           : null,
@@ -371,7 +375,7 @@ class MyCustomContainer extends GetView<HomeController> {
     );
   }
 
-/*  Widget shoppingCart(
+  /*  Widget shoppingCart(
       {required BuildContext context,
       required bool isClicked,
       required bool isSearch}) {

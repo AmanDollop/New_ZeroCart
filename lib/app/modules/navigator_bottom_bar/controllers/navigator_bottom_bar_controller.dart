@@ -50,7 +50,7 @@ class NavigatorBottomBarController extends GetxController {
   }
 
   Widget getBody() {
-        // increment();
+        increment();
     switch (selectedIndex.value) {
       case 0:
         Get.delete<HomeController>();

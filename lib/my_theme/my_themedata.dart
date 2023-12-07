@@ -10,12 +10,11 @@ class MyThemeData {
     String? fontFamily,
   }) {
     return ThemeData(
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: MyColorsLight().scaffoldBackgroundColor,
+          // statusBarColor: MyColorsLight().scaffoldBackgroundColor,
           statusBarBrightness: Brightness.dark, // For iOS: (dark icons)
-          statusBarIconBrightness:
-              Brightness.dark, // For Android(M and greater): (dark icons)
+          statusBarIconBrightness: Brightness.dark, // For Android(M and greater): (dark icons)
         ),
       ),
       textTheme: MyTextThemeLight().myTextTheme(fontFamily: fontFamily),
@@ -99,12 +98,11 @@ class MyThemeData {
     String? fontFamily,
   }) {
     return ThemeData(
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: MyColorsDark().scaffoldBackgroundColor,
+          // statusBarColor: MyColorsDark().scaffoldBackgroundColor,
           statusBarBrightness: Brightness.light, // For iOS: (dark icons)
-          statusBarIconBrightness:
-              Brightness.light, // For Android(M and greater): (dark icons)
+          statusBarIconBrightness: Brightness.light, // For Android(M and greater): (dark icons)
         ),
       ),
       textTheme: MyTextThemeDark().myTextTheme(fontFamily: fontFamily),
@@ -182,4 +180,5 @@ class MyThemeData {
       ),
     );
   }
+
 }
