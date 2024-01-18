@@ -173,6 +173,7 @@ class CommonMethods extends GetxController {
       await MyCommonMethods.setString(key: UserDataKeyConstant.selectedCity, value: userData.customer?.cityName ?? "");
 
       await MyCommonMethods.setString(key: ApiKeyConstant.stateId, value: userData.customer?.stateId ?? "");
+      await MyCommonMethods.setString(key: ApiKeyConstant.cityId1, value: userData.customer?.cityId ?? "");
 
       await MyCommonMethods.setString(key: UserDataKeyConstant.genderPreferences, value: userData.customer?.genderPreferences ?? "");
 
@@ -199,6 +200,7 @@ class CommonMethods extends GetxController {
       UserDataKeyConstant.selectedCity: await MyCommonMethods.getString(key: UserDataKeyConstant.selectedCity),
       UserDataKeyConstant.selectedState: await MyCommonMethods.getString(key: UserDataKeyConstant.selectedState),
       ApiKeyConstant.stateId: await MyCommonMethods.getString(key: ApiKeyConstant.stateId),
+      ApiKeyConstant.cityId1: await MyCommonMethods.getString(key: ApiKeyConstant.cityId1),
       UserDataKeyConstant.brandPreferenceName: await MyCommonMethods.getString(key: UserDataKeyConstant.brandPreferenceName),
       UserDataKeyConstant.brandPreferences: await MyCommonMethods.getString(key: UserDataKeyConstant.brandPreferences),
       UserDataKeyConstant.categoryPreferences: await MyCommonMethods.getString(key: UserDataKeyConstant.categoryPreferences),
@@ -257,7 +259,7 @@ class CommonMethods extends GetxController {
 
   Future<void> openGateway({
     required OpenGetWayType type,
-    required int priceValue,
+    required double priceValue,
     String? description,
     bool inAmt = true,
     bool cancelOrder = false,
@@ -270,13 +272,9 @@ class CommonMethods extends GetxController {
     this.cancelOrder = cancelOrder;
     inventory = inventoryId;
     itemQua = itemQuantity;
-    String userName =
-        await MyCommonMethods.getString(key: UserDataKeyConstant.fullName) ??
-            "";
-    String userEmail =
-        await MyCommonMethods.getString(key: UserDataKeyConstant.email) ?? "";
-    String userMobile =
-        await MyCommonMethods.getString(key: UserDataKeyConstant.mobile) ?? "";
+    String userName = await MyCommonMethods.getString(key: UserDataKeyConstant.fullName) ?? "";
+    String userEmail = await MyCommonMethods.getString(key: UserDataKeyConstant.email) ?? "";
+    String userMobile = await MyCommonMethods.getString(key: UserDataKeyConstant.mobile) ?? "";
     var option = {
       'key': razorpayKeyName,
       'amount': priceValue * 100,

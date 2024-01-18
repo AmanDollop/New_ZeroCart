@@ -787,14 +787,13 @@ class MyCartController extends CommonMethods {
           MyCommonMethods.showSnackBar(message: 'Something went wrong!', context: Get.context!);
         }
 
-
       } else if (paymentMethod.value.toString() == "others") {
         Get.back();
         paymentType = "Online";
         totalPrice.value = (sellPrice.value - discountPrice.value + deliveryPrice.value);
         await openGateway(
           type: OpenGetWayType.cart,
-          priceValue: int.parse(double.parse(totalPrice.value.toString()).toInt().toString()),
+          priceValue: double.parse(totalPrice.value.toString()),
           description: "Order From Cart",
         );
       }

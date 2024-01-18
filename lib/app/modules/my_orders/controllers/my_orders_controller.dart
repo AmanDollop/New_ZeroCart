@@ -52,14 +52,14 @@ class MyOrdersController extends CommonMethods {
   @override
   Future<void> onInit() async {
     super.onInit();
+
     onReload();
     inAsyncCall.value = true;
     if (await MyCommonMethods.internetConnectionCheckerMethod()) {
       try {
         await getOrderListApiCalling();
       } catch (e) {
-        MyCommonMethods.showSnackBar(
-            message: "Something went wrong", context: Get.context!);
+        MyCommonMethods.showSnackBar(message: "Something went wrong", context: Get.context!);
         responseCode = 100;
       }
     }
@@ -103,16 +103,16 @@ class MyOrdersController extends CommonMethods {
     Map<String, String> authorization = {};
     String? token = await MyCommonMethods.getString(key: ApiKeyConstant.token);
     authorization = {"Authorization": token!};
+
     queryParametersForGetOrderListApi = {
       ApiKeyConstant.orderStatus: orderFilterType.value != "-1"
-          ? orderStatusList[int.parse(orderFilterType.value)]
-              .toString()
-              .replaceAll(" ", "")
+          ? /*orderFilterType.value == '3'?'Deliverd':*/orderStatusList[int.parse(orderFilterType.value)].toString().replaceAll(" ", "")
           : "",
       ApiKeyConstant.limit: limit,
       ApiKeyConstant.offset: offset.toString(),
       ApiKeyConstant.searchSrting: searchOrderController.text.trim().toString(),
     };
+
     http.Response? response = await MyHttp.getMethodForParams(
         context: Get.context!,
         queryParameters: queryParametersForGetOrderListApi,
@@ -122,14 +122,12 @@ class MyOrdersController extends CommonMethods {
     responseCode = response?.statusCode ?? 0;
     if (response != null) {
       if (await CommonMethods.checkResponse(response: response)) {
-        getOrderListModal =
-            GetOrderListApiModal.fromJson(jsonDecode(response.body));
+        getOrderListModal = GetOrderListApiModal.fromJson(jsonDecode(response.body));
         if (getOrderListModal != null) {
           if (offset == 0) {
             orderList.clear();
           }
-          if (getOrderListModal?.orderList != null &&
-              getOrderListModal!.orderList!.isNotEmpty) {
+          if (getOrderListModal?.orderList != null && getOrderListModal!.orderList!.isNotEmpty) {
             isLastPage.value = false;
             getOrderListModal?.orderList?.forEach((element) {
               orderList.add(element);
@@ -178,9 +176,7 @@ class MyOrdersController extends CommonMethods {
 
   Future<void> onChangeSearchTextField({String? value}) async {
     if (value != null) {
-      const duration = Duration(
-          milliseconds:
-              800); // set the duration that you want call search() after that.
+      const duration = Duration(milliseconds: 800); // set the duration that you want call search() after that.
       if (searchOnStoppedTyping != null) {
         searchOnStoppedTyping?.cancel(); // clear timer
       }
@@ -210,8 +206,7 @@ class MyOrdersController extends CommonMethods {
     await onInit();
   }
 
-  void clickOnCancelButton(
-      {required BuildContext context, required int index}) {
+  void clickOnCancelButton({required BuildContext context, required int index}) {
     showModalBottomSheet(
         isScrollControlled: true,
         isDismissible: false,
@@ -282,8 +277,7 @@ class MyOrdersController extends CommonMethods {
     inAsyncCall.value = false;
   }
 
-  Future<void> clickOnCancelOrderButton(
-      {required BuildContext context, required int index}) async {
+  Future<void> clickOnCancelOrderButton({required BuildContext context, required int index}) async {
     inAsyncCall.value = true;
     Get.back();
     await Get.toNamed(
@@ -295,8 +289,7 @@ class MyOrdersController extends CommonMethods {
     inAsyncCall.value = false;
   }
 
-  Future<void> clickOnOrderDetails(
-      {required String productId, required int index}) async {
+  Future<void> clickOnOrderDetails({required String productId, required int index}) async {
     inAsyncCall.value = true;
     await Get.toNamed(Routes.MY_ORDER_DETAILS,
         arguments: [productId, orderList[index]]);

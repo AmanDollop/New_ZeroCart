@@ -99,8 +99,7 @@ class AddAddressController extends GetxController {
     stateController.text = googleMapData[MyAddressKeyConstant.state] ?? "";
     cityController.text = googleMapData[MyAddressKeyConstant.city] ?? "";
     pinCodeController.text = googleMapData[MyAddressKeyConstant.pinCode] ?? "";
-    houseController.text =
-        googleMapData[MyAddressKeyConstant.addressDetail] ?? "";
+    houseController.text = googleMapData[MyAddressKeyConstant.addressDetail] ?? "";
     colonyController.text = googleMapData[MyAddressKeyConstant.area] ?? "";
   }
 

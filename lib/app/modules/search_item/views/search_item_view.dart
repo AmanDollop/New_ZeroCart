@@ -55,11 +55,8 @@ class SearchItemView extends GetView<SearchItemController> {
                                   child: Column(
                                     children: [
                                       Container(
-                                        color: Theme.of(Get.context!)
-                                            .colorScheme
-                                            .onBackground,
-                                        child: const MyCustomContainer()
-                                            .myCustomContainer(
+                                        color: Theme.of(Get.context!).colorScheme.onBackground,
+                                        child: const MyCustomContainer().myCustomContainer(
                                           isSearchActive: true,
                                           isSearch: controller.isSearch,
                                         ),

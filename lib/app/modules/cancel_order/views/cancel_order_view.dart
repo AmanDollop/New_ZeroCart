@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:zerocart/app/custom/custom_outline_button.dart';
+import 'package:zerocart/my_common_method/my_common_method.dart';
 import 'package:zerocart/my_responsive_sizer/src/extension.dart';
 import 'package:zerocart/app/common_methods/common_methods.dart';
 import 'package:zerocart/app/common_widgets/common_widgets.dart';
@@ -25,145 +27,199 @@ class CancelOrderView extends GetView<CancelOrderController> {
                 text: 'Product Cancellation',
                 backIconOnPressed: () => controller.clickOnBackIcon(),
                 isIcon: true),
-            body: Obx(() {
-              if (CommonMethods.isConnect.value) {
-                if (controller.getCancelOrderReasonList != null &&
-                    controller.responseCode == 200) {
-                  if (controller.cancelReasonList.isNotEmpty) {
-                    return CommonWidgets.commonRefreshIndicator(
-                      onRefresh: () => controller.onRefresh(),
-                      child: ListView(
-                        physics: const AlwaysScrollableScrollPhysics(),
-                        children: [
-                          Card(
-                            elevation: 0,
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 3.h),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Flexible(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        productDescriptionTextView(),
-                                        if (controller.myOrderDetailPage != 'myOrderDetailPage')
-                                          SizedBox(height: 1.h),
-                                        if (controller.myOrderDetailPage != 'myOrderDetailPage')
-                                          quantityTextView(),
-                                        SizedBox(height: 2.h),
-                                        productPriceTextView(),
-                                      ],
-                                    ),
-                                  ),
-                                  productImageView()
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 1.h),
-                          Card(
-                            elevation: 0,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      left: 5.w, right: 5.w, top: 2.h),
-                                  child: reasonForCancellationTextView(),
-                                ),
-                                ListView.builder(
-                                  itemBuilder: (context, index) => Theme(
-                                      data: Theme.of(Get.context!).copyWith(
-                                        unselectedWidgetColor: MyColorsLight()
-                                            .onText
-                                            .withOpacity(.4),
+            body: GestureDetector(
+              onTap: () {
+                MyCommonMethods.unFocsKeyBoard();
+              },
+              child: Obx(() {
+                if (CommonMethods.isConnect.value) {
+                  if (controller.getCancelOrderReasonList != null &&
+                      controller.responseCode == 200) {
+                    if (controller.cancelReasonList.isNotEmpty) {
+                      return CommonWidgets.commonRefreshIndicator(
+                        onRefresh: () => controller.onRefresh(),
+                        child: ListView(
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          children: [
+                            Card(
+                              elevation: 0,
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 5.w, vertical: 3.h),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Flexible(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          productDescriptionTextView(),
+                                          if (controller.myOrderDetailPage !=
+                                              'myOrderDetailPage')
+                                            SizedBox(height: 1.h),
+                                          if (controller.myOrderDetailPage !=
+                                              'myOrderDetailPage')
+                                            quantityTextView(),
+                                          SizedBox(height: 2.h),
+                                          productPriceTextView(),
+                                        ],
                                       ),
-                                      child: Obx(() {
-                                        controller.count.value;
-                                        return RadioListTile(
-                                          visualDensity:
-                                              VisualDensity(vertical: -4.px),
-                                          contentPadding: EdgeInsets.symmetric(
-                                              horizontal: 5.px),
-                                          title: issueTextView(index: index),
-                                          value: controller
-                                              .cancelReasonList[index].reason,
-                                          activeColor: Theme.of(Get.context!)
-                                              .primaryColor,
-                                          groupValue:
-                                              controller.checkValue.value,
-                                          onChanged: (value) {
-                                            controller.count.value;
-                                            print("value:::::::::$value");
-                                            controller.checkValue.value =
-                                                value ?? '';
-                                          },
-                                        );
-                                      })),
-                                  shrinkWrap: true,
-                                  itemCount: controller.cancelReasonList.length,
-                                  physics: const BouncingScrollPhysics(),
+                                    ),
+                                    productImageView()
+                                  ],
                                 ),
-                                SizedBox(height: 15.px),
-                                Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 5.w),
-                                  child: commentTextFieldView(),
-                                ),
-                                SizedBox(height: 3.h),
-                              ],
+                              ),
                             ),
-                          ),
-                          Card(
-                            elevation: 0,
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 8.px),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                            SizedBox(height: 1.h),
+                            Card(
+                              elevation: 0,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Obx(() {
-                                    if (controller.isSubmitVisible.value &&
-                                        controller
-                                            .checkValue.value.isNotEmpty) {
-                                      if (controller
-                                          .isClickOnSubmitButton.value) {
-                                        return submitVisibleProgressBarView();
-                                      } else {
-                                        return submitVisibleButtonView();
-                                      }
-                                    } else {
-                                      return submitNotVisibleButtonView();
-                                    }
-                                  }),
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 5.w, right: 5.w, top: 2.h),
+                                    child: reasonForCancellationTextView(),
+                                  ),
+                                  /*ListView.builder(
+                                    itemBuilder: (context, index) => Theme(
+                                        data: Theme.of(Get.context!).copyWith(
+                                          unselectedWidgetColor: MyColorsLight().onText.withOpacity(.4),
+                                        ),
+                                        child: Obx(() {
+                                          controller.count.value;
+                                          return RadioListTile(
+                                            visualDensity: VisualDensity(vertical: -4.px),
+                                            contentPadding: EdgeInsets.symmetric(horizontal: 5.px),
+                                            title: issueTextView(index: index),
+                                            value: controller.cancelReasonList[index].reason,
+                                            activeColor: Theme.of(Get.context!).primaryColor,
+                                            groupValue: controller.checkValue.value,
+                                            onChanged: (value) {
+                                              controller.count.value;
+                                              print("value:::::::::$value");
+                                              controller.checkValue.value = value ?? '';
+                                            },
+                                          );
+                                        })),
+                                    shrinkWrap: true,
+                                    itemCount: controller.cancelReasonList.length,
+                                    physics: const BouncingScrollPhysics(),
+                                  ),*/
+                                  ListView.builder(
+                                    shrinkWrap: true,
+                                    padding: EdgeInsets.symmetric(horizontal: 5.w,vertical: 15.px),
+                                    itemCount: controller.cancelReasonList.length,
+                                    physics: const BouncingScrollPhysics(),
+                                    itemBuilder: (context, index) {
+                                    return Obx(() {
+                                      return Padding(
+                                        padding: EdgeInsets.only(bottom: 5.px),
+                                        child: InkWell(
+                                          onTap: () {
+                                            controller.count.value;
+                                            controller.checkValue.value = controller.cancelReasonList[index].reason ?? '';
+                                            print("value:::::::::${controller.cancelReasonList[index].reason}");
+                                            print("controller.checkValue.value:::::::::${controller.checkValue.value}");
+                                          },
+                                          borderRadius: BorderRadius.circular(6.px),
+                                          child: SizedBox(
+                                            height: 25.px,
+                                            child: Row(
+                                              children: [
+                                                controller.checkValue.value == controller.cancelReasonList[index].reason?SizedBox(
+                                                  height: 18.px,
+                                                  width: 18.px,
+                                                  child: CustomOutlineButton(
+                                                    strokeWidth: 2.px,
+                                                    radius: 25.px,
+                                                    gradient: CommonWidgets.commonLinearGradientView(),
+                                                    child: Container(
+                                                      height: 15.px,
+                                                      width: 15.px,
+                                                      decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        gradient: CommonWidgets.commonLinearGradientView(),),
+                                                    ),
+                                                    onPressed: () {},
+                                                  ),
+                                                ):Container(
+                                                  height: 17.px,
+                                                  width: 17.px,
+                                                  decoration: BoxDecoration(
+                                                      border: Border.all(color: Theme.of(Get.context!).brightness == Brightness.dark ? MyColorsLight().secondary:MyColorsDark().secondary,width: 2.px),
+                                                      shape: BoxShape.circle
+                                                  ),
+                                                ),
+                                                SizedBox(width: 10.px),
+                                                issueTextView(index: index)
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    });
+                                  },),
+                                  SizedBox(height: 15.px),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: 5.w),
+                                    child: commentTextFieldView(),
+                                  ),
+                                  SizedBox(height: 3.h),
                                 ],
                               ),
                             ),
-                          ),
-                          SizedBox(height: 8.h),
-                        ],
-                      ),
-                    );
+                            Card(
+                              elevation: 0,
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(vertical: 8.px),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Obx(() {
+                                      if (controller.isSubmitVisible.value &&
+                                          controller
+                                              .checkValue.value.isNotEmpty) {
+                                        if (controller
+                                            .isClickOnSubmitButton.value) {
+                                          return submitVisibleProgressBarView();
+                                        } else {
+                                          return submitVisibleButtonView();
+                                        }
+                                      } else {
+                                        return submitNotVisibleButtonView();
+                                      }
+                                    }),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 8.h),
+                          ],
+                        ),
+                      );
+                    } else {
+                      return CommonWidgets.commonNoDataFoundImage(
+                        onRefresh: () => controller.onRefresh(),
+                      );
+                    }
                   } else {
-                    return CommonWidgets.commonNoDataFoundImage(
+                    if (controller.responseCode == 0) {
+                      return const SizedBox();
+                    }
+                    return CommonWidgets.commonSomethingWentWrongImage(
                       onRefresh: () => controller.onRefresh(),
                     );
                   }
                 } else {
-                  if (controller.responseCode == 0) {
-                    return const SizedBox();
-                  }
-                  return CommonWidgets.commonSomethingWentWrongImage(
+                  return CommonWidgets.commonNoInternetImage(
                     onRefresh: () => controller.onRefresh(),
                   );
                 }
-              } else {
-                return CommonWidgets.commonNoInternetImage(
-                  onRefresh: () => controller.onRefresh(),
-                );
-              }
-            }),
+              }),
+            ),
           ),
         );
       },
@@ -205,7 +261,8 @@ class CancelOrderView extends GetView<CancelOrderController> {
                 ? controller.productDetails.thumbnailImage.toString()
                 : controller.orderListObject.thumbnailImage.toString(),
           ),
-          errorBuilder: (context, error, stackTrace) => CommonWidgets.defaultImage(
+          errorBuilder: (context, error, stackTrace) =>
+              CommonWidgets.defaultImage(
             height: 75.px,
             width: 75.px,
           ),

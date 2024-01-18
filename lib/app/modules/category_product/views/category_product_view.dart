@@ -375,8 +375,7 @@ class CategoryProductView extends GetView<CategoryProductController> {
   Widget productsGridView() =>SingleChildScrollView(
     child: Wrap(
       children: List.generate(controller.products.length, (index) {
-        final cellWidth = MediaQuery.of(Get.context!).size.width /
-            2; // Every cell's `width` will be set to 1/2 of the screen width.
+        final cellWidth = MediaQuery.of(Get.context!).size.width / 2; // Every cell's `width` will be set to 1/2 of the screen width.
         return SizedBox(
           width: cellWidth,
           child: GestureDetector(
@@ -392,8 +391,7 @@ class CategoryProductView extends GetView<CategoryProductController> {
                     left: index % 2 == 0 ? 16.px : 10.px,
                     right: index % 2 == 0 ? 10.px : 16.px,
                     bottom: 16.px),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.px)),
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.px)),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,

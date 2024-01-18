@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:open_apps_settings/open_apps_settings.dart';
+import 'package:open_apps_settings/settings_enum.dart';
 import 'package:zerocart/my_responsive_sizer/src/extension.dart';
 import 'package:zerocart/app/apis/api_constant/api_constant.dart';
 import 'package:zerocart/app/modules/home/controllers/home_controller.dart';
@@ -79,7 +81,9 @@ class ProfileMenuController extends GetxController {
     } else if (index == 4) {
       Get.toNamed(Routes.MEASUREMENTS);
     } else {
-      Get.toNamed(Routes.ZEROCART_WALLET);
+      await OpenAppsSettings.openAppsSettings(
+          settingsCode: SettingsCode.DATE);
+     // Get.toNamed(Routes.ZEROCART_WALLET);
     }
     inAsyncCall.value = false;
   }

@@ -41,8 +41,7 @@ class ZerocartWalletController extends CommonMethods
     onReload();
     inAsyncCall.value = CommonMethods.changeTheAbsorbingValueTrue();
     absorbing.value = CommonMethods.changeTheAbsorbingValueTrue();
-    rotationController = AnimationController(
-        duration: const Duration(milliseconds: 30000), vsync: this);
+    rotationController = AnimationController(duration: const Duration(milliseconds: 30000), vsync: this);
     try {
       await getUserProfileApiCalling();
     } catch (e) {
@@ -162,15 +161,19 @@ class ZerocartWalletController extends CommonMethods
   void clickOnArrowIcon() {
     absorbing.value = CommonMethods.changeTheAbsorbingValueTrue();
     if (addMoneyController.value.text.trim().toString().isNotEmpty) {
-      openGateway(
-          type: OpenGetWayType.addMoneyWallet,
-          priceValue: int.parse(addMoneyController.value.text.trim().toString()),
-          description: "Transection From Wallet",
-          inAmt: true,
-          cancelOrder: false);
+      try{
+        openGateway(
+            type: OpenGetWayType.addMoneyWallet,
+            priceValue: double.parse(addMoneyController.value.text.trim().toString()),
+            description: "Transection From Wallet",
+            inAmt: true,
+            cancelOrder: false);
+      }catch(e){
+        absorbing.value = CommonMethods.changeTheAbsorbingValueFalse();
+        MyCommonMethods.showSnackBar(message: "Something went wrong!", context: Get.context!);
+      }
     } else {
-      MyCommonMethods.showSnackBar(
-          message: "Please enter amount!", context: Get.context!);
+      MyCommonMethods.showSnackBar(message: "Please enter amount!", context: Get.context!);
     }
     absorbing.value = CommonMethods.changeTheAbsorbingValueFalse();
   }

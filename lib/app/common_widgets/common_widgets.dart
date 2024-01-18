@@ -332,8 +332,7 @@ class CommonWidgets {
         ? Container(
             height: height ?? 50.px,
             width: width ?? double.infinity,
-            margin:
-                margin ?? EdgeInsets.symmetric(horizontal: Zconstant.margin),
+            margin: margin ?? EdgeInsets.symmetric(horizontal: Zconstant.margin),
             child: CustomOutlineButton(
               onPressed: onPressed,
               strokeWidth: strokeWidth ?? 1,

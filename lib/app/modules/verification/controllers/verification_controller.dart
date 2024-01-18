@@ -90,8 +90,7 @@ class VerificationController extends GetxController {
       ApiKeyConstant.deviceType: deviceType,
       ApiKeyConstant.fcmId:fcmId.toString()
     };
-    http.Response? response =
-        await CommonApis.matchOtpApi(bodyParams: bodyParams);
+    http.Response? response = await CommonApis.matchOtpApi(bodyParams: bodyParams);
     if (response != null) {
       apiResponseMap = jsonDecode(response.body);
       await afterMatchOtpWorking(response: response);

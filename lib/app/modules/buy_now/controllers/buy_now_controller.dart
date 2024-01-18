@@ -456,7 +456,7 @@ class BuyNowController extends CommonMethods {
       else if (paymentMethod.value.toString() == "others") {
         Get.back();
         paymentType = "Online";
-        await openGateway(type: OpenGetWayType.buyNow, priceValue: int.parse(double.parse(totalPrice.value.toString()).toInt().toString()), inventoryId: inventoryId, description: productDetail?.productName ?? "", itemQuantity: itemQuantity.value);
+        await openGateway(type: OpenGetWayType.buyNow, priceValue: double.parse(totalPrice.value.toString()), inventoryId: inventoryId, description: productDetail?.productName ?? "", itemQuantity: itemQuantity.value);
       }
     } else {
       Get.back();

@@ -230,6 +230,8 @@ class ApiKeyConstant {
 
   static const cityId = "city_id";
 
+  static const cityId1 = "cityId";
+
   static const categoryPreferences = "categoryPreferences";
 
   static const brandPreferences = "brandPreferences";
@@ -291,17 +293,11 @@ class ApiKeyConstant {
   static var actionType = "actionType";
 
   static var orderItemUuid = "orderItemUuid";
-
   static String recentSearches = "recentSearches";
-
   static var outfitRoomId = "outfitRoomId";
-
   static var itemPrice = "itemPrice";
-
   static var orderItemId = "orderItemId";
-
   static var userReason = "userReason";
-
   static var userComment = "userComment";
   static var upperInventoryId = "upperInventoryId";
   static var bottomInventoryId = "bottomInventoryId";

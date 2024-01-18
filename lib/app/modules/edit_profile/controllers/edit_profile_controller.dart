@@ -131,7 +131,7 @@ class EditProfileController extends CommonMethods {
       stateName = userDataMap[UserDataKeyConstant.selectedState] ?? '';
       cityName = userDataMap[UserDataKeyConstant.selectedCity] ?? '';
       stateId = userDataMap[ApiKeyConstant.stateId] ?? '';
-      cityId = await MyCommonMethods.getString(key: ApiKeyConstant.cityId) ?? '';
+      cityId = userDataMap[ApiKeyConstant.cityId1] ?? '';
       setUserDataInTextField();
       inAsyncCall.value = false;
     }
@@ -163,8 +163,7 @@ class EditProfileController extends CommonMethods {
       try {
         await getAllBrandListApiCalling();
       } catch (e) {
-        MyCommonMethods.showSnackBar(
-            message: "Something went wrong", context: Get.context!);
+        MyCommonMethods.showSnackBar(message: "Something went wrong", context: Get.context!);
         responseCodeBrandList = 100;
       }
     }
@@ -318,10 +317,6 @@ class EditProfileController extends CommonMethods {
       if (await CommonMethods.checkResponse(response: response)) {
         userDataValue = await CommonApis.getUserProfileApi();
         if (userDataValue != null) {
-
-          print('userDataValue:::: brandPreferenceName:::::::::   ${userDataValue?.customer?.brandPreferenceName}');
-          print('userDataValue:::: categoryPreferenceName:::::::::   ${userDataValue?.customer?.categoryPreferenceName}');
-
           await CommonMethods.setUserData(userData: userDataValue);
 
           await getUserData();
@@ -329,13 +324,15 @@ class EditProfileController extends CommonMethods {
           await MyCommonMethods.setString(key: UserDataKeyConstant.selectedState, value: stateName.toString());
           await MyCommonMethods.setString(key: ApiKeyConstant.stateId, value: stateId.toString());
           await MyCommonMethods.setString(key: UserDataKeyConstant.selectedCity, value: cityName.toString());
+          await MyCommonMethods.setString(key: ApiKeyConstant.cityId1, value: cityId.toString());
 
           stateController.text = userDataMap[UserDataKeyConstant.selectedState] ?? '';
           cityController.text = userDataMap[UserDataKeyConstant.selectedCity] ?? '';
           stateName = userDataMap[UserDataKeyConstant.selectedState] ?? '';
           cityName = userDataMap[UserDataKeyConstant.selectedCity] ?? '';
           stateId = userDataMap[ApiKeyConstant.stateId] ?? '';
-          cityId = await MyCommonMethods.getString(key: ApiKeyConstant.cityId) ?? '';
+          cityId = userDataMap[ApiKeyConstant.cityId1] ?? '';
+          // cityId = await MyCommonMethods.getString(key: ApiKeyConstant.cityId) ?? '';
           setUserDataInTextField();
 
         }
@@ -425,11 +422,7 @@ class EditProfileController extends CommonMethods {
       userDataValue = await CommonApis.getUserProfileApi();
 
       if (userDataValue != null) {
-
-
         await CommonMethods.setUserData(userData: userDataValue);
-
-
         await MyCommonMethods.setString(key: UserDataKeyConstant.selectedState, value: stateName.toString());
         await MyCommonMethods.setString(key: ApiKeyConstant.stateId, value: stateId.toString());
         await MyCommonMethods.setString(key: UserDataKeyConstant.selectedCity, value: cityName.toString());

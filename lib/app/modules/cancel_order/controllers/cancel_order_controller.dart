@@ -9,16 +9,15 @@ import 'package:zerocart/app/apis/api_modals/my_order_detail_model.dart';
 import 'package:zerocart/app/apis/common_apis/common_apis.dart';
 import 'package:zerocart/app/common_methods/common_methods.dart';
 import 'package:zerocart/app/routes/app_pages.dart';
-
 import '../../../../my_common_method/my_common_method.dart';
 import '../../../../my_http/my_http.dart';
 
 class CancelOrderController extends CommonMethods {
+
   final count = 0.obs;
   final inAsyncCall = false.obs;
   int responseCode = 0;
   int load = 0;
-
 
   final isSubmitVisible = false.obs;
   final isClickOnSubmitButton = false.obs;
@@ -26,13 +25,10 @@ class CancelOrderController extends CommonMethods {
   double price = 0.0;
   TextEditingController commentTextField = TextEditingController();
 
-
   OrderList orderListObject = Get.arguments['orderList[index]'] ?? OrderList();
   OrderList orderListObjectDetail = Get.arguments['orderListObject'] ?? OrderList();
   ProductDetails productDetails = Get.arguments['productDetailsList'] ?? ProductDetails();
   String? myOrderDetailPage = Get.arguments['myOrderDetailPage'];
-
-
 
   /*List title = [
     'I want to change address for the order',
@@ -45,7 +41,6 @@ class CancelOrderController extends CommonMethods {
     'Price for the product has decreased',
     'I want to cancel due to product quality issue',
   ];*/
-
 
   Map<String, dynamic> bodyParamsForCancelOrderApi = {};
   String? orderItemUuid;

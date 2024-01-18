@@ -146,11 +146,14 @@ class RegistrationController extends GetxController {
     String gender = "";
     if (checkTypeOfProductsValue.toString() == "0") {
       gender = "m";
-    } else if (checkTypeOfProductsValue.toString() == "1") {
+    }
+    else if (checkTypeOfProductsValue.toString() == "1") {
       gender = "f";
-    } else if (checkTypeOfProductsValue.toString() == "2") {
+    }
+    else if (checkTypeOfProductsValue.toString() == "2") {
       gender = "m,f";
-    } else {
+    }
+    else {
       gender = "";
     }
     bodyParamsForSubmitApi = {
@@ -356,6 +359,7 @@ class RegistrationController extends GetxController {
                               }
                               Get.back();
                               setState((){count.value++;});
+
                             }else{
                               stateId = statesList?[index].id??'';
                               selectedState.value = statesList?[index];

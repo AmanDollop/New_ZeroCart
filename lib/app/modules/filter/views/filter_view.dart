@@ -39,6 +39,7 @@ class FilterView extends GetView<FilterController> {
                         shrinkWrap: true,
                         physics: const BouncingScrollPhysics(),
                         children: [
+
                           customFilterTabView(context: context),
                           SizedBox(height: 8.px),
                         ],
@@ -63,15 +64,16 @@ class FilterView extends GetView<FilterController> {
                 );
               }
             },
-          ),
+          )
         ),
       );
     });
   }
 
-  Widget filtersTextView() => Text(
-        "Filters",
+  Widget filtersTextView({required String text,TextAlign? textAlign}) => Text(
+        text,
         style: Theme.of(Get.context!).textTheme.subtitle1,
+    textAlign: textAlign,
       );
 
   Widget closeButtonView({required BuildContext context}) => TextButton(
@@ -193,7 +195,8 @@ class FilterView extends GetView<FilterController> {
   Widget verticalDivider() {
     return Container(
       height: double.infinity,
-      width: .8.px,
+      width: 1.5.px,
+      // width: .8.px,
       decoration: BoxDecoration(
         gradient: CommonWidgets.commonLinearGradientView()
       ),

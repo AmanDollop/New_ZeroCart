@@ -79,12 +79,21 @@ class MyOrderDetailsView extends GetView<MyOrderDetailsController> {
                                 Padding(
                                   padding: EdgeInsets.symmetric(vertical: Zconstant.margin16),
                                   child: controller.orderListObject?.itemOrderStatus=='Canceled'? Center(
-                                    child: GradientText(
-                                      'Your Order Canceled Successfully',
-                                      style: Theme.of(Get.context!).textTheme.subtitle1?.copyWith(overflow: TextOverflow.ellipsis,fontSize: 14.px),
-                                      gradient: CommonWidgets.commonLinearGradientView(),
+                                    child: myGradientText(
+                                      text: 'Your Order Canceled Successfully',
                                     ),
-                                  ):Row(
+                                  ):
+                                  controller.orderListObject?.itemOrderStatus=='Delivered'? Center(
+                                    child: myGradientText(
+                                      text: 'Your Order Delivered Successfully',
+                                    ),
+                                  ):
+                                  controller.orderListObject?.itemOrderStatus=='Picked'? Center(
+                                    child: myGradientText(
+                                      text: 'Your Order Picked Successfully',
+                                    ),
+                                  ):
+                                  Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       if(controller.orderListObject?.itemOrderStatus != 'Shipped')
@@ -196,13 +205,9 @@ class MyOrderDetailsView extends GetView<MyOrderDetailsController> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         colorTextView(),
-        SizedBox(width: 15.px),
+        SizedBox(width: 8.px),
         if (color.isNotEmpty)
-          SizedBox(
-            height: 16.px,
-            width: 16.px,
-            child: unselectedColorView(replaceColor: colorCode),
-          ),
+          unselectedColorView(replaceColor: colorCode),
       ],
     );
   }
@@ -217,15 +222,15 @@ class MyOrderDetailsView extends GetView<MyOrderDetailsController> {
 
   Widget unselectedColorView({required String replaceColor}) => Container(
     decoration: const BoxDecoration(shape: BoxShape.circle),
-    height: 20.px,
-    width: 17.px,
+    height: 18.px,
+    width: 18.px,
     child: UnicornOutline(
       strokeWidth: 1.5.px,
       radius: 10.px,
       gradient: CommonWidgets.commonLinearGradientView(),
       child: Container(
-        height: 20.px,
-        width: 15.px,
+        height: 12.px,
+        width: 12.px,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: Color(int.parse(replaceColor)),
@@ -560,4 +565,10 @@ class MyOrderDetailsView extends GetView<MyOrderDetailsController> {
         return '${dayNum}th';
     }
   }
+
+  Widget myGradientText({required String text}) => GradientText(
+    text,
+    style: Theme.of(Get.context!).textTheme.subtitle1?.copyWith(overflow: TextOverflow.ellipsis,fontSize: 14.px),
+    gradient: CommonWidgets.commonLinearGradientView(),
+  );
 }

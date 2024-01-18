@@ -52,22 +52,17 @@ class NotificationView extends GetView<NotificationController> {
                                   margin:
                                       EdgeInsets.symmetric(horizontal: 16.px),
                                   child: ListTile(
-                                    contentPadding: EdgeInsets.symmetric(
-                                        horizontal: 10.px, vertical: 4.px),
+                                    contentPadding: EdgeInsets.symmetric(horizontal: 10.px, vertical: 4.px),
                                     leading: Container(
                                       height: 45,
                                       width: 42,
                                       decoration: BoxDecoration(
                                         color: MyColorsLight().borderColor,
-                                        borderRadius:
-                                            BorderRadius.circular(8.px),
+                                        borderRadius: BorderRadius.circular(8.px),
                                       ),
                                       child: Icon(
                                         Icons.notifications,
-                                        color: Theme.of(context)
-                                            .textTheme
-                                            .subtitle1
-                                            ?.color,
+                                        color: Theme.of(context).textTheme.subtitle1?.color,
                                         size: 20.px,
                                       ),
                                     ),

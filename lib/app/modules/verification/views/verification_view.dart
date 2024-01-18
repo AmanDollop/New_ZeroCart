@@ -54,8 +54,7 @@ class VerificationView extends GetView<VerificationController> {
                                     ? resendTimeCountDown(
                                         seconds: 30,
                                         onFinished: () {
-                                          controller.timer.value =
-                                              !controller.timer.value;
+                                          controller.timer.value = !controller.timer.value;
                                         })
                                     : const SizedBox(),
                               ],
@@ -196,8 +195,7 @@ class VerificationView extends GetView<VerificationController> {
             ?.copyWith(fontSize: 16.px)
       );
 
-  static Widget resendTimeCountDown(
-          {required double seconds, required Function onFinished}) =>
+  static Widget resendTimeCountDown({required double seconds, required Function onFinished}) =>
       Countdown(
         // controller: controller,
         seconds: seconds.toInt(),

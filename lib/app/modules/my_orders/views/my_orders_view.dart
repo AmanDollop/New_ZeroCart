@@ -29,7 +29,8 @@ class MyOrdersView extends GetView<MyOrdersController> {
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             appBar: const MyCustomContainer().myAppBar(
                 isIcon: true,
-                backIconOnPressed: () => controller.clickOnBackIcon(context: context),
+                backIconOnPressed: () =>
+                    controller.clickOnBackIcon(context: context),
                 text: 'My Previous Orders',
                 buttonText: CommonMethods.isConnect.value ? "Filter" : null,
                 buttonOnPressed: () => controller.clickOnFilterButton(),
@@ -39,7 +40,8 @@ class MyOrdersView extends GetView<MyOrdersController> {
                 return WillPopScope(
                   onWillPop: () => controller.clickOnBackIcon(context: context),
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: Zconstant.margin16),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: Zconstant.margin16),
                     child: Column(
                       children: [
                         SizedBox(height: Zconstant.margin / 2),
@@ -54,23 +56,24 @@ class MyOrdersView extends GetView<MyOrdersController> {
                               )
                             : */
                         Container(
-                                height: 36.px,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20.px),
-                                  color: Colors.white,
-                                  border: Border.all(width: .5.px,color: Colors.transparent),
-                                  gradient: CommonWidgets.commonLinearGradientView(),
-                                ),
-                                child: Container(
-                                  height: 36.px,
-                                  margin: EdgeInsets.all(1.px),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20.px),
-                                    color: Colors.white,
-                                  ),
-                                  child: searchTextFieldView(),
-                                ),
-                              ),
+                          height: 36.px,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20.px),
+                            color: Colors.white,
+                            border: Border.all(
+                                width: .5.px, color: Colors.transparent),
+                            gradient: CommonWidgets.commonLinearGradientView(),
+                          ),
+                          child: Container(
+                            height: 36.px,
+                            margin: EdgeInsets.all(1.px),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.px),
+                              color: Colors.white,
+                            ),
+                            child: searchTextFieldView(),
+                          ),
+                        ),
                         SizedBox(height: Zconstant.margin / 2),
                         CommonWidgets.profileMenuDash(),
                         Obx(() {
@@ -148,8 +151,12 @@ class MyOrdersView extends GetView<MyOrdersController> {
           errorBorder: InputBorder.none,
           disabledBorder: InputBorder.none,
           hintText: "Search Order",
-          contentPadding: EdgeInsets.only(left: Zconstant.margin,bottom: 20.px),
-          hintStyle: Theme.of(Get.context!).textTheme.headline4?.copyWith(color: MyColorsLight().onText, fontSize: 10.px),
+          contentPadding:
+              EdgeInsets.only(left: Zconstant.margin, bottom: 20.px),
+          hintStyle: Theme.of(Get.context!)
+              .textTheme
+              .headline4
+              ?.copyWith(color: MyColorsLight().onText, fontSize: 10.px),
           suffixIcon: Icon(
             Icons.search,
             color: MyColorsLight().textGrayColor,
@@ -165,12 +172,13 @@ class MyOrdersView extends GetView<MyOrdersController> {
       padding: EdgeInsets.zero,
       itemBuilder: (BuildContext context, int index) {
         if (controller.orderList[index].createdDate != null) {
-          controller.dateTime = DateTime.parse(controller.orderList[index].createdDate!);
+          controller.dateTime =
+              DateTime.parse(controller.orderList[index].createdDate!);
         }
         String? productId = controller.orderList[index].productId;
 
         print(
-            'shiprocketResponse:::::::   ${controller.orderList[index].itemOrderStatus}');
+            'itemOrderStatus:::::::   ${controller.orderList[index].itemOrderStatus}');
 
         return Container(
           padding: EdgeInsets.only(bottom: Zconstant.margin16),
@@ -256,11 +264,14 @@ class MyOrdersView extends GetView<MyOrdersController> {
                                     controller
                                         .orderList[index].colorCode!.isNotEmpty)
                                   colorTextView(),
+                                SizedBox(width: 4.px),
                                 colorTypeTextView(
-                                    colorCode: int.parse(controller
-                                        .orderList[index].colorCode
+                                  colorCode: int.parse(
+                                    controller.orderList[index].colorCode
                                         .toString()
-                                        .replaceAll("#", "0xff"))),
+                                        .replaceAll("#", "0xff"),
+                                  ),
+                                ),
                               ],
                             )
                         ],
@@ -273,41 +284,50 @@ class MyOrdersView extends GetView<MyOrdersController> {
                 padding: EdgeInsets.symmetric(vertical: Zconstant.margin16),
                 child: controller.orderList[index].itemOrderStatus == 'Canceled'
                     ? Center(
-                        child: GradientText(
-                          'Your Order Canceled Successfully',
-                          style: Theme.of(Get.context!)
-                              .textTheme
-                              .subtitle1
-                              ?.copyWith(
-                                  overflow: TextOverflow.ellipsis,
-                                  fontSize: 14.px),
-                          gradient: CommonWidgets.commonLinearGradientView(),
+                        child: myGradientText(
+                          text: 'Your Order Canceled Successfully',
                         ),
                       )
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          if (controller.orderList[index].itemOrderStatus !=
-                              'Shipped')
-                            cancelOrderButtonView(
-                                context: context, index: index),
-                          trackButtonView(
-                              orderPlaceDate:
-                                  '${getDayOfMonthSuffix(controller.dateTime!.day)} ${DateFormat.MMMM().format(controller.dateTime!)} ${controller.dateTime?.year}',
-                              index: index,
-                              width:
-                                  controller.orderList[index].itemOrderStatus ==
-                                          'Shipped'
-                                      ? 90.w
-                                      : 43.w),
-                        ],
-                      ),
+                    : controller.orderList[index].itemOrderStatus == 'Delivered'
+                        ? Center(
+                            child: myGradientText(
+                              text: 'Your Order Delivered Successfully',
+                            ),
+                          )
+                        : controller.orderList[index].itemOrderStatus == 'Picked'
+                            ? Center(
+                                child: myGradientText(
+                                  text: 'Your Order Picked Successfully',
+                                ),
+                              )
+                            : Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  if (controller.orderList[index].itemOrderStatus != 'Shipped')
+                                    cancelOrderButtonView(context: context, index: index),
+                                  trackButtonView(
+                                      orderPlaceDate: '${getDayOfMonthSuffix(controller.dateTime!.day)} ${DateFormat.MMMM().format(controller.dateTime!)} ${controller.dateTime?.year}',
+                                      index: index,
+                                      width: controller.orderList[index].itemOrderStatus == 'Shipped'
+                                          ? 90.w
+                                          : 43.w),
+                                ],
+                              ),
               ),
               CommonWidgets.profileMenuDash(),
             ],
           ),
         );
       });
+
+  Widget myGradientText({required String text}) => GradientText(
+        text,
+        style: Theme.of(Get.context!)
+            .textTheme
+            .subtitle1
+            ?.copyWith(overflow: TextOverflow.ellipsis, fontSize: 14.px),
+        gradient: CommonWidgets.commonLinearGradientView(),
+      );
 
   Widget orderPlacedOnDateTextView({String? value}) => Text(
         value ?? "",
@@ -347,8 +367,11 @@ class MyOrdersView extends GetView<MyOrdersController> {
         borderRadius: BorderRadius.circular(4.px),
         child: Image.network(
           CommonMethods.imageUrl(url: imageUrl.toString()),
-          errorBuilder: (context, error, stackTrace) => CommonWidgets.defaultImage( height: 100.px,
-            width: 95.px,),
+          errorBuilder: (context, error, stackTrace) =>
+              CommonWidgets.defaultImage(
+            height: 100.px,
+            width: 95.px,
+          ),
           fit: BoxFit.cover,
           alignment: Alignment.center,
           height: 100.px,
@@ -422,7 +445,7 @@ class MyOrdersView extends GetView<MyOrdersController> {
           Theme.of(Get.context!).textTheme.headline3?.copyWith(fontSize: 8.px));
 
   Widget sizeTextView() => Text(
-        "Size: ",
+        "Size:  ",
         style: Theme.of(Get.context!).textTheme.headline3,
       );
 
@@ -445,27 +468,25 @@ class MyOrdersView extends GetView<MyOrdersController> {
 
   Widget colorTypeTextView({int? colorCode}) => Container(
         decoration: const BoxDecoration(shape: BoxShape.circle),
-        height: 20.px,
-        width: 20.px,
+        height: 18.px,
+        width: 18.px,
         child: UnicornOutline(
           strokeWidth: 1.5.px,
           radius: 10.px,
           gradient: CommonWidgets.commonLinearGradientView(),
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 2.px, horizontal: 2.px),
-            child: Container(
-              height: 30.px,
-              width: 15.px,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Color(colorCode!),
-              ),
+          child: Container(
+            height: 12.px,
+            width: 12.px,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Color(colorCode!),
             ),
           ),
         ),
       );
 
-  Widget cancelOrderButtonView({required BuildContext context, required int index}) =>
+  Widget cancelOrderButtonView(
+          {required BuildContext context, required int index}) =>
       CommonWidgets.myOutlinedButton(
           text: cancelOrderTextView(),
           onPressed: () =>

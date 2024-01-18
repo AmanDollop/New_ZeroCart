@@ -207,12 +207,8 @@ class CommonApis {
     );
     if (response != null) {
       userData = UserData.fromJson(jsonDecode(response.body));
-      if (await CommonMethods.checkResponse(
-          response: response,
-          wantShowFailResponse: true,
-          wantInternetFailResponse: true)) {
-        await MyCommonMethods.setString(
-            key: ApiKeyConstant.token, value: userData.customer!.token!);
+      if (await CommonMethods.checkResponse(response: response, wantShowFailResponse: true, wantInternetFailResponse: true)) {
+        await MyCommonMethods.setString(key: ApiKeyConstant.token, value: userData.customer!.token!);
         return userData;
       } else {
         return null;

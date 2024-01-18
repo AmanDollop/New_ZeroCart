@@ -71,33 +71,25 @@ class ZerocartWalletView extends GetView<ZerocartWalletController> {
                               children: [
                                 SizedBox(height: 2.h),
                                 Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: Zconstant.margin),
+                                  padding: EdgeInsets.symmetric(horizontal: Zconstant.margin),
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           if (controller.userData != null)
-                                            controller.userData?.customer
-                                                        ?.walletAmount !=
-                                                    null
+                                            controller.userData?.customer?.walletAmount != null
                                                 ? Expanded(
                                                     child: howManyBalanceInWalletTextView(
-                                                        value:
-                                                            "$curr${double.parse(double.parse(controller.userData!.customer!.walletAmount!).toStringAsFixed(2))}"))
+                                                        value: "$curr${double.parse(double.parse(controller.userData!.customer!.walletAmount!).toStringAsFixed(2))}"))
                                                 : howManyBalanceInWalletTextView(
                                                     value: '${curr}0.0'),
                                           RotationTransition(
-                                            turns: Tween(begin: 0.0, end: 30.0)
-                                                .animate(controller
-                                                    .rotationController),
+                                            turns: Tween(begin: 0.0, end: 30.0).animate(controller.rotationController),
                                             child: InkWell(
-                                              onTap: () => controller
-                                                  .clickOnRotateIcon(),
+                                              onTap: () => controller.clickOnRotateIcon(),
                                               child: autoReNewIconView(),
                                             ),
                                           ),
@@ -123,18 +115,14 @@ class ZerocartWalletView extends GetView<ZerocartWalletController> {
                                                         10.px),
                                               ),
                                               child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
                                                 children: [
                                                   rupeeTextVIew(text: curr),
                                                   SizedBox(width: 10.px),
                                                   Expanded(
                                                     flex: 9,
-                                                    child:
-                                                        addMoneyTextFieldView(),
+                                                    child: addMoneyTextFieldView(),
                                                   ),
                                                 ],
                                               ),
@@ -289,10 +277,7 @@ class ZerocartWalletView extends GetView<ZerocartWalletController> {
 
   Widget addMoneyTextFieldView() => TextFormField(
         controller: controller.addMoneyController,
-        style: Theme.of(Get.context!)
-            .textTheme
-            .headline2
-            ?.copyWith(fontSize: 16.px, color: MyColorsDark().secondary),
+        style: Theme.of(Get.context!).textTheme.headline2?.copyWith(fontSize: 16.px, color: MyColorsDark().secondary),
         onChanged: (value) {
           if (value.trim().isNotEmpty) {
             controller.isAddedMoney.value = true;
@@ -301,6 +286,10 @@ class ZerocartWalletView extends GetView<ZerocartWalletController> {
           }
         },
         keyboardType: TextInputType.number,
+        inputFormatters: [
+          // DecimalTextInputFormatter(decimalRange: 2)
+          FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+        ],
         decoration: InputDecoration(
           border: InputBorder.none,
           focusedBorder: InputBorder.none,
@@ -309,10 +298,7 @@ class ZerocartWalletView extends GetView<ZerocartWalletController> {
           disabledBorder: InputBorder.none,
           contentPadding: EdgeInsets.only(bottom: 5.px),
           hintText: "Amount",
-          hintStyle: Theme.of(Get.context!).textTheme.headline2?.copyWith(
-                fontSize: 16.px,
-                color: MyColorsDark().backgroundFilterColor,
-              ),
+          hintStyle: Theme.of(Get.context!).textTheme.headline2?.copyWith(fontSize: 16.px, color: MyColorsDark().backgroundFilterColor),
         ),
       );
 
@@ -508,5 +494,25 @@ class GradientAppBar extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class DecimalTextInputFormatter extends TextInputFormatter {
+  final int decimalRange;
+
+  DecimalTextInputFormatter({required this.decimalRange});
+
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue,
+      TextEditingValue newValue,
+      ) {
+    // Check if the new value contains more than two decimal places
+    if (newValue.text.contains('.') && newValue.text.split('.')[1].length > decimalRange) {
+      // If more than two decimal places, revert to the old value
+      return oldValue;
+    }
+
+    return newValue;
   }
 }

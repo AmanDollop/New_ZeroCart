@@ -54,6 +54,7 @@ class Customer {
   String? genderPreferences;
   String? countryId;
   String? stateId;
+  String? cityId;
   String? countryName;
   String? stateName;
   String? cityName;
@@ -95,6 +96,7 @@ class Customer {
         this.genderPreferences,
         this.countryId,
         this.stateId,
+        this.cityId,
         this.countryName,
         this.stateName,
         this.cityName,
@@ -136,6 +138,7 @@ class Customer {
     genderPreferences = json['genderPreferences'];
     countryId = json['countryId'];
     stateId = json['stateId'];
+    cityId = json['cityId'];
     countryName = json['countryName'];
     stateName = json['stateName'];
     cityName = json['cityName'];
@@ -178,6 +181,7 @@ class Customer {
     data['genderPreferences'] = genderPreferences;
     data['countryId'] = countryId;
     data['stateId'] = stateId;
+    data['cityId'] = cityId;
     data['countryName'] = countryName;
     data['stateName'] = stateName;
     data['cityName'] = cityName;

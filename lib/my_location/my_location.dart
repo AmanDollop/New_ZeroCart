@@ -70,6 +70,7 @@ class MyLocation {
       } else if (permissionGranted == PermissionStatus.granted) {
         return await getUserLocationCredential(location: location);
       }
+
     } else {
       MyCommonMethods.networkConnectionShowSnackBar(context: context);
       return null;
@@ -123,8 +124,7 @@ class MyLocation {
     }
   }
 
-  static Future<GetLatLong?> getUserLatLong(
-      {required BuildContext context}) async {
+  static Future<GetLatLong?> getUserLatLong({required BuildContext context}) async {
     if (await MyCommonMethods.internetConnectionCheckerMethod()) {
       Location location = Location();
       bool serviceEnabled;
